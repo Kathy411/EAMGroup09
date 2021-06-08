@@ -59,10 +59,10 @@ class PracticeActivity: RobotActivity(), RobotLifecycleCallbacks {
 
         // Build the topics with qiContext, resource and language config
         topStart = TopicBuilder.with(qiContext).withResource(R.raw.top_practice_start).build()
-        topWords = TopicBuilder.with(qiContext).withResource(R.raw.top_words).build()
-        topSentences= TopicBuilder.with(qiContext).withResource(R.raw.top_sentences).build()
-        topLetters = TopicBuilder.with(qiContext).withResource(R.raw.top_letters).build()
-        topComp = TopicBuilder.with(qiContext).withResource(R.raw.top_comp_sentence) .build()
+        topWords = TopicBuilder.with(qiContext).withResource(R.raw.top_p_words).build()
+        topSentences= TopicBuilder.with(qiContext).withResource(R.raw.top_p_sentences).build()
+        topLetters = TopicBuilder.with(qiContext).withResource(R.raw.top_p_letters).build()
+        topComp = TopicBuilder.with(qiContext).withResource(R.raw.top_p_comp_sentence) .build()
 
         // Build chatbot with qiContext, topics and language config
         practiceChatbot = QiChatbotBuilder.with(qiContext).withLocale(locale).withTopic(topStart, topWords, topSentences, topLetters, topComp).build()

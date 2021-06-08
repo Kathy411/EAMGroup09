@@ -8,11 +8,13 @@
 
     <ImageView
         android:id="@+id/imageView4"
-        android:layout_width="1030dp"
-        android:layout_height="718dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/BackgroundDescription"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/background4"
-        tools:layout_editor_absoluteX="-14dp"
-        tools:layout_editor_absoluteY="-22dp" />
+        tools:layout_editor_absoluteY="-145dp" />
 
     <TextView
         android:id="@+id/tv_welcome"

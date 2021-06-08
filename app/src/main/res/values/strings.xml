@@ -15,4 +15,5 @@
     <string name="SmsButton">SMS</string>
     <string name="NewspaperButton">"Zeitung lesen "</string>
     <string name="QuizButton">Quiz</string>
+    <string name="BackgroundDescription">Background</string>
 </resources>

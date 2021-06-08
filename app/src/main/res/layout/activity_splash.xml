@@ -6,6 +6,15 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
+    <ImageView
+        android:id="@+id/iv_background_splash"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/BackgroundDescription"
+        app:srcCompat="@drawable/background4"
+        tools:layout_editor_absoluteX="537dp"
+        tools:layout_editor_absoluteY="134dp" />
+
     <TextView
         android:id="@+id/project_title"
         android:layout_width="wrap_content"
@@ -21,27 +30,28 @@
 
     <TextView
         android:id="@+id/tv_purple_box"
-        android:layout_width="250dp"
+        android:layout_width="320dp"
         android:layout_height="8dp"
         android:background="#9C27B0"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/tv_orange_box"
-        android:layout_width="250dp"
+        android:layout_width="320dp"
         android:layout_height="8dp"
         android:background="#DAFF5722"
-        app:layout_constraintEnd_toStartOf="@+id/tv_purple_box"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tv_purple_box" />
 
     <TextView
         android:id="@+id/tv_red_box"
-        android:layout_width="250dp"
+        android:layout_width="320dp"
         android:layout_height="8dp"
         android:background="#F44336"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/tv_orange_box"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/iv_pepper_splash"
