@@ -1,0 +1,244 @@
+topic: ~top_comp_sentence()
+
+concept:(confirmation_yes) [okay ja gut "in ordnung" passt gerne sicher natürlich "ja bitte" ]
+concept:(confirmation_no) [Nein "lieber nicht" nicht "denke nicht" "nein danke" nee nö "eher nicht"]
+concept:(done) [aufhören genug "nicht mehr" "keine Lust {mehr}" "keine Lust" "fertig" "mag nicht" ]
+
+proposal:%COMPSENTSTART
+$hint = "Hier zeige ich Dir verschiedene Worte an... "
+$show = "...und hier steht der Satz, in den Du eines der Worte einsetzen sollst! "
+Ich zeige Dir jeweils drei einzelne Worte an. Dazu zeige ich Dir einen Satz mit einer Lücke. Eines der Worte ergänzt den Satz. Du suchst das passende Wort aus und liest mir den Satz vor!
+Hier ein Beispiel
+$hint = "Hund   Schlüssel   Flaschenöffner "
+$show = "Um die Tür aufzuschließen brauche ich einen ___________ !"
+Die Worte lauten \pau=300\ Hund \pau=300\ Schlüssel \pau=300\ Flaschenöffner. Welches Wort passt zum Satz. Um die Tür aufzuschließen brauche ich einen \pau=300\ ?
+$hint = ""
+$correct = "Schlüssel"
+$show = "Um die Tür aufzuschließen brauche ich einen Schlüssel!"
+Du setzt das richtige Wort in den Satz ein und liest mir den Satz dann vor, zum Beispiel \pau=300\ Um die Tür aufzuschliessen brauche ich einen Schlüssel.
+In Ordnung? Sollen wir anfangen?
+
+    u1:(~confirmation_yes)
+        $correct=""
+        $show ="Prima! Fangen wir an!"
+        Prima - fangen wir an! ^gotoRandom(COMP)
+    u1:(~confirmation_no)
+        $correct=""
+        $show = "Möchtest Du doch etwas anderes üben? Sätze, Worte oder Buchstaben?"
+        Möchtest Du doch Sätze, Worte oder Buchstaben üben?
+           u2:(Buchstaben)
+                $show = "Buchstaben"
+                Kein Problem - dann geht's jetzt los mit Buchstaben! ^topic(top_letters)
+           u2:(Sätze)
+                $show = "Sätze"
+                Sätze klingt gut... Los geht's! ^topic(top_sentences)
+           u2:(Worte)
+                $show = "Worte"
+                In Ordnung, dann geht es mit Worten los! ^topic(top_sentences)
+           u2:(~done)
+                $show = "In Ordnung!"
+                In Ordnung, dann belassen wir es hierbei. ^endDiscuss(userWish)
+
+
+proposal:%COMP
+    Die Worte lauten \pau=300\ baufällig \pau=300\ freundlich und \pau=300\ angeschaltet.
+    $hint = "baufällig - freundlich - angeschaltet"
+    $show = "Im Dorf sind viele alte Häuser, die ___________ sind"
+    $correct = ""
+    Schau Dir an, welches Wort passt an und lies mir den vollständigen Satz vor!
+        u1:(Im Dorf sind viele alte Häuser die baufällig sind)
+            $hint= ""
+            $show= "Im Dorf sind viele alte Häuser, die baufällig sind"
+            $correct = "baufällig"
+            ^rand["Absolut richtig!" "Sehr gut!" "Gut gemacht!" "Sehr schön, das stimmt!"]^gotoRandom(COMP)
+        u1:(Im Dorf sind viele alte Häuser, die _* sind.)
+            Ich glaube $1 war nicht das richtige Wort. Schau die die Worte noch einmal an und versuche es nochmal! ^stayInScope
+        u1:(~done)
+            $show = "Dann hören wir auf für heute!"
+            In Ordnung! Die Übung hat mir Spass gemacht! ^endDiscuss(userWish)
+        u1:(*)
+            ^rand [
+                "Schau dir die Worte noch einmal genau an und versuch den Satz noch einmal!"
+                "Ich glaube das war ein kleiner Fehler - versuch es doch noch einmal!"
+            ]^stayInScope
+
+
+proposal:%COMP
+    Die Worte lauten \pau=300\ weinend \pau=300\ verloren und \pau=300\ stolz.
+    $hint = "weinend - verloren - stolz"
+    $show = "Markus ist sehr ___________, 4 Sprachen zu sprechen."
+    $correct = ""
+    Welches der Worte passt in den Satz? Wenn Du eins gewählt hast, lies mir den vollständigen Satz vor!
+        u1:(Markus ist sehr stolz vier Sprachen zu sprechen.)
+            $hint= ""
+            $show= "Markus ist sehr stolz, 4 Sprachen zu sprechen."
+            $correct = "stolz"
+            ^rand["Absolut richtig!" "Sehr gut!" "Gut gemacht!" "Sehr schön, das stimmt!"]^gotoRandom(COMP)
+        u1:(Markus ist sehr _*, vier Sprachen zu sprechen.)
+             $1 war leider nicht das richtige Wort. Schau die die Worte noch einmal an und versuche es nochmal! ^stayInScope
+        u1:(~done)
+            $show = "In Ordnung, hören wir auf! Es hat mir wirklich Spass gemacht, mit Dir zu üben!"
+            In Ordnung, hören wir auf! Es hat mir wirklich Spass gemacht, mit Dir zu üben! ^endDiscuss(userWish)
+        u1:(*)
+            ^rand [
+                "Ich glaube das war nicht ganz richtig - schau dir die Worte noch einmal an und versuch es erneut!"
+                "Übung macht den Meister, versuchen wir es noch mal zusammen. Die Worte lauten \pau=300\ weinend \pau=300\ verloren und \pau=300\ stolz."
+            ]^stayInScope
+
+
+proposal:%COMP
+    Die Worte lauten \pau=300\ trüb \pau=300\ klar und \pau=300\ dunkel.
+    $hint = "trüb - klar - dunkel"
+    $show = "Das Wasser ist so _________, man kann den Grund sehen."
+    $correct = ""
+    Mit welchem Wort wird der Satz sinnvoll? Wähle eines und lies mir dann den Satz vor!
+        u1:(Das Wasser ist so klar, man kann den Grund sehen.)
+            $hint= ""
+            $show= "Das Wasser ist so klar, man kann den Grund sehen."
+            $correct = "klar"
+            ^rand["Absolut richtig!" "Sehr gut!" "Gut gemacht!" "Sehr schön, das stimmt!" "Perfekt gelöst!" "Prima!"]^gotoRandom(COMP)
+        u1:(Das Wasser ist so _* , dass man den Grund sehen kann.)
+             Schau dir die Worte noch einmal genau an. $1 war leider nicht richtig. Versuch es doch noch einmal! ^stayInScope
+        u1:(~done)
+            $show = "Okay, dann sind wir erst mal fertig! Ich freue mich schon auf die nächste Übung!"
+            Okay, dann sind wir erst mal fertig! Ich freue mich schon auf die nächste Übung! ^endDiscuss(userWish)
+        u1:(*)
+            ^rand [
+                "Ich bin nicht sicher ob ich alles richtig verstanden habe. Kannst du den Satz noch einmal vorlesen?"
+                "Ich glaube das war noch nicht ganz richtig. Versuch es doch noch einmal! "
+            ]^stayInScope
+
+
+proposal:%COMP
+    Die Worte lauten \pau=300\ laut \pau=300\ achtsam und \pau=300\ unfähig.
+    $hint = "laut - achtsam - unfähig"
+    $show = "Der zweijährige Junge ist noch _________ sich die Schuhe zu binden."
+    $correct = ""
+    Welches Wort passt hier in den Satz? Wähle eines und lies bitte den Satz vor!
+        u1:(Der zweijährige Junge ist noch unfähig, sich die Schuhe zu binden.)
+            $hint= ""
+            $show= "Der zweijährige Junge ist noch unfähig, sich die Schuhe zu binden."
+            $correct = "unfähig"
+            ^rand["Absolut richtig!" "Sehr gut!" "Gut gemacht!" "Sehr schön, das stimmt!" "Perfekt gelöst!" "Prima!"]^gotoRandom(COMP)
+        u1:(Der zweijährige Junge ist noch _*, sich die Schuhe zu binden.)
+             Schau dir die Worte noch einmal genau an. $1 war leider nicht richtig. Versuch es doch noch einmal! ^stayInScope
+        u1:(~done)
+            $show = "In Ordnung! Ich fand es war eine sehr gute Übung und freue mich auf die nächste!"
+            In Ordnung! Ich fand es war eine sehr gute Übung und freue mich auf die nächste! ^endDiscuss(userWish)
+        u1:(*)
+            ^rand [
+                "Kannst Du mir den Satz noch einmal vorlesen, bitte? Übung macht ja bekanntlich den Meister!"
+                "Ich glaube da war ein kleiner Fehler - magst du den Satz noch einmal vorlesen?"
+            ]^stayInScope
+
+proposal:%COMP
+    Die Worte lauten \pau=300\ mutig \pau=300\ schlau und \pau=300\ fordernd.
+    $hint = "mutig - schlau - fordernd"
+    $show = "Peter ist _________ und springt vom 10-Meter-Turm."
+    $correct = ""
+    Welches Wort passt hier in den Satz? Wähle eines und lies bitte den Satz vor!
+        u1:(Peter ist mutig und springt vom 10-Meter-Turm.)
+            $hint= ""
+            $show= "Peter ist mutig und springt vom 10-Meter-Turm."
+            $correct = "mutig"
+            ^rand["Absolut richtig!" "Sehr gut!" "Gut gemacht!" "Sehr schön, das stimmt!" "Perfekt gelöst!" "Prima!"]^gotoRandom(COMP)
+        u1:(Peter ist _* und springt vom 10-Meter-Turm.)
+             $1 war leider nicht ganz richtig. Schau dir die Worte doch noch einmal an! ^stayInScope
+        u1:(~done)
+            $show = "Ich fand es war eine gute Übung - hat mir Spaß gemacht!"
+            Ich fand es war eine gute Übung - hat mir Spaß gemacht! ^endDiscuss(userWish)
+        u1:(*)
+            ^rand [
+                "Da war noch ein kleiner Fehler im Satz. Versuch es ruhig noch einmal!"
+                "Versuchen wir es noch einmal gemeinsam. Die Worte sind "
+            ]^stayInScope
+
+proposal:%COMP
+    Die Worte lauten \pau=300\ altmodisch \pau=300\ gefährlich und \pau=300\ stumpf.
+    $hint = " altmodisch - gefährlich - stumpf"
+    $show = "Giftschlangen können sehr  _________ sein."
+    $correct = ""
+    Welches Wort passt hier in den Satz? Wähle eines und lies bitte den Satz vor!
+        u1:(Giftschlangen können sehr gefährlich sein.)
+            $hint= ""
+            $show= "Giftschlangen können sehr gefährlich sein."
+            $correct = "gefährlich"
+            ^rand["Absolut richtig!" "Sehr gut!" "Gut gemacht!" "Sehr schön, das stimmt!" "Perfekt gelöst!" "Prima!"]^gotoRandom(COMP)
+        u1:(Giftschlangen können sehr _* sein.)
+            Leider war $1 nicht das richtige Wort. Versuch es doch noch einmal, die Worte lauten \pau=300\ gefährlich \pau=300\ altmodisch und \pau=300\ stumpf. ^stayInScope
+        u1:(~done)
+            $show = "Dann machen wir jetzt Schluß! Es war eine sehr schöne Übung, fand ich!"
+            Dann machen wir jetzt Schluß! Es war eine sehr schöne Übung, fand ich! ^endDiscuss(userWish)
+        u1:(*)
+            ^rand [
+                "Da war noch ein kleiner Fehler im Satz. Versuch es ruhig noch einmal!"
+                "Versuchen wir es noch einmal gemeinsam. Die Worte sind \pau=300\ altmodisch \pau=300\ gefährlich und \pau=300\ stumpf."
+            ]^stayInScope
+
+
+proposal:%COMP
+    Die Worte lauten \pau=300\ kälter \pau=300\ weicher und \pau=300\ schneller.
+    $hint = "kälter - weicher - schneller"
+    $show = "Wir verpassen den Bus! Lauf _______! "
+    $correct = ""
+    Welches Wort passt hier in den Satz? Wähle eines und lies bitte den Satz vor!
+        u1:(Wir verpassen den Bus! Lauf schneller!)
+            $hint= ""
+            $show= "Wir verpassen den Bus! Lauf schneller!"
+            $correct = "schneller"
+            ^rand["Absolut richtig!" "Sehr gut!" "Gut gemacht!" "Sehr schön, das stimmt!" "Perfekt gelöst!" "Prima!"]^gotoRandom(COMP)
+        u1:(Wir verpassen den Bus! Lauf _* !)
+            Leider war $1 nicht das richtige Wort. Versuch es doch noch einmal! ^stayInScope
+        u1:(~done)
+            $show = "Dann machen wir jetzt Schluß! Es war eine sehr schöne Übung, fand ich!"
+            Dann machen wir jetzt Schluß! Es war eine sehr schöne Übung, fand ich! ^endDiscuss(userWish)
+        u1:(*)
+            ^rand [
+                "Übung macht den Meister. Versuche den Satz ruhig noch einmal!"
+                "Versuchen wir es noch einmal gemeinsam. Die Worte sind \pau=300\ kälter \pau=300\ weicher und \pau=300\ schneller."
+            ]^stayInScope
+
+
+proposal:%COMP
+    Die Worte lauten \pau=300\ kälter \pau=300\ weicher und \pau=300\ schneller.
+    $hint = "kälter - weicher - schneller"
+    $show = "Wir verpassen den Bus! Lauf _______! "
+    $correct = ""
+    Welches Wort passt hier in den Satz? Wähle eines und lies bitte den Satz vor!
+        u1:(Wir verpassen den Bus! Lauf schneller!)
+            $hint= ""
+            $show= "Wir verpassen den Bus! Lauf schneller!"
+            $correct = "schneller"
+            ^rand["Absolut richtig!" "Sehr gut!" "Gut gemacht!" "Sehr schön, das stimmt!" "Perfekt gelöst!" "Prima!"]^gotoRandom(COMP)
+        u1:(Wir verpassen den Bus! Lauf _* !)
+            Leider war $1 nicht das richtige Wort. Versuch es doch noch einmal! ^stayInScope
+        u1:(~done)
+            $show = "Dann machen wir jetzt Schluß! Es war eine sehr schöne Übung, fand ich!"
+            Dann machen wir jetzt Schluß! Es war eine sehr schöne Übung, fand ich! ^endDiscuss(userWish)
+        u1:(*)
+            ^rand [
+                "Übung macht den Meister. Versuche den Satz ruhig noch einmal!"
+                "Versuchen wir es noch einmal gemeinsam. Die Worte sind \pau=300\ kälter \pau=300\ weicher und \pau=300\ schneller."
+            ]^stayInScope
+
+proposal:%COMP
+    Die Worte lauten \pau=300\ Schuhe \pau=300\ See und \pau=300\ Kuchen.
+    $hint = "Schuhe - See - Kuchen"
+    $show = "Möchtest du noch ein Stück _________ ? "
+    $correct = ""
+    Welches Wort passt hier in den Satz? Wähle eines und lies bitte den Satz vor!
+        u1:(Möchtest du noch ein Stück Kuchen?)
+            $hint= ""
+            $show= "Möchtest du noch ein Stück Kuchen?"
+            $correct = "Kuchen"
+            ^rand["Absolut richtig!" "Sehr gut!" "Gut gemacht!" "Sehr schön, das stimmt!" "Perfekt gelöst!" "Prima!"]^gotoRandom(COMP)
+        u1:(Möchtest du noch ein Stück _* ?)
+            $1 war leider nicht das gesuchte Wort. Versuch es doch noch einmal! ^stayInScope
+        u1:(~done)
+            $show = "In Ordnung, dann sind wir erst einmal fertig! Hat mir Spass gemacht!"
+            In Ordnung, dann sind wir erst einmal fertig! Hat mir Spass gemacht! ^endDiscuss(userWish)
+        u1:(*)
+            ^rand [
+                "Ich bin nicht sicher, ob ich alles richtig verstanden habe! Sag den Satz doch bitte noch einmal!"
+                "Übungs macht den Meister. Lass uns den Satz noch einmal gemeinsam probieren. Die Worte sind \pau=300\ Schuhe \pau=300\ See und \pau=300\ Kuchen "
+            ]^stayInScope

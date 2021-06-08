@@ -1,0 +1,80 @@
+topic: ~top_small_talk()
+concept:(hello) [hi hallo hey "guten [Morgen Tag Abend]"]
+
+concept:(good) [gut "sehr gut" super bestens blendend]
+concept:(bad) [schlecht "nicht {so} gut" "geht so"]
+
+concept:(party) ["ich war mit [Freunden "meiner Familie" Bekannten] essen"
+                 "ich habe mich mit [Freunden "meiner Familie" Bekannten] getroffen"]
+
+concept:(tired) ["ich fühle mich [schlapp müde kraftlos]" "ich bin {total} [müde fertig schlapp kraftlos]"]
+
+concept:(pain) ["ich habe [Kopf Bauch Arm Bein Brust Rücken Knie Fuss] Schmerzen"
+                "mir tut ["der Kopf" "der Bauch" "der Arm" "das Bein" "die Brust" "der Rücken" "das Knie" "der Fuss"] weh"
+                "ich habe Schmerzen" "ich habe [Kopf Bauch] weh"]
+
+concept:(female) [die meine eine Tochter Tante Schwester Nachbarin Mitbewohnerin Pflegerin Ärztin]
+concept:(male) [den mein einen ein meinen Sohn Onkel Bruder Nachbarn Mitbwohner Pfleger Arzt]
+
+concept:(time) ["Wie viel Uhr ist es?" "Wie viel Uhr haben wir?" "Was haben wir für eine Uhrzeit?" "Wie spät ist es?"]
+concept:(date) ["Was ist heute für ein Tag?" "Was [ist "haben wir"] heute für einen Tag?"
+                "Welches Datum [ist "haben wir"] heute?"]
+
+u:(~hello)
+    ^execute(hello)
+    ^rand[
+        "Hallo Mensch! Wie geht es dir?"
+        "Wie schön dich zu sehen, Mensch! Wie geht es dir?"
+        "Hallo, wie schön dich zu sehen Mensch! Wie ist es dir heute?"
+    ]
+        u1:(~good)
+            ^execute(nice)
+            Prima! ^enableThenGoto(LASTNIGHT)
+        u1:(~bad)
+            Das hört sich aber nicht so gut an! ^enableThenGoto(WHATSUP)
+
+
+proposal:%LASTNIGHT
+Was hast du gestern Abend noch gemacht?
+    u1:("{gar} nichts {mehr}") Okay
+    u1:(~party) Das freut mich zu hören, ich hoffe du hattest einen schönen Abend!
+Hast du denn Pläne für heute?
+    u1:([nein "leider nicht" "bis jetzt nicht" "noch nicht" nicht]) Vielleicht fällt die ja noch etwas schönes ein.
+    u1:([ja "na klar" sicherlich]) Wie schön, was hast du denn vor?
+        u2:(_*) ^rand ["Das hört sich gut an!" "Wie schön, dann wünsche ich dir viel Spass!" "Ich hoffe du hast Spass!"
+                       "Ich wünsche dir viel Spass bei deinen Plänen!" "Das hört sich gut an, ich wünschte ich könnte mitkommen!"]
+
+proposal:%WHATSUP
+^rand[
+    "Was ist denn los?"
+    "Was habst du denn?"
+    "Was fehlt dir?"
+    "Was tut dir weh?"
+]
+    u1:(nichts) Okay ^endDiscuss(badMood)
+    u1:("ich weiß es nicht" "keine Ahnung") Oh, das tut mir leid!
+    u1:(~tired) Oh, das tut mir leid. Hast du diese Nacht denn gut geschlafen?
+        u2:(ja) Dann weiß ich leider auch nicht weiter... ^endDiscuss(userWish)
+        u2:([nein "geht so" "nicht so gut"])
+            Vielleicht hilft dir ja ein kurzes Nickerchen, soll ich dich in einer haben Stunde wecken?
+            u3:([ja gerne "gute Idee"]) Schlaf gut und bis nachher.
+            u3:([nein "lieber nicht" "passt schon"]) Okay ^endDiscuss(userWish)
+
+    u1:(~pain)
+        ^rand[
+            "Ohje, sind die Schmerzen sehr schlimm?"
+            "Das tut mir leid, hast du sehr starke Schmerzen?"
+        ]
+        u2:([nein "nicht {so} schlimm" "es geht {schon}"]) Dann ist ja gut, ich habe mir schon Sorgen gemacht.
+        u2:(ja) Soll ich einen Arzt rufen oder jemand anderem Bescheid geben?
+            u3:([nein "lieber nicht" "passt schon"]) okay ^endDiscuss(userWish)
+            u3:([ja gerne "gute Idee"]) Wen soll ich anrufen?
+                u4:(~female) Okay, ich rufe sie an.
+                u4:(~male) Okay, ich rufe ihn an.
+
+proposal:%TIME
+u1:(~time) Es ist ^currentTime .
+
+proposal:%DATE
+u1:(~date) Heute ist der ^currentDate .
+

@@ -1,0 +1,29 @@
+topic: ~top_newspaper()
+
+proposal:%READTOME
+Wollen Sie mir eine Überschrift aus der Zeitung vorlesen?
+    u1:(ja gerne sicherlich klar) Super, dann starten wir.
+        u2:(_*)
+            $headline = $1
+            Ich habe folgendes verstanden \pau=100\ $headline . Ist das richtig?
+                u3:(Ja richitg korrekt) Wunderbar! ^enableThenGoto(AGAIN)
+                u3:(nein "leider nicht" falsch) Okay, dann versuchen wir es noch einmal. ^stayInScope
+                u3:("ich habe keine Lust mehr" "es macht mir {heute} keinen Spass {mehr}" "Ich will lieber aufhören"
+                    "Ich möchte nicht {mehr} weiter machen")
+                    Okay ^endDiscuss(userWish)
+
+    u1:(nein "lieber nicht") Schade. ^endDiscuss(userWish)
+
+proposal:%AGAIN
+Möchten Sie weitermachen und mir noch eine Überschrift vorlesen?
+    u1:(Ja gerne sicherlich klar) Okay, dann höre ich zu!
+        u2:(_*)
+            $headline = $1
+            Ich habe \pau=100\ $headline verstanden! Stimmt das so?
+                u3:(Ja richtig korrekt) Super! ^enableThenGoto(AGAIN)   # Repeats Question until the user wishes to quit
+                u3:(nein "leider nicht" falsch) Okay, dann versuchen wir es noch einmal ^stayInScope
+                u3:("ich habe keine Lust mehr" "es macht mir {heute} keinen Spass {mehr}" "Ich will lieber aufhören"
+                    "Ich möchte nicht {mehr} weiter machen")
+                    Okay ^endDiscuss(userWish)
+
+    u1:(nein) Okay, mir hat es Spass gemacht! ^endDiscuss(userWish)

@@ -1,0 +1,103 @@
+topic: ~top_sentences()
+
+concept:(confirmation_yes) [okay ja gut "in ordnung" passt gerne sicher natürlich "ja bitte" ]
+concept:(confirmation_no) [Nein "lieber nicht" nicht "denke nicht" "nein danke" nee nö "eher nicht"]
+concept:(done) [aufhören genug "nicht mehr" "keine Lust {mehr}" "möchte nicht" "möchte doch nicht" ]
+
+proposal:%WORDSTART
+$show = "Hier zeige ich Ihnen den jeweiligen Satz an!"
+Ich werde Ihnen ganze Sätze im Display anzeigen und vorsprechen und Sie sprechen mir einfach nach, in Ordnung?
+    u1:(~confirmation_yes)
+        $show ="Fangen wir an!"
+        Sehr gut - fangen wir an! ^gotoRandom(SENTENCES)
+    u1:(~confirmation_no)
+        $show = "Möchten Sie doch lieber Buchstaben oder Sätze üben? "
+        Möchten Sie doch etwas anderes üben - Buchstaben oder Sätze?
+           u2:(Buchstaben)
+                $show = "Buchstaben"
+                Kein Problem - dann geht's jetzt los mit Buchstaben! ^topic(top_letters)
+            u2:(Worte)
+                $show = "Sätze"
+                Sätze klingt gut... Los geht's! ^topic(top_sentences)
+            u2:(~done)
+                $show = "In Ordnung!"
+                In Ordnung, dann belassen wir es hierbei. ^endDiscuss(userWish)
+
+
+proposal:%SENTENCES
+$show = "Theo klappt das Tischbein weg."
+Okay, hier kommt mein Satz \pau=300\ Theo klappt das Tischbein weg.
+    u1:("Theo klappt das Tischbein weg")
+        $show = "Gut gemacht!"
+        ^rand["Sehr gut!" "Klasse!" "Prima!" "Gut gemacht!"] ^gotoRandom(SENTENCES)
+    u1:(~done)
+        $show = "Dann hören wir auf für heute!"
+        In Ordnung! Die Übung hat mir Spass gemacht! ^endDiscuss(userWish)
+    u1:(*)
+        ^rand [
+            "Versuchen wir es noch einmal - der Satz lautet \pau=300\ Theo klappt das Tischbein weg"
+            "Das war noch nicht ganz richtig. Versuchen Sie es doch noch einmal. \pau=300\ Theo klappt das Tischbein weg"
+        ]^stayInScope
+
+
+proposal:%SENTENCES
+$show = "Peter packt Pakete, Kisten und Koffer in den Keller."
+Der Satz lautet \pau=300\ Theo klappt das Tischbein weg.
+    u1:("Peter packt Pakete, Kisten und Koffer in den Keller.")
+        $show = "Gut gemacht!"
+        ^rand["Sehr gut!" "Klasse!" "Prima!" "Gut gemacht!"] ^gotoRandom(SENTENCES)
+    u1:(~done)
+        $show = "Dann hören wir auf für heute!"
+        In Ordnung! Die Übung hat mir Spass gemacht! ^endDiscuss(userWish)
+    u1:(*)
+        ^rand [
+            "Versuchen wir es noch einmal - hier noch einmal der Satz \pau=300\ Peter packt Pakete, Kisten und Koffer in den Keller."
+            "Ich glaube das war nicht ganz richtig. Versuchen Sie es doch noch einmal. \pau=300\ Peter packt Pakete, Kisten und Koffer in den Keller."
+        ]^stayInScope
+
+
+proposal:%SENTENCES
+$show = "Tante Trudel kocht Kaffee."
+Bitte wiederholen Sie den Satz \pau=300\ Tante Trudel kocht Kaffee.
+    u1:("Tante Trudel kocht Kaffee")
+        $show = "Gut gemacht!"
+        ^rand["Sehr gut!" "Klasse!" "Prima!" "Gut gemacht!"] ^gotoRandom(SENTENCES)
+    u1:(~done)
+        $show = "Dann hören wir auf für heute!"
+        In Ordnung! Die Übung hat mir Spass gemacht! ^endDiscuss(userWish)
+    u1:(*)
+        ^rand [
+            "Versuchen wir es noch einmal - hier noch einmal der Satz \pau=300\ Tante Trudel kocht Kaffee."
+            "Ich glaube das war nicht ganz richtig. Versuchen Sie es doch noch einmal. \pau=300\ Tante Trudel kocht Kaffee."
+        ]^stayInScope
+
+proposal:%SENTENCES
+$show = "Petra nimmt die Torten aus dem Tiefkühlschrank."
+Hier kommt mein Satz \pau=300\ Petra nimmt die Torten aus dem Tiefkühlschrank.
+    u1:("Tante Trudel kocht Kaffee")
+        $show = "Gut gemacht!"
+        ^rand["Sehr gut!" "Klasse!" "Prima!" "Gut gemacht!"] ^gotoRandom(SENTENCES)
+    u1:(~done)
+        $show = "Dann hören wir auf für heute!"
+        In Ordnung! Die Übung hat mir Spass gemacht! ^endDiscuss(userWish)
+    u1:(*)
+        ^rand [
+            "Versuchen wir es noch einmal - hier noch einmal der Satz \pau=300\ Petra nimmt die Torten aus dem Tiefkühlschrank."
+            "Ich glaube das war nicht ganz richtig. Versuchen Sie es doch noch einmal. \pau=300\ Petra nimmt die Torten aus dem Tiefkühlschrank."
+        ]^stayInScope
+
+
+proposal:%SENTENCES
+$show = "Katja kauft die Karten für das Tennisturnier an der Kasse."
+Bitte sprechen Sie den folgenden Satz nach \pau=300\ Katja kauft die Karten für das Tennisturnier an der Kasse.
+    u1:("Katja kauft die Karten für das Tennisturnier an der Kasse.")
+        $show = "Gut gemacht!"
+        ^rand["Sehr gut!" "Klasse!" "Prima!" "Gut gemacht!"] ^gotoRandom(SENTENCES)
+    u1:(~done)
+        $show = "Dann hören wir auf für heute!"
+        In Ordnung! Die Übung hat mir Spass gemacht! ^endDiscuss(userWish)
+    u1:(*)
+        ^rand [
+            "Versuchen wir es noch einmal - hier noch einmal der Satz \pau=300\ Katja kauft die Karten für das Tennisturnier an der Kasse."
+            "Ich glaube das war nicht ganz richtig. Versuchen Sie es doch noch einmal. \pau=300\ Katja kauft die Karten für das Tennisturnier an der Kasse."
+        ]^stayInScope

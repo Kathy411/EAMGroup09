@@ -1,0 +1,152 @@
+topic: ~top_letters()
+
+concept:(confirmation_yes) [okay ja gut "in ordnung" passt gerne sicher natürlich "ja bitte" ]
+concept:(confirmation_no) [Nein "lieber nicht" nicht "denke nicht" "nein danke" nee nö "eher nicht"]
+concept:(done) [aufhören genug "nicht mehr" "keine Lust {mehr}" ]
+
+proposal:%LETTERSTART
+$show = "Hier zeige ich Dir die jeweiligen Buchstaben an!"
+Ich werde Dir Kombinationen von Buchstaben im Display zeigen und vorsprechen und Du sprichst mir einfach nach, in Ordnung?
+Wenn Du irgendwann keine Lust mehr hast, sag mir einfach Bescheid oder nutze den Zurück-Button.
+    u1:(~confirmation_yes)
+        $show = "Fangen wir an!"
+        Sehr gut - fangen wir an! ^gotoRandom(LETTERS)
+    u1:(~confirmation_no)
+        $show = "Möchtest Du lieber Worte, Sätze oder Lückentexte üben?"
+        Möchtest Du doch etwas anderes üben - Worte, Sätze oder Lückentexte?
+           u2:(Worte)
+                $show = "Worte"
+                Kein Problem - dann geht's jetzt los mit Worten! ^topic(top_words)
+           u2:(Sätze)
+                $show = "Sätze"
+                Sätze klingt gut... Los geht's! ^topic(top_sentences)
+           u2:(Lückentexte)
+                $show = "Lückentexte"
+                Prima, ich habe auch Lust auf lückentexte! ^topic(top_comp_sentence)
+           u2:(~done)
+                $show = "In Ordnung!"
+                In Ordnung, dann belassen wir es hierbei. ^endDiscuss(userWish)
+
+
+proposal:%LETTERS
+$show = "P-K-T"
+Die Bustaben lauten \pau=300\ P  K  T.
+    u1:(P K T)
+        $show = "Sehr gut!"
+        ^rand["Sehr gut!" "Klasse!" "Prima!" "Perfekt!" "Gut gemacht!"] ^gotoRandom(LETTERS)
+    u1:(~done)
+        $show = "Dann hören wir auf für heute! Die Übung hat mir Spass gemacht!"
+        Dann hören wir auf für heute! Die Übung hat mir Spass gemacht! ^endDiscuss(userWish)
+    u1:(*)
+        ^rand[
+            "Versuchen wir es noch einmal gemeinsam - die Buchstaben lauten \pau=300\ P  K  T."
+            "Diese Buchstabenkombination kann schwierig sein. Versuchen wir es noch einmal \pau=300\ P  K  T."
+            ]^stayInScope
+
+proposal:%LETTERS
+$show = "T - T - P - K - T"
+Jetzt ein bisschen schwieriger \pau=300\ T T P K T.
+    u1:(T T P K T)
+        $show = "Gut gemacht!"
+        ^rand["Sehr gut!" "Klasse!" "Prima!" "Gut gemacht!" "Perfekt"] ^gotoRandom(LETTERS)
+    u1:(~done)
+        $show = "In Ordnung, genug Buchstaben für heute! Es hat mir Spass gemacht!"
+        In Ordnung, genug Buchstaben für heute! Es hat mir Spass gemacht! ^endDiscuss(userWish)
+    u1:(*)
+        ^rand [
+            "Versuchen wir es noch einmal - die Buchstaben lauten \pau=300\ T T P K T."
+            "Das war noch nicht ganz richtig. Versuchen Sie es doch noch einmal. \pau=300\ T T P K T."
+        ]^stayInScope
+
+proposal:%LETTERS
+$show = "P - P - K"
+Hier kommen die Buchstaben \pau=300\ P P K.
+    u1:(P P K)
+        $show = "Prima!"
+        ^rand["Sehr gut!" "Klasse!" "Prima!" "Gut gemacht!"] ^gotoRandom(LETTERS)
+    u1:(~done)
+        $show = "In Ordnung, dann sind wir erst mal fertig! Ich hatte Spass an der Übung!"
+        In Ordnung, dann sind wir erst mal fertig! Ich hatte Spass an der Übung! ^endDiscuss(userWish)
+    u1:(*)
+        ^rand [
+            "Übung macht den Meister! Versuchen wir es gemeinsam noch einmal! \pau=300\ P P K"
+            "Diese Buchstaben können auch schwierig sein. Versuchen wir es gleich noch einmal! \pau=300\ P P K."
+        ]^stayInScope
+
+proposal:%LETTERS
+$show = "K - P - K - T - P"
+Es wird ein bisschen schwieriger \pau=300\ K P K T P.
+    u1:(K P K T P)
+        $show = "Prima!"
+        ^rand["Sehr gut!" "Klasse!" "Prima!" "Gut gemacht!" "Perfekt!"] ^gotoRandom(LETTERS)
+    u1:(~done)
+        $show = "In Ordnung! Die Übung hat mir Spass gemacht!"
+        In Ordnung! Die Übung hat mir Spass gemacht! ^endDiscuss(userWish)
+    u1:(*)
+        ^rand [
+            "Lass uns das gleich noch einmal probieren! Die Buchstaben lauten \pau=300\ K P K T P"
+            "Das sind wirklich schwierige Buchstaben.. versuchen wir es noch einmal gemeinsam! \pau=300\ K P K T P."
+        ]^stayInScope
+
+proposal:%LETTERS
+$show = "T - K - T"
+Hier kommen meine Buchstaben \pau=300\ T K T.
+    u1:(T K T)
+        $show = "Gut gemacht!"
+        ^rand["Sehr gut!" "Klasse!" "Prima!" "Gut gemacht!"] ^gotoRandom(LETTERS)
+    u1:(~done)
+        $show = "Das ist in Ordnung, hören wir auf für heute! Es hat mir aber wirklich Freude gemacht mit Dir zu üben!"
+        Das ist in Ordnung, hören wir auf für heute! Es hat mir aber wirklich Freude gemacht mit Dir zu üben! ^endDiscuss(userWish)
+    u1:(*)
+        ^rand [
+            "Übung macht den Meister. Lass uns gleich noch einmmal versuchen. Die Buchstaben lauten \pau=300\ K P K T P"
+            "Lass uns das noch einmal gemeinsam probieren. Ich spreche die Buchstaben noch einmal vor \pau=300\ K P K T P."
+        ]^stayInScope
+
+proposal:%LETTERS
+$show = "P-F-C"
+Hier kommen meine Buchstaben \pau=300\ P F C.
+    u1:(P F C)
+        $show = "Gut gemacht!"
+        ^rand["Sehr gut!" "Klasse!" "Prima!" "Gut gemacht!"] ^gotoRandom(LETTERS)
+    u1:(~done)
+        $show = "Das ist in Ordnung, hören wir auf für heute! Es hat mir aber wirklich Freude gemacht mit Dir zu üben!"
+        Das ist in Ordnung, hören wir auf für heute! Es hat mir aber wirklich Freude gemacht mit Dir zu üben! ^endDiscuss(userWish)
+    u1:(*)
+        ^rand [
+            "Die Kombination ist nicht so einfach. Versuchen wir es doch noch einmal. Die Bustaben lauten \pau=300\ P F C"
+            "Ich glaube das war noch nicht ganz richtig. Ich spreche noch einmal vor \pau=300\  P F C."
+        ]^stayInScope
+
+
+proposal:%LETTERS
+$show = "C-S-P-T"
+Es wird wieder etwas schwieriger. Hier kommen meine Buchstaben \pau=300\ C S P T.
+    u1:(C S P T)
+        $show = "Sehr gut!"
+        ^rand["Sehr gut!" "Klasse!" "Prima!" "Gut gemacht!"] ^gotoRandom(LETTERS)
+    u1:(~done)
+        $show = "Kein Problem, dann hören wir auf für heute! Ich freue mich schon aufs nächste Mal!"
+        Kein Problem, dann hören wir auf für heute! Ich freue mich schon aufs nächste Mal! ^endDiscuss(userWish)
+    u1:(*)
+        ^rand [
+            "Ich glaube da war ein kleiner Fehler drin. Lass es uns gemeinsam noch einmal versuchen! Ich spreche noch mal vor \pau=300\ C S P T."
+            "Versuchen wir das gleich noch einmal. Hier noch mal die Buchstaben \pau=300\ C S P T."
+        ]^stayInScope
+
+
+proposal:%LETTERS
+$show = "R-F-S-O"
+Hier kommen meine Buchstaben \pau=300\ R F S O.
+    u1:(R F S O)
+        $show = "Prima!"
+        ^rand["Sehr gut!" "Klasse!" "Prima!" "Gut gemacht!"] ^gotoRandom(LETTERS)
+    u1:(~done)
+        $show = "Das ist in Ordnung, hören wir auf für heute! Es hat mir aber wirklich Freude gemacht mit Dir zu üben!"
+        Das ist in Ordnung, hören wir auf für heute! Es hat mir aber wirklich Freude gemacht mit Dir zu üben! ^endDiscuss(userWish)
+    u1:(*)
+        ^rand [
+            "Übung macht den Meister. Lass uns gleich noch einmmal versuchen. Die Buchstaben lauten \pau=300\ R F S O."
+            "Lass uns das noch einmal gemeinsam probieren. Ich spreche die Buchstaben noch einmal vor \pau=300\ R F S O."
+        ]^stayInScope
+

@@ -1,0 +1,255 @@
+topic: ~top_words()
+
+concept:(confirmation_yes) [okay ja gut "in ordnung" passt gerne sicher natürlich "ja bitte" ]
+concept:(confirmation_no) [Nein "lieber nicht" nicht "denke nicht" "nein danke" nee nö "eher nicht"]
+concept:(done) [aufhören genug "nicht mehr" "keine Lust {mehr}" ]
+
+proposal:%WORDSTART
+$show = "Hier zeige ich Dir das jeweilige Wort an!"
+Ich werde Dir Worte im Display anzeigen und vorsprechen und Du sprichst mir einfach nach, in Ordnung?
+    u1:(~confirmation_yes)
+        $show ="Fangen wir an!"
+        Sehr gut - fangen wir an! ^gotoRandom(WORDS)
+    u1:(~confirmation_no)
+        $show = "Möchtest Du doch etwas anderes üben? Sätze oder Buchstaben?"
+        Möchtest Du doch Sätze oder Buchstaben üben?
+           u2:(Buchstaben)
+                $show = "Buchstaben"
+                Kein Problem - dann geht's jetzt los mit Buchstaben! ^topic(top_letters)
+           u2:(Sätze)
+                $show = "Sätze"
+                Sätze klingt gut... Los geht's! ^topic(top_sentences)
+           u2:(~done)
+                $show = "In Ordnung!"
+                In Ordnung, dann belassen wir es hierbei. ^endDiscuss(userWish)
+
+proposal:%WORDS
+$show = "Passt prima!"
+Die Worte lauten \pau=300\ Passt Prima.
+    u1:("passt prima")
+        $show = "Gut gemacht!"
+        ^rand["Sehr gut!" "Klasse!" "Prima!" "Gut gemacht!" "Perfekt!" "Super!"] ^gotoRandom(WORDS)
+    u1:(~done)
+        $show = "Dann hören wir auf für heute!"
+        In Ordnung! Die Übung hat mir Spass gemacht! ^endDiscuss(userWish)
+    u1:(*)
+        ^rand [
+            "Versuchen wir es noch einmal - die Worte lauten \pau=300\ Passt prima"
+            "Das war noch nicht ganz richtig. Versuch es doch noch einmal. \pau=300\ Passt Prima."
+        ]^stayInScope
+
+proposal:%WORDS
+$show = "Peter Pan"
+Bitte sprich mir nach \pau=300\ Peter Pan.
+    u1:("Peter Pan")
+        $show = "Gut gemacht!"
+        ^rand["Sehr gut!" "Klasse!" "Prima!" "Gut gemacht!" "Perfekt!" "Super!"] ^gotoRandom(WORDS)
+    u1:(~done)
+        $show = "Dann hören wir auf für heute!"
+        In Ordnung! Die Übung hat mir Spass gemacht! ^endDiscuss(userWish)
+    u1:(*)
+        ^rand [
+            "Versuchen wir es noch einmal - die Worte lauten \pau=300\ Peter Pan"
+            "Ich glaube das war es nicht ganz. Hier kommen meiine Worte noch einmal \pau=300\ Peter Pan."
+        ]^stayInScope
+
+proposal:%WORDS
+$show = "Top Ten"
+Und jetzt  \pau=300\ Topp Tenn.
+    u1:("Topp Tenn")
+        $show = "Prima!"
+        ^rand["Sehr gut!" "Klasse!" "Prima!" "Gut gemacht!" "Perfekt!" "Super!"] ^gotoRandom(WORDS)
+    u1:(~done)
+        $show = "Okay, hören wir auf für heute! Es hat mir Spass gemacht!"
+        In Ordnung! Die Übung hat mir Spass gemacht! ^endDiscuss(userWish)
+    u1:(*)
+        ^rand [
+            "Versuchen wir es noch einmal - die Worte lauten \pau=300\ Topp Tenn"
+            "Die beiden T hintereinander sind schwierig. Versuchen wir es noch einmal! \pau=300\ Topp Tenn."
+        ]^stayInScope
+
+
+proposal:%WORDS
+$show = "Kosmetik"
+Das aktuelle Wort lautet  \pau=300\ Kosmetik.
+    u1:("Kosmetik")
+        $show = "Klasse!"
+        ^rand["Sehr gut!" "Klasse!" "Prima!" "Gut gemacht!" "Perfekt!" "Super!"] ^gotoRandom(WORDS)
+    u1:(~done)
+        $show = "Dann hören wir auf für heute! Ich freue mich schon aufs nächste Mal!"
+        Dann hören wir auf für heute! Ich freue mich schon aufs nächste Mal! ^endDiscuss(userWish)
+    u1:(*)
+        ^rand [
+            "Ich glaube das war es noch nicht ganz. Ich spreche noch einmal vor \pau=300\ Kosmetik"
+            "Übung macht den Meister, versuch es doch noch einmal \pau=300\ Kosmetik."
+        ]^stayInScope
+
+
+proposal:%WORDS
+$show = "Keramiktasse"
+Mein Wort lautet \pau=300\ Keramiktasse. Sprich mir einfach nach!
+    u1:("Keramiktasse")
+        $show = "Prima!"
+        ^rand["Sehr gut!" "Klasse!" "Prima!" "Gut gemacht!" "Perfekt!" "Super!"] ^gotoRandom(WORDS)
+    u1:(~done)
+        $show = "Das war eine gute Übung! Ich freue mich aufs nächste Mal!"
+        Das war eine gute Übung! Ich freue mich aufs nächste Mal! ^endDiscuss(userWish)
+    u1:(*)
+        ^rand [
+            "Versuchen wir es gemeinsam noch einmal - das Wort ist \pau=300\ Keramiktasse"
+            "Das war schon fast richtig. Aber versuchen wir es doch noch einmal. Das Wort ist \pau=300\ Keramiktasse."
+        ]^stayInScope
+
+
+proposal:%WORDS
+$show = "Patentanwälte"
+Versuchen wir dieses Wort.  \pau=300\ Patentanwälte.
+    u1:("Patentanwälte")
+        $show = "Sehr gut!"
+        ^rand["Sehr gut!" "Klasse!" "Prima!" "Gut gemacht!" "Perfekt!" "Super!"] ^gotoRandom(WORDS)
+    u1:(~done)
+        $show = "Dann hören wir auf für heute!"
+        In Ordnung! Die Übung hat mir Spass gemacht! ^endDiscuss(userWish)
+    u1:(*)
+        ^rand [
+            "Übung macht den Meister. Versuchen wir es gemeinsam noch einmal \pau=300\ Patentanwälte"
+            "Das war schon fast richtig. Versuchen wir es nochmal zusammen \pau=300\ Patentanwälte."
+        ]^stayInScope
+
+proposal:%WORDS
+$show = "Tagesschau"
+Okay, mein Wort lautet \pau=300\ Tagesschau.
+    u1:("Tagesschau")
+        $show = "Gut gemacht!"
+        ^rand["Sehr gut!" "Klasse!" "Prima!" "Gut gemacht!" "Perfekt!" "Super!"] ^gotoRandom(WORDS)
+    u1:(~done)
+        $show = "Dann sind wir erst mal durch für heute! Ich freue mich aufs nächste Mal!"
+        Dann sind wir erst mal durch für heute! Ich freue mich aufs nächste Mal! ^endDiscuss(userWish)
+    u1:(*)
+        ^rand [
+            "Ich glaue das war noch nicht ganz richtig. Versuchen wir es noch einmal gemeinsam \pau=300\ Tagesschau."
+            "Wir versuchen dieses Wort einfach noch mal zusammen. Das Wort lautet \pau=300\ Tagesschau."
+        ]^stayInScope
+
+proposal:%WORDS
+$show = "Tasten"
+Okay, mein Wort heisst \pau=300\ Tasten.
+    u1:("Tasten")
+        $show = "Klasse!"
+        ^rand["Sehr gut!" "Klasse!" "Prima!" "Gut gemacht!""Perfekt!" "Super!"] ^gotoRandom(WORDS)
+    u1:(~done)
+        $show = "In Ordnung. Mir hat die Übung sehr viel Spass gemacht!"
+        In Ordnung! Mir hat die Übung sehr viel Spass gemacht! ^endDiscuss(userWish)
+    u1:(*)
+        ^rand [
+            "Versuchen wir es noch einmal - das Worte ist \pau=300\ Tasten."
+            "Das war noch nicht ganz richtig. Ich sprechen Ihnen noch einmal vor \pau=300\ Tasten."
+        ]^stayInScope
+
+proposal:%WORDS
+$show = "Kosmetiktücher"
+Hier kommt mein Wort \pau=300\ Kosmetiktücher.
+    u1:("Kosmetiktücher")
+        $show = "Super!"
+        ^rand["Sehr gut!" "Klasse!" "Prima!" "Gut gemacht!""Perfekt!" "Super!"] ^gotoRandom(WORDS)
+    u1:(~done)
+        $show = "Dann sind wir erst mal fertig! Ich freue mich aufs nächste Mal!"
+       Dann sind wir erst mal fertig! Ich freue mich aufs nächste Mal! ^endDiscuss(userWish)
+    u1:(*)
+        ^rand [
+            "Das Wort ist auch recht schwierig. Ich spreche es noch einmal vor. \pau=300\ Kosmetiktücher."
+            "Übung macht den Meister. Ich spreche Dir noch einmal vor. \pau=300\ Kosmetiktücher."
+        ]^stayInScope
+
+#10
+proposal:%WORDS
+$show = "Schneepflug"
+Wenn ich an den Winter denke, fällt mir ein Wort ein. Bitte sprich mir nach \pau=300\ Schneepflug.
+    u1:("Schneepflug")
+        $show = "Perfekt!"
+        ^rand["Sehr gut!" "Klasse!" "Prima!" "Gut gemacht!" "Perfekt!" "Super!"] ^gotoRandom(WORDS)
+    u1:(~done)
+        $show = "Dann sind wir erst mal fertig! Ich freue mich aufs nächste Mal!"
+       Dann sind wir erst mal fertig! Ich freue mich aufs nächste Mal! ^endDiscuss(userWish)
+    u1:(*)
+        ^rand [
+            "Dieses Wort bereitet mir mitunter auch Schwierigkeiten. Also hier kommt es noch einmal \pau=300\ Schneepflug."
+            "Das war fast richtig. Versuchen wir es zusammen noch einmal. \pau=300\ Schneepflug."
+        ]^stayInScope
+
+proposal:%WORDS
+$show = "Tortenstück"
+Ich bin ein kleines Leckermäulchen und denke an Kuchen.. daher jetzt mein Wort \pau=300\ Tortenstück.
+    u1:("Tortenstück")
+        $show = "Perfekt!"
+        ^rand["Sehr gut!" "Klasse!" "Prima!" "Gut gemacht!" "Perfekt!" "Super!"] ^gotoRandom(WORDS)
+    u1:(~done)
+        $show = "Dann sind wir erst mal fertig! Ich freue mich aufs nächste Mal!"
+       Dann sind wir erst mal fertig! Ich freue mich aufs nächste Mal! ^endDiscuss(userWish)
+    u1:(*)
+        ^rand [
+            "Sogern ich Süßes mag, aber das Wort ist schwierig. Versuchen wir es noch einmal zusammen \pau=300\ Tortenstück."
+            "So ein schwieriges Wort für so etwas leckeres! Versuchen wir es noch einmal \pau=300\ Tortenstück."
+        ]^stayInScope
+
+
+proposal:%WORDS
+$show = "Eichhörnchen"
+Das Wort ist nun schon etwas schwieriger \pau=300\ Eichhörnchen.
+    u1:("Eichhörnchen")
+        $show = "Perfekt!"
+        ^rand["Sehr gut!" "Klasse!" "Prima!" "Gut gemacht!" "Perfekt!" "Super!"] ^gotoRandom(WORDS)
+    u1:(~done)
+        $show = "Dann sind wir erst mal fertig! Ich freue mich aufs nächste Mal!"
+       Dann sind wir erst mal fertig! Ich freue mich aufs nächste Mal! ^endDiscuss(userWish)
+    u1:(*)
+        ^rand [
+            "Ganz ehrlich, dieses Wort ist schwierig! Hier kommt es noch einmal \pau=300\ Eichhörnchen."
+            "Versuchen wir es doch noch einmal zusammen. Das Wort lautet \pau=300\ Eichhörnchen."
+        ]^stayInScope
+
+proposal:%WORDS
+$show = "Aquarienleuchte"
+Mein Wort lautet \pau=300\ Aquarienleuchte.
+    u1:("Aquarienleuchte")
+        $show = "Klasse!"
+        ^rand["Sehr gut!" "Klasse!" "Prima!" "Gut gemacht!" "Perfekt!" "Super!"] ^gotoRandom(WORDS)
+    u1:(~done)
+        $show = "Okay gut, dann sind wir durch für heute! Ich freue mich schon aufs nächste Mal!"
+        Okay gut, dann sind wir durch für heute! Ich freue mich schon aufs nächste Mal! ^endDiscuss(userWish)
+    u1:(*)
+        ^rand [
+            "Mit diesem Wort habe ich mitunter auch Schwierigkeiten. Versuchen wir es noch einmal gemeinsam \pau=300\ Aquarienleuchte."
+            "Ich glaube das war noch nicht ganz richtig. Ich spreche noch einmal vor \pau=300\ Aquarienleuchte."
+        ]^stayInScope
+
+proposal:%WORDS
+$show = "Schneegestöber"
+Hier kommt mein Wort \pau=300\ Schneegestöber.
+    u1:("Schneegestöber")
+        $show = "Perfekt!"
+        ^rand["Sehr gut!" "Klasse!" "Prima!" "Gut gemacht!" "Perfekt!" "Super!"] ^gotoRandom(WORDS)
+    u1:(~done)
+        $show = "In Ordnung, dann machen wir Schluss für heute! Es hat mir Spass gemacht!"
+        In Ordnung, dann machen wir Schluss für heute! Es hat mir Spass gemacht! ^endDiscuss(userWish)
+    u1:(*)
+        ^rand [
+            "Lass und das noch einmal zusammen versuchen! Das Wort lautet \pau=300\ Schneegestöber."
+            "Übung macht den Meister. Lass es uns noch einmal gemeinsam versuchen \pau=300\ Schneegestöber."
+        ]^stayInScope
+
+
+proposal:%WORDS
+$show = "Weihnachtsbaum"
+Hier kommt mein Wort \pau=300\ Weihnachtsbaum.
+    u1:("Weihnachtsbaum")
+        $show = "Klasse!"
+        ^rand["Sehr gut!" "Klasse!" "Prima!" "Gut gemacht!" "Perfekt!" "Super!"] ^gotoRandom(WORDS)
+    u1:(~done)
+        $show = "Ich fand es war eine gute Übung und ich freue mich aufs nächste Mal!"
+        Ich fand es war eine gute Übung und ich freue mich aufs nächste Mal! ^endDiscuss(userWish)
+    u1:(*)
+        ^rand [
+            "Worte mit ch sind mitunter nicht so leicht! Lass es uns noch einmal versuchen \pau=300\ Weihnachtsbaum."
+            "Lass es uns noch einmal gemeinsam versuchen... das Wort lautet \pau=300\ Weihnachtsbaum."
+        ]^stayInScope

@@ -1,0 +1,10 @@
+topic: ~newspaper()
+
+# die Variable headline1 ist mit dem TextView verknüpft
+
+
+proposal:%NEWSPAPER1
+Ich würde mich freuen bla vorlesen
+    u1:(_*)
+    $headline1 = $1
+        Ich habe folgendes verstanden \pau=100\ $headline1

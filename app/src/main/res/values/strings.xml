@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">EAM - Group 9</string>
+    <string name="SplashText">Pepper in der Senior:Innen- WG </string>
+    <string name="Group9">Gruppe 9</string>
+    <string name="Members">Simon Froitzheim \n Katharina Linden \n Laura Nehler \n Christina Löcker</string>
+    <string name="pepperSplash">pepper splash</string>
+    <string name="TH_Logo">"TH Logo "</string>
+    <string name="ccl_logo">"CCL Logo "</string>
+    <string name="userwish">Wie schön Dich zu sehen! \n Was möchtest Du heute machen?</string>
+    <string name="entertainment">Unterhaltung</string>
+    <string name="practice">Logopädie \n Übungen</string>
+    <string name="button_inscription_back">Zurück</string>
+    <string name="use_buttons">Bitte wähle einen der Buttons, um anzufangen!</string>
+    <string name="THLogo">"Th Logo "</string>
+    <string name="SmsButton">SMS</string>
+    <string name="NewspaperButton">"Zeitung lesen "</string>
+    <string name="QuizButton">Quiz</string>
+</resources>

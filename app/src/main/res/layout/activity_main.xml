@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="1030dp"
+        android:layout_height="718dp"
+        app:srcCompat="@drawable/background4"
+        tools:layout_editor_absoluteX="-14dp"
+        tools:layout_editor_absoluteY="-22dp" />
+
+    <TextView
+        android:id="@+id/tv_welcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:fontFamily="@font/roboto_bold"
+        android:gravity="center_horizontal"
+        android:text="@string/userwish"
+        android:textColor="@android:color/black"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.539"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/tv_purple_box_main"
+        android:layout_width="330dp"
+        android:layout_height="8dp"
+        android:background="#9C27B0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_orange_box_main"
+        android:layout_width="330dp"
+        android:layout_height="8dp"
+        android:background="#DAFF5722"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tv_purple_box_main" />
+
+    <TextView
+        android:id="@+id/tv_red_box_main"
+        android:layout_width="330dp"
+        android:layout_height="8dp"
+        android:background="#F44336"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tv_orange_box_main"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btn_chat"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginBottom="88dp"
+        android:backgroundTint="#009688"
+        android:backgroundTintMode="src_over"
+        android:fontFamily="@font/roboto_bold"
+        android:text="@string/entertainment"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_practice"
+        app:layout_constraintHorizontal_bias="0.004"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btn_practice"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="80dp"
+        android:layout_marginBottom="88dp"
+        android:backgroundTint="#009688"
+        android:fontFamily="@font/roboto_bold"
+        android:text="@string/practice"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_quiz" />
+
+    <Button
+        android:id="@+id/btn_quiz"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="100dp"
+        android:layout_marginBottom="88dp"
+        android:backgroundTint="#009688"
+        android:fontFamily="@font/roboto_bold"
+        android:text="@string/QuizButton"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/btn_newspaper"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="252dp"
+        android:layout_marginBottom="50dp"
+        android:backgroundTint="#009688"
+        android:fontFamily="@font/roboto_bold"
+        android:text="@string/NewspaperButton"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/btn_quiz"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/btn_sms"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="236dp"
+        android:layout_marginBottom="52dp"
+        android:backgroundTint="#009688"
+        android:fontFamily="@font/roboto_bold"
+        android:text="@string/SmsButton"
+        android:textColor="@android:color/black"
+        app:layout_constraintBottom_toTopOf="@+id/btn_chat"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_buttonUse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:fontFamily="@font/roboto_italic"
+        android:text="@string/use_buttons"
+        android:textColor="#272626"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_welcome" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
