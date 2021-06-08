@@ -43,8 +43,6 @@ class MainActivity : RobotActivity(), RobotLifecycleCallbacks {
         say.async().run()
 
 
-
-
         // Set buttons in listening mode / start Action on Click
         btn_quiz.setOnClickListener(){
             val changeToQuiz = Intent(this, QuizActivity::class.java)
@@ -62,8 +60,8 @@ class MainActivity : RobotActivity(), RobotLifecycleCallbacks {
         }
 
         btn_chat.setOnClickListener(){
-            val changeToSms = Intent(this, SmallTalkActivity::class.java)
-            startActivity(changeToSms)
+            val changeToSmallTalk = Intent(this, SmallTalkActivity::class.java)
+            startActivity(changeToSmallTalk)
         }
 
         btn_sms.setOnClickListener(){
