@@ -6,6 +6,39 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ImageView
+        android:id="@+id/iv_backgroundSms"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/background4" />
+
+    <TextView
+        android:id="@+id/tv_purple_boxSMS"
+        android:layout_width="320dp"
+        android:layout_height="8dp"
+        android:background="#9C27B0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_orange_boxSMS"
+        android:layout_width="320dp"
+        android:layout_height="8dp"
+        android:background="#DAFF5722"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tv_purple_box" />
+
+    <TextView
+        android:id="@+id/tv_red_box2"
+        android:layout_width="320dp"
+        android:layout_height="8dp"
+        android:background="#DAFF5722"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tv_purple_boxSMS"
+        app:layout_constraintStart_toEndOf="@+id/tv_orange_boxSMS" />
+
     <TextView
         android:id="@+id/textView6"
         android:layout_width="89dp"
@@ -34,4 +67,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -30,4 +30,33 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.987" />
+
+    <TextView
+        android:id="@+id/tcv_redBoxQ"
+        android:layout_width="320dp"
+        android:layout_height="8dp"
+        android:background="#F44336"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_orangeBoxQ"
+        android:layout_width="330dp"
+        android:layout_height="8dp"
+        android:background="#DAFF5722"
+        android:contentDescription="@string/orangeBox"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tv_purpleBoxQ"
+        app:layout_constraintStart_toEndOf="@+id/tv_redBoxP" />
+
+    <TextView
+        android:id="@+id/tv_purpleBoxQ"
+        android:layout_width="320dp"
+        android:layout_height="8dp"
+        android:background="#9C27B0"
+        android:contentDescription="@string/redBox"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tv_orangeBoxP" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

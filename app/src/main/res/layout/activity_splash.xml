@@ -22,7 +22,7 @@
         android:layout_marginEnd="40dp"
         android:fontFamily="@font/roboto_bold"
         android:text="@string/SplashText"
-        android:textColor="@color/black"
+        android:textColor="#272525"
         android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -64,7 +64,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.153"
-        app:srcCompat="@drawable/pepper_round" />
+        app:srcCompat="@drawable/pepper_round_transparent3" />
 
     <ImageView
         android:id="@+id/iv_th_logo"
@@ -87,7 +87,7 @@
         android:layout_marginEnd="220dp"
         android:fontFamily="@font/roboto_bold"
         android:text="@string/Group9"
-        android:textColor="@color/black"
+        android:textColor="#272525"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/project_title" />
@@ -101,7 +101,7 @@
         android:fontFamily="@font/roboto_bold"
         android:gravity="center_vertical"
         android:text="@string/Members"
-        android:textColor="@color/black"
+        android:textColor="#272525"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_group9" />

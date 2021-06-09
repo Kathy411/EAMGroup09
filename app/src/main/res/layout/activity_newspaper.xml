@@ -6,6 +6,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ImageView
+        android:id="@+id/iv_backgroundN"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:srcCompat="@drawable/background4"
+        tools:layout_editor_absoluteX="191dp"
+        tools:layout_editor_absoluteY="163dp" />
+
     <TextView
         android:id="@+id/textView4"
         android:layout_width="121dp"
@@ -35,4 +43,30 @@
         android:text="Zurück"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_redBoxN"
+        android:layout_width="320dp"
+        android:layout_height="8dp"
+        android:background="#F44336"
+        android:contentDescription="@string/redBox"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="320dp"
+        android:layout_height="8dp"
+        android:background="#DAFF5722"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_backgroundN"
+        app:layout_constraintStart_toEndOf="@+id/tv_redBoxN" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="320dp"
+        android:layout_height="8dp"
+        android:background="#9C27B0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView8" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

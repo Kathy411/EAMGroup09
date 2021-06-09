@@ -24,7 +24,7 @@
         android:fontFamily="@font/roboto_bold"
         android:gravity="center_horizontal"
         android:text="@string/userwish"
-        android:textColor="@android:color/black"
+        android:textColor="#272525"
         android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -71,6 +71,7 @@
         android:fontFamily="@font/roboto_bold"
         android:text="@string/entertainment"
         android:textColor="@color/black"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btn_practice"
         app:layout_constraintHorizontal_bias="0.004"
@@ -86,6 +87,7 @@
         android:fontFamily="@font/roboto_bold"
         android:text="@string/practice"
         android:textColor="@color/black"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btn_quiz" />
 
@@ -99,6 +101,7 @@
         android:fontFamily="@font/roboto_bold"
         android:text="@string/QuizButton"
         android:textColor="@color/black"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -112,6 +115,7 @@
         android:fontFamily="@font/roboto_bold"
         android:text="@string/NewspaperButton"
         android:textColor="@color/black"
+        android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/btn_quiz"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -125,6 +129,7 @@
         android:fontFamily="@font/roboto_bold"
         android:text="@string/SmsButton"
         android:textColor="@android:color/black"
+        android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/btn_chat"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -135,7 +140,7 @@
         android:layout_marginTop="50dp"
         android:fontFamily="@font/roboto_italic"
         android:text="@string/use_buttons"
-        android:textColor="#272626"
+        android:textColor="#272525"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

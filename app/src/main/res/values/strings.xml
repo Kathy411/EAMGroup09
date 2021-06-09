@@ -16,4 +16,6 @@
     <string name="NewspaperButton">"Zeitung lesen "</string>
     <string name="QuizButton">Quiz</string>
     <string name="BackgroundDescription">Background</string>
+    <string name="redBox">TH Stripes - redBox</string>
+    <string name="orangeBox">Th Stripes - orange Box</string>
 </resources>
