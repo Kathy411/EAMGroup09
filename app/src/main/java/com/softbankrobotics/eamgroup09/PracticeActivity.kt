@@ -2,6 +2,7 @@ package com.softbankrobotics.eamgroup09
 
 import android.content.Intent
 import android.os.Bundle
+import android.provider.MediaStore.Audio.AudioColumns.BOOKMARK
 import android.util.Log
 import android.widget.Button
 import android.widget.TextView
@@ -22,6 +23,7 @@ import kotlin.concurrent.thread
 
 
 class PracticeActivity: RobotActivity(), RobotLifecycleCallbacks {
+    // Declare regular and late initializing variables for this class
     val TAG = "FragmentActivity"
     val locale: Locale = Locale(Language.GERMAN, Region.GERMANY)
     lateinit var topWords : Topic
@@ -40,14 +42,14 @@ class PracticeActivity: RobotActivity(), RobotLifecycleCallbacks {
     }
 
     override fun onRobotFocusGained(qiContext: QiContext?) {
-
-        // Set back button in listening state - on click change back to main
+        // Declare Back Button / OnClick -> revert to MainActivity
         val backButton3: Button = findViewById(R.id.btn_back3)
         backButton3.setOnClickListener {
             val changeToMain = Intent(this, MainActivity::class.java)
             startActivity(changeToMain)
         }
         // Put chat action into worker thread manually
+        // RUN beginChat Function, hosting the chat action
         thread { beginChat(qiContext) }
     }
 
@@ -57,38 +59,50 @@ class PracticeActivity: RobotActivity(), RobotLifecycleCallbacks {
         val showHint = findViewById<TextView>(R.id.tv_hintLable)
         val showCorrect = findViewById<TextView>(R.id.tv_correct)
 
-        // Build the topics with qiContext, resource and language config
+        // BUILD topics(QiContext, Resource) - within the first topic user decides Word / Sentences / Letters / Clozes
         topStart = TopicBuilder.with(qiContext).withResource(R.raw.top_practice_start).build()
         topWords = TopicBuilder.with(qiContext).withResource(R.raw.top_p_words).build()
         topSentences= TopicBuilder.with(qiContext).withResource(R.raw.top_p_sentences).build()
         topLetters = TopicBuilder.with(qiContext).withResource(R.raw.top_p_letters).build()
         topComp = TopicBuilder.with(qiContext).withResource(R.raw.top_p_comp_sentence) .build()
 
-        // Build chatbot with qiContext, topics and language config
+        // BUILD Chatbot(QiContext, language config, all topics)
         practiceChatbot = QiChatbotBuilder.with(qiContext).withLocale(locale).withTopic(topStart, topWords, topSentences, topLetters, topComp).build()
 
-
+        // GET QiChat-Variable $hint, SET its text to upper TextView in activity_practice
+        // Action on UI process -> runOnUIThread
         practiceChatbot.variable("hint").addOnValueChangedListener {
             runOnUiThread {
                 showHint.text = it
             }
         }
+
+        // GET QiChat-Variable $show, SET its text to lower TextView in activity_practice
+        // Action on UI process -> runOnUIThread
         practiceChatbot.variable("show").addOnValueChangedListener {
             runOnUiThread {
                 showText.text = it
             }
         }
+
+        // GET QiChat-Variable $correct, SET its text to second upper TextView in activity_practice
+        // Action on UI process -> runOnUIThread
         practiceChatbot.variable("correct").addOnValueChangedListener {
             runOnUiThread {
                 showCorrect.text = it
             }
         }
 
+        // BUILD Chat (QiContext, qiChatbot, language config)
         chat = ChatBuilder.with(qiContext).withChatbot(practiceChatbot).withLocale(locale).build()
+
+        // Once chat is run, START at a certain bookmark -> goToBookmark()
         chat.addOnStartedListener { goToBookmark("START") }
+
+        // RUN chat asynchronously
         val fchat: Future<Void> = chat.async().run()
 
-        // Stop the chat when the qichatbot is done
+        // STOP the chat when the qichatbot reaches an ^endDiscuss-Tag
         practiceChatbot.addOnEndedListener { endReason ->
             Log.i(TAG, "qichatbot end reason = $endReason")
             fchat.requestCancellation()
@@ -97,6 +111,7 @@ class PracticeActivity: RobotActivity(), RobotLifecycleCallbacks {
         }
     }
 
+    // Once chat is run, this function is called to have the chatbot start at a certain bookmark)
     private fun goToBookmark(bookmarkName : String) {
         practiceChatbot.goToBookmark (
             topStart.bookmarks[bookmarkName],
@@ -105,17 +120,15 @@ class PracticeActivity: RobotActivity(), RobotLifecycleCallbacks {
     }
 
     override fun onRobotFocusLost() {
-        TODO("Not yet implemented")
+        Log.i(BOOKMARK, "Focus lost")
     }
 
     override fun onRobotFocusRefused(reason: String?) {
-        TODO("Not yet implemented")
+        Log.i(BOOKMARK, "Focus refused because $reason")
     }
 
     override fun onDestroy() {
         super.onDestroy()
         QiSDK.unregister(this, this)
     }
-
-
 }

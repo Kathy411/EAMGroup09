@@ -7,7 +7,7 @@ import com.aldebaran.qi.sdk.design.activity.conversationstatus.SpeechBarDisplayS
 import java.util.*
 
 class SplashScreenActivity : RobotActivity() {
-
+    // Called on Cold Start, only
     private var timer: Timer? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,6 +17,7 @@ class SplashScreenActivity : RobotActivity() {
         setContentView(R.layout.activity_splash)
     }
 
+    // Set timer for displaying activity_splash Layout
     override fun onResume() {
         super.onResume()
 
@@ -25,7 +26,7 @@ class SplashScreenActivity : RobotActivity() {
             override fun run() {
                 goToMain()
             }
-        }, 5000)  // 3 seconds time delay to show Splash
+        }, 5000)  // 5 seconds time delay to show Splash
     }
 
     override fun onPause() {
@@ -34,7 +35,7 @@ class SplashScreenActivity : RobotActivity() {
     }
 
 
-    // goToMain enables the system, to move on to the next screen
+    // goToMain enables the system, to move on to main screen
     private fun goToMain() {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)

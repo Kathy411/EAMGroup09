@@ -109,7 +109,7 @@
         android:id="@+id/btn_newspaper"
         android:layout_width="200dp"
         android:layout_height="60dp"
-        android:layout_marginEnd="252dp"
+        android:layout_marginEnd="100dp"
         android:layout_marginBottom="50dp"
         android:backgroundTint="#009688"
         android:fontFamily="@font/roboto_bold"
@@ -123,7 +123,7 @@
         android:id="@+id/btn_sms"
         android:layout_width="200dp"
         android:layout_height="60dp"
-        android:layout_marginStart="236dp"
+        android:layout_marginStart="100dp"
         android:layout_marginBottom="52dp"
         android:backgroundTint="#009688"
         android:fontFamily="@font/roboto_bold"
@@ -145,5 +145,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_welcome" />
+
+    <Button
+        android:id="@+id/btn_country"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:backgroundTint="#009688"
+        android:fontFamily="@font/roboto_bold"
+        android:text="@string/ButtonCountry"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_newspaper"
+        app:layout_constraintEnd_toStartOf="@+id/btn_newspaper"
+        app:layout_constraintStart_toEndOf="@+id/btn_sms" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

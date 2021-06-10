@@ -26,8 +26,9 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="40dp"
         android:layout_marginBottom="40dp"
+        android:backgroundTint="#CB009688"
         android:text="@string/button_inscription_back"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -72,7 +73,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="80dp"
         android:layout_marginRight="80dp"
-        android:layout_marginBottom="250dp"
+        android:layout_marginBottom="230dp"
         android:fontFamily="@font/roboto_bold"
         android:gravity="center_horizontal"
         android:paddingLeft="20dp"

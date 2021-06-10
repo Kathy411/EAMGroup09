@@ -16,9 +16,15 @@ import com.aldebaran.qi.sdk.design.activity.RobotActivity
 import com.aldebaran.qi.sdk.design.activity.conversationstatus.SpeechBarDisplayStrategy
 
 class MainActivity : RobotActivity(), RobotLifecycleCallbacks {
+    // Declaration of variables / late initialization variables
     val TAG = "FragmentActivity"
-    //Set language to German
-    val locale: Locale = Locale(Language.GERMAN, Region.GERMANY)
+    lateinit var btn_practice : Button
+    lateinit var btn_chat : Button
+    lateinit var btn_quiz : Button
+    lateinit var btn_newspaper : Button
+    lateinit var btn_sms : Button
+    lateinit var btn_country : Button
+    lateinit var locale: Locale
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,22 +34,25 @@ class MainActivity : RobotActivity(), RobotLifecycleCallbacks {
     }
 
     override fun onRobotFocusGained(qiContext: QiContext?) {
-        // declared buttons on main
-        val btn_practice = findViewById<Button>(R.id.btn_practice)
-        val btn_chat = findViewById<Button>(R.id.btn_chat)
-        val btn_quiz = findViewById<Button>(R.id.btn_quiz)
-        val btn_newspaper = findViewById<Button>(R.id.btn_newspaper)
-        val btn_sms = findViewById<Button>(R.id.btn_sms)
-        val locale: Locale = Locale(Language.GERMAN, Region.GERMANY)
+        // Set button variables to button element in layout
+        btn_practice = findViewById<Button>(R.id.btn_practice)
+        btn_chat = findViewById<Button>(R.id.btn_chat)
+        btn_quiz = findViewById<Button>(R.id.btn_quiz)
+        btn_newspaper = findViewById<Button>(R.id.btn_newspaper)
+        btn_sms = findViewById<Button>(R.id.btn_sms)
+        btn_country = findViewById<Button>(R.id.btn_country)
 
-        // welcome phrase
+        // Configure language to German
+        locale = Locale(Language.GERMAN, Region.GERMANY)
+
+        // BUILD Welcome phrase with String Resource
+        // BUILD Say Action and RUN it asynchronously
         val welcome: Phrase =
-                Phrase("Schön Dich zu sehen! Was möchtest Du heute machen? Wir können uns unterhalten oder wir üben! Bitte drücke den entsprechenden Button um anzufangen!")
+                Phrase(getString(R.string.Welcome))
         val say : Say =  SayBuilder.with(qiContext).withPhrase(welcome).withLocale(locale).build()
         say.async().run()
 
-
-        // Set buttons in listening mode / start Action on Click
+        // Set buttons in listening mode / start Activity on Click
         btn_quiz.setOnClickListener(){
             val changeToQuiz = Intent(this, QuizActivity::class.java)
             startActivity(changeToQuiz)
@@ -67,6 +76,11 @@ class MainActivity : RobotActivity(), RobotLifecycleCallbacks {
         btn_sms.setOnClickListener(){
             val changeToSms = Intent(this, SmsActivity::class.java)
             startActivity(changeToSms)
+        }
+
+        btn_country.setOnClickListener(){
+            val changeToCountry = Intent(this, CountryActivity::class.java)
+            startActivity(changeToCountry)
         }
     }
 

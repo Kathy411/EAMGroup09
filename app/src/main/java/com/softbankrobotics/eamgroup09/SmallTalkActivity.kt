@@ -22,6 +22,7 @@ import com.aldebaran.qi.sdk.design.activity.RobotActivity
 import kotlin.concurrent.thread
 
 class SmallTalkActivity: RobotActivity(), RobotLifecycleCallbacks {
+    // Declare regular and late initializing variables for this class
     val TAG = "FragmentActivity"
     val locale: Locale = Locale(Language.GERMAN, Region.GERMANY)
     lateinit var topSmallTalk : Topic
@@ -35,33 +36,38 @@ class SmallTalkActivity: RobotActivity(), RobotLifecycleCallbacks {
     }
 
     override fun onRobotFocusGained(qiContext: QiContext?) {
+        // Declare Back Button / OnClick -> revert to MainActivity
         val backButton6: Button = findViewById(R.id.btn_back6)
         backButton6.setOnClickListener {
             val changeToMain = Intent(this, MainActivity::class.java)
             startActivity(changeToMain)
         }
+        // ** Chat Action starts here **
+        // BUILD topic(QiContext, Resource) and chatbot(QiContext, language config, topic)
+        topSmallTalk = TopicBuilder.with(qiContext).withResource(R.raw.top_small_talk).build()
+        smallTalkChatbot = QiChatbotBuilder.with(qiContext).withLocale(locale).withTopic(topSmallTalk).build()
 
-            topSmallTalk = TopicBuilder.with(qiContext).withResource(R.raw.top_small_talk).build()
-            smallTalkChatbot =
-                    QiChatbotBuilder.with(qiContext).withLocale(locale).withTopic(topSmallTalk).build()
 
-            // TODO If animations are needed, pls add them to hashMap, create Executor & runnable function
-            val executors = hashMapOf(
+        // Animations used in this activity - mutable Map of QiChat-Variable and BaseQiChatExecutor
+        val executors = hashMapOf(
                     "hello" to HelloExecutor(qiContext),
                     "nice" to NiceExecutor(qiContext)
             )
-            // Set Executors to qiChatbot
-            smallTalkChatbot.executors = executors as Map<String, QiChatExecutor>?
+        // Set Executors to qiChatbot
+        smallTalkChatbot.executors = executors as Map<String, QiChatExecutor>?
 
-            chat = ChatBuilder.with(qiContext).withChatbot(smallTalkChatbot).withLocale(locale).build()
-            val fchat: Future<Void> = chat.async().run()
+        // BUILD Chat (QiContext, qiChatbot, language config)
+        chat = ChatBuilder.with(qiContext).withChatbot(smallTalkChatbot).withLocale(locale).build()
+        // RUN chat asynchronously
+        val fchat: Future<Void> = chat.async().run()
 
-            // Stop the chat when the qichatbot is done
-            smallTalkChatbot.addOnEndedListener { endReason ->
-                Log.i(TAG, "qichatbot end reason = $endReason")
-                fchat.requestCancellation()
+        // STOP the chat when the qichatbot reaches an ^endDiscuss-Tag
+        smallTalkChatbot.addOnEndedListener { endReason ->
+            Log.i(TAG, "qichatbot end reason = $endReason")
+            fchat.requestCancellation()
             }
         }
+
     /* private fun goToBookmark(bookmarkName : String) {
         smsChatbot.goToBookmark (
             topSms.bookmarks[bookmarkName],
