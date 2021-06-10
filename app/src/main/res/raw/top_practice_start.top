@@ -1,6 +1,6 @@
 topic: ~top_practice_start()
 
-concept:(mistake) [falsch Fehler "will nicht" "nicht üben" "keine Lust" "doch nicht"]
+concept:(mistake) [falsch Fehler "will nicht" "nicht üben" "keine Lust" "doch nicht" nicht]
 
 proposal:%START
 $show = "Wie schön - Du willst mit mir üben! Was würdest Du denn gerne üben? Worte, Sätze, Buchstaben oder vielleicht Lückentexte?"
@@ -8,16 +8,16 @@ $show = "Wie schön - Du willst mit mir üben! Was würdest Du denn gerne üben?
     "Wie schön - Du willst mit mir üben! Was würdest Du denn gerne üben? Worte, Sätze, Buchstaben? Oder möchtest Du Lückentexte üben?"
     "Klasse - dann üben wir zusammen! Was möchtest Du denn üben? Worte, Sätze oder Buchstaben? Oder sollen wir vielleicht gemeinsam Lückentexte machen?"
 ]
-    u1:(Worte)
+    u1:([Worte Wort])
         $show = "Worte"
         Prima - dann geht's los mit Worten! ^topic(top_words)
-    u1:(Sätze)
+    u1:([Sätze Satz])
         $show = "Sätze"
         Sätze klingt gut... Los geht's! ^topic(top_sentences)
-    u1:(Buchstaben)
+    u1:([Buchstaben Buchstabe])
         $show = "Buchstaben"
         Sehr gut, dann geht es los mit Übungen zu Buchstaben! ^topic(top_letters)
-    u1:("Lückentexte")
+    u1:("[Lückentexte Lückentext Text]")
         $show = "Lückentexte"
         Oh ja prima, dann üben wir Lückentexte! ^topic(top_comp_sentence)
     u1:(~mistake)

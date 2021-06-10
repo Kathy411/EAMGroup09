@@ -253,3 +253,92 @@ Hier kommt mein Wort \pau=300\ Weihnachtsbaum.
             "Worte mit ch sind mitunter nicht so leicht! Lass es uns noch einmal versuchen \pau=300\ Weihnachtsbaum."
             "Lass es uns noch einmal gemeinsam versuchen... das Wort lautet \pau=300\ Weihnachtsbaum."
         ]^stayInScope
+
+
+proposal:%WORDS
+$show = "Esszimmertischtischdecke"
+Dieses Wort ist recht schwierig... versuchen wir es. \pau=300\ Esszimmer Tisch Tischdecke.
+    u1:("Esszimmer Tisch Tischdecke")
+        $show = "Richtig gut!"
+        ^rand[
+            "Das war richtig gut! Und dieses Wort ist wirklich schwierig!"
+            "Sehr gut - und ich muss zugeben, dieses Wort musste ich auch üben!"
+        ] ^gotoRandom(WORDS)
+    u1:(~done)
+        $show = "In Ordnung, dann machen wir Schluß für heute! Die Übung hat mir Freude gemacht!"
+        In Ordnung, dann machen wir Schluß für heute! Die Übung hat mir Freude gemacht! ^endDiscuss(userWish)
+    u1:(*)
+        ^rand [
+            "Ich musste dieses Wort auch üben... lass es uns noch einmal gemeinsam probieren \pau=300\ Esszimmer Tisch Tischdecke."
+            "Mit diesem Wort hatte ich anfangs auch so meine Probleme. Versuchen wir es doch gleich noch einmal \pau=300\ Esszimmer Tisch Tischdecke."
+        ]^stayInScope
+
+
+proposal:%WORDS
+$show = "Ersatzteillagermitarbeiter"
+Jetzt habe ich eines dieser zusammengesetzen Worte. Hier kommt es  \pau=300\ Ersatzteillagermitarbeiter.
+    u1:(Ersatzteillagermitarbeiter)
+        $show = "Klasse - das war sehr gut!"
+        ^rand[
+            "Das war prima! Und das bei einem so langen und schwierigen Wort!"
+            "Sehr gut! Das hat ja wirklich toll geklappt!"
+        ] ^gotoRandom(WORDS)
+    u1:(~done)
+        $show = "In Ordnung, machen wir Schluß für heute!"
+        Okay, genug Worte für heute! Ich freue mich schon auf das nächste Mal! ^endDiscuss(userWish)
+    u1:(*)
+        ^rand [
+            "Mit diesem Wort hatte ich auch so meine Probleme. Aber gemeinsam kriegen wir das hin \pau=300\ Ersatzteillagermitarbeiter."
+            "Lass es uns noch einmal gemeinsam versuchen... das Wort lautet \pau=300\ Ersatzteillagermitarbeiter."
+        ]^stayInScope
+
+
+proposal:%WORDS
+$show = "Eisenbahnverkehr"
+Mein Wort lautet  \pau=300\ Eisenbahnverkehr.
+    u1:(Eisenbahnverkehr)
+        $show = "Das war sehr gut!"
+        ^rand["Sehr gut!" "Klasse!" "Prima!" "Gut gemacht!" "Perfekt!" "Super!"] ^gotoRandom(WORDS)
+    u1:(~done)
+        $show = "Okay, dann sind wir erst einmal fertig! Es war eine gute Übung!"
+        Okay, dann sind wir erst einmal fertig! Es war eine gute Übung! ^endDiscuss(userWish)
+    u1:(*)
+        ^rand [
+            "Übung macht den Meister, versuchen wir es gleich noch einmal \pau=300\ Eisenbahnverkehr."
+            "Versuchen wir das Wort einfach nochmal. Es ist auch ein bisschen schwierig. \pau=300\ Eisenbahnverkehr."
+        ]^stayInScope
+
+
+proposal:%WORDS
+$show = "Medikamentenbeipackzettel"
+Mein Wort ist ein bisschen länger... hier kommt es \pau=300\ Medikamentenbeipackzettel.
+    u1:(Medikamentenbeipackzettel)
+        $show = "Das war sehr gut!"
+        ^rand["Sehr gut!" "Klasse!" "Prima!" "Gut gemacht!" "Perfekt!" "Super!"] ^gotoRandom(WORDS)
+    u1:(~done)
+        $show = "In Ordnung, genug Worte für heute! Ich freue mich schon auf unsere nächste Übung!"
+        In Ordnung, genug Worte für heute! Ich freue mich schon auf unsere nächste Übung! ^endDiscuss(userWish)
+    u1:(*)
+        ^rand [
+            "Versuchen wir das Wort noch einmal gemeinsam \pau=300\ Medikamentenbeipackzettel."
+            "Das ist auch ein schwieriges Wort! Versuchen wir es gleich noch mal. \pau=300\ Medikamentenbeipackzettel."
+        ]^stayInScope
+
+
+proposal:%WORDS
+$show = "Lichtzeichen"
+Hier kommt mein Wort. Es lautet... \pau=300\ Lichtzeichen.
+    u1:(Medikamentenbeipackzettel)
+        $show = "Ein schwieriges Wort, aber sehr gut gesprochen!"
+        ^rand[
+            "Das war prima! Dabei sind Worte mit ch-Lauten immer schwierig!"
+            "Sehr gut! Das hat ja wirklich toll geklappt!"
+        ] ^gotoRandom(WORDS)
+    u1:(~done)
+        $show = "In Ordnung, dann machen wir gerne beim nächsten Mal weiter!"
+        In Ordnung, dann machen wir gerne beim nächsten Mal weiter! ^endDiscuss(userWish)
+    u1:(*)
+        ^rand [
+            "Worte mit ch finde ich auch immer etwas schwierig! Aber versuchen wir es doch noch einmal \pau=300\ Lichtzeichen."
+            "Das ist auch ein schwieriges Wort! Versuchen wir es gleich noch mal. \pau=300\ Lichtzeichen."
+        ]^stayInScope
