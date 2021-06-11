@@ -65,3 +65,64 @@ fun disappointed(qiContext: QiContext) {
             .build()                                            // Build the animate action.
     disappointedAnimate.run()
 }
+
+fun showTablet(qiContext: QiContext) {
+    val showTabletAnim: Animation = AnimationBuilder.with(qiContext) // Create the builder with the context.
+            .withResources(R.raw.anim_show_tablet)                    // Set the animation resource.
+            .build()                                            // Build the animation.
+
+    // Create an animate action.
+    val showTabletAnimate: Animate = AnimateBuilder.with(qiContext)  // Create the builder with the context.
+            .withAnimation(showTabletAnim)                           // Set the animation.
+            .build()                                            // Build the animate action.
+    showTabletAnimate.run()
+}
+
+fun question(qiContext: QiContext) {
+    val questionAnim: Animation = AnimationBuilder.with(qiContext) // Create the builder with the context.
+            .withResources(R.raw.anim_question)                    // Set the animation resource.
+            .build()                                            // Build the animation.
+
+    // Create an animate action.
+    val questionAnimate: Animate = AnimateBuilder.with(qiContext)  // Create the builder with the context.
+            .withAnimation(questionAnim)                           // Set the animation.
+            .build()                                            // Build the animate action.
+    questionAnimate.run()
+}
+
+fun thatsIt(qiContext: QiContext) {
+    val thatsItAnim: Animation = AnimationBuilder.with(qiContext) // Create the builder with the context.
+            .withResources(R.raw.anim_thats_it)                    // Set the animation resource.
+            .build()                                            // Build the animation.
+
+    // Create an animate action.
+    val thatsItAnimate: Animate = AnimateBuilder.with(qiContext)  // Create the builder with the context.
+            .withAnimation(thatsItAnim)                           // Set the animation.
+            .build()                                            // Build the animate action.
+    thatsItAnimate.run()
+}
+
+fun yeah(qiContext: QiContext) {
+    val yeahAnim: Animation = AnimationBuilder.with(qiContext) // Create the builder with the context.
+            .withResources(R.raw.anim_yeah)                    // Set the animation resource.
+            .build()                                            // Build the animation.
+
+    // Create an animate action.
+    val yeahAnimate: Animate = AnimateBuilder.with(qiContext)  // Create the builder with the context.
+            .withAnimation(yeahAnim)                           // Set the animation.
+            .build()                                            // Build the animate action.
+    yeahAnimate.run()
+}
+
+
+fun basketball(qiContext: QiContext) {
+    val basketballAnim: Animation = AnimationBuilder.with(qiContext) // Create the builder with the context.
+            .withResources(R.raw.anim_basketball)                    // Set the animation resource.
+            .build()                                            // Build the animation.
+
+    // Create an animate action.
+    val basketballAnimate: Animate = AnimateBuilder.with(qiContext)  // Create the builder with the context.
+            .withAnimation(basketballAnim)                           // Set the animation.
+            .build()                                            // Build the animate action.
+    basketballAnimate.run()
+}

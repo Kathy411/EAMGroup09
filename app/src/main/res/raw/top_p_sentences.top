@@ -21,12 +21,12 @@ Prima, wird üben Sätze! Soll ich noch kurz erklären wie es geht oder legen wi
 
 proposal:%SENTENCEEXPLAIN
 $show = "Hier zeige ich Ihnen den jeweiligen Satz an!"
-Ich werde Ihnen ganze Sätze im Display anzeigen und vorsprechen und Sie sprechen mir einfach nach! \pau=1000\
+Ich werde Ihnen ganze Sätze im Display anzeigen ^execute(show_tab) und dann vorsprechen. Du sprichst mir einfach nach! \pau=1000\
 $show = "Wenn Du einen meiner Sätze nicht üben möchtest, sag einfach WEITER, dann gehe ich zum nächsten!"
 Wenn Du einen meiner Sätze nicht üben möchtest, sag einfach \pau=200\ weiter \pau=200\, dann gehe ich zum nächsten!
 $show = "Wenn Du ganz aufhören möchtest mit mir zu üben, kannst du mir das jederzeit sagen oder auf den Zurück Button drücken!"
 Wenn Du ganz aufhören möchtest mit mir zu üben, kannst du mir das jederzeit sagen oder einfach auf den Zurück Batten drücken \pau=1000\
-$show = "Wenn Du mit einer anderen Übung weitermachen möchtest, sag mir einfach dass Du etwas anderes üben möchtest"
+$show = "Wenn Du mit einer anderen Übung weitermachen möchtest, sag mir einfach dass Du ETWAS ANDERES üben möchtest"
 Wenn Du mit einer anderen Übung weitermachen möchtest, sag mir einfach dass Du \pau=200\ etwas anderes üben \pau=200\ möchtest! \pau=1000\
 $show= "In Ordnung? Sollen wir mit Sätzen beginnen?"
 In Ordnung? Sollen wir mit Sätzen beginnen?
@@ -188,9 +188,10 @@ Hier kommt mein Satz \pau=300\ Petra nimmt die Torten aus dem Tiefkühlschrank.
 
 proposal:%SENTENCES
 $show = "Katja kauft die Karten für das Tennisturnier an der Kasse."
-Dieser Satz ist etwas schwieriger \pau=300\ Katja kauft die Karten für das Tennisturnier an der Kasse.
+Dieser ist etwas schwieriger \pau=300\ Katja kauft die Karten für das Tennisturnier an der Kasse.
     u1:("Katja kauft die Karten für das Tennisturnier an der Kasse.")
         $show = "Gut gemacht! Dieser Satz war wirklich schwierig!"
+        ^execute(yeah)
         ^rand["Sehr gut!" "Klasse!" "Prima!" "Gut gemacht!"] ^gotoRandom(SENTENCES)
     u1:(~done)
         $show = "In Ordnung, dann sind wir erst einmal fertig! Bis bald zur nächsten Übung!"
@@ -252,6 +253,7 @@ $show = "Was Hänschen nicht lernt, lernt Hans nimmermehr."
 Jetzt habe ich ein Sprichwort \pau=300\ Was Hänschen nicht lernt, lernt Hans nimmermehr.
     u1:("Was Hänschen nicht lernt, lernt Hans nimmermehr")
         $show = "Prima! Das war sehr gut! "
+        ^execute(thats_it)
         ^rand[
             "Sehr gut! Dabei war das Sprichwort schon etwas schwieriger!"
             "Klasse! Das Sprichwort ist gar nicht so leicht, aber es war sehr gut gesprochen!"
@@ -286,6 +288,7 @@ $show = "Probieren geht über studieren!"
 Mein Satz ist eine Redewendung, wahrscheinlich kennst du es! Bitte sprich mir nach \pau=300\ Probieren geht über studieren.
     u1:("Probieren geht über studieren")
         $show = "Sehr gut! Das hat ja prima geklappt!"
+        ^execute(yeah)
         ^rand[
             "Sehr gut! Das hat ja prima geklappt!"
             "Das klappt ja sehr gut mit dieser Redewendung!"
@@ -487,7 +490,8 @@ proposal:%SENTENCES
 $show = "Karin verkauft Kirschen auf dem Kirchplatz."
 Sprich mir einfach nach...  \pau=300\ Karin verkauft Kirschen auf dem Kirchplatz.
     u1:("Karin verkauft Kirschen auf dem Kirchplatz")
-        $show = "Prima!"
+        $show = "Prima! Und das war ein sehr schwieriger Satz!"
+        ^execute(yeah)
         ^rand[
             "Absolut richtig! Dabei sind diese sch und ch-Laute wirklich schwierig!"
             "Das war sehr gut! Und vollkommen richtig ausgesprochen."
@@ -549,4 +553,37 @@ Hier kommt mein nächster Satz \pau=300\ Tom ist ein toller Musiker, er spielt T
         ^rand [
             "Versuchen wir diesen Satz noch einmal \pau=300\ Tom ist ein toller Musiker, er spielt Tuba und Trompete."
             "Übung macht den Meister. Ich spreche Dir den Satz einfach noch mal vor \pau=300\ Tom ist ein toller Musiker, er spielt Tuba und Trompete."
+        ]^stayInScope
+
+proposal:%SENTENCES
+$show = "Ben ist Klassenbester im Basketball."
+Mein Satz hat etwas mit meinem Lieblingssport zu tun! ^execute(ball) Basketball! \pau=300\ Ben ist Klassenbester im Basketball.
+    u1:("Ben ist Klassenbester im Basketball.")
+        $show = "Sehr gut gesprochen!"
+        ^rand[
+            "Prima, das wirklich sehr gut!"
+            "Klasse, das hat ja prima geklappt!"
+        ] ^gotoRandom(SENTENCES)
+    u1:(~done)
+        $show = "In Ordnung, hören wir erst mal auf. Ich freue mich schon auf eine nächste Übung mit dir!"
+        In Ordnung, hören wir erst mal auf. Ich freue mich schon auf eine nächste Übung mit dir! ^endDiscuss(userWish)
+    u1:(~next)
+        $show = "Okay, machen wir mit einem anderen Satz weiter!"
+        Okay, machen wir mit einem anderen Satz weiter! ^gotoRandom(SENTENCES)
+    u1:(~sthing_else)
+        $show = "Okay, üben wir etwas anderes! Was möchtest Du machen? Buchstaben, Worte oder Lückentexte?"
+        Okay, üben wir etwas anderes! Was möchtest Du machen? Buchstaben, Wote oder Lückentexte?
+            u2:([Worte Wort])
+                $show = "Worte"
+                    In Ordnung, üben wir Worte! ^topic(top_words)
+            u2:([Buchstaben Buchstabe])
+                $show = "Buchstaben"
+                Kein Problem - dann geht's jetzt los mit Buchstaben! ^topic(top_letters)
+            u2:([Lückentexte Lückentext])
+                    $show = "Lückentexte"
+                    Lückentexte klingt gut! ^topic(top_comp_sentence)
+    u1:(*)
+        ^rand [
+            "Versuchen wir diesen Satz noch einmal \pau=300\ Ben ist Klassenbester im Basketball."
+            "Übung macht den Meister. Ich spreche Dir den Satz einfach noch mal vor \pau=300\ Ben ist Klassenbester im Basketball."
         ]^stayInScope

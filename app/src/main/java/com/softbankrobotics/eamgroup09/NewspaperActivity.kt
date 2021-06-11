@@ -15,19 +15,26 @@ import com.aldebaran.qi.sdk.`object`.locale.Locale
 import com.aldebaran.qi.sdk.`object`.locale.Region
 import com.aldebaran.qi.sdk.builder.ChatBuilder
 import com.aldebaran.qi.sdk.builder.QiChatbotBuilder
+import com.aldebaran.qi.sdk.builder.SayBuilder
 import com.aldebaran.qi.sdk.builder.TopicBuilder
 import com.aldebaran.qi.sdk.design.activity.RobotActivity
+import com.aldebaran.qi.sdk.design.activity.conversationstatus.SpeechBarDisplayStrategy
+import kotlin.concurrent.thread
 
 class NewspaperActivity: RobotActivity(), RobotLifecycleCallbacks {
     val TAG = "FragmentActivity"                                    //Set language to German
     val locale: Locale = Locale(Language.GERMAN, Region.GERMANY)
     lateinit var topNews : Topic
     lateinit var newsChatbot: QiChatbot
-    lateinit var chat : Chat
+    lateinit var newsChat : Chat
+    lateinit var newsLabel : TextView
+    lateinit var readtomeLabel : TextView
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         QiSDK.register(this, this )
+        setSpeechBarDisplayStrategy(SpeechBarDisplayStrategy.OVERLAY)
         setContentView(R.layout.activity_newspaper)
     }
 
@@ -38,36 +45,53 @@ class NewspaperActivity: RobotActivity(), RobotLifecycleCallbacks {
             startActivity(changeToMain)
         }
 
-        // Chat Action - Topic top_quiz TODO
+       //  val newsPhrase: Phrase = Phrase("Hallo")
+       //  val newsSay: Say = SayBuilder.with(qiContext).withPhrase(newsPhrase).withLocale(locale).build()
+       //  newsSay.run()
+
+        thread { beginNewsChat(qiContext) }
+    }
+
+    fun beginNewsChat(qiContext: QiContext?) {
+        newsLabel = findViewById<TextView>(R.id.tv_newsLable)
+        readtomeLabel = findViewById<TextView>(R.id.tv_readtome)
+
+        // Chat Action - Topic top_quiz
         topNews = TopicBuilder.with(qiContext).withResource(R.raw.top_newspaper).build()
         newsChatbot = QiChatbotBuilder.with(qiContext).withLocale(locale).withTopic(topNews).build()
 
         // In case animations are needed, pls add to the hashMap, also add Executor and Runnable
-        val executors = hashMapOf(
+   /*     val executors = hashMapOf(
             "hello" to HelloExecutor(qiContext),
             "nice" to NiceExecutor(qiContext)
         )
         // Set Executors to qiChatbot -> NOTHING TO DO!
         newsChatbot.executors = executors as Map<String, QiChatExecutor>?
 
+
+    */
         // Set QiChat Variable to TextView
-        val newsLabel = findViewById<TextView>(R.id.tv_newsLable)
         newsChatbot.variable("headline").addOnValueChangedListener {
             runOnUiThread {
                 newsLabel.text = it
             }
         }
-        // build Chat (QiContextm qiChatbot, Locale) -> NOTHING TO DO!
-        chat = ChatBuilder.with(qiContext).withChatbot(newsChatbot).withLocale(locale).build()
-        chat.addOnStartedListener { goToBookmark("READTOME") }
 
-        val fchat: Future<Void> = chat.async().run()
+        newsChatbot.variable("readtome").addOnValueChangedListener {
+            runOnUiThread {
+               readtomeLabel.text = it
+            }
+        }
+        // build Chat (QiContextm qiChatbot, Locale) -> NOTHING TO DO!
+        newsChat = ChatBuilder.with(qiContext).withChatbot(newsChatbot).withLocale(locale).build()
+        newsChat.addOnStartedListener { goToBookmark("READTOME") }
+
+        val fNchat: Future<Void> = newsChat.async().run()
 
         // Stop the chat when the qichatbot is done
-        // TODO Use End reason in the topic -> Command ^endDiscuss(chooseEndReason)
         newsChatbot.addOnEndedListener { endReason ->
             Log.i(TAG, "qichatbot end reason = $endReason")
-            fchat.requestCancellation()
+            fNchat.requestCancellation()
         }
     }
 

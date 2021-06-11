@@ -16,13 +16,13 @@ $hint = ""
 $show = "Prima, Du möchtest Worte mit mir üben! Soll ich noch erklären wie es geht oder sollen wir gleich anfangen?"
 Prima, Du möchtest Worte mit mir üben! Soll ich noch kurz erklären wie es geht oder legen wir gleich los?
     u1:(~explain) In Ordnung! ^enableThenGoto(WORDEXPLAIN)
-    u1:(~start) Dann gehts direkt los mit dem ersten Wort! ^gotoRandom(WORDS)
+    u1:(~start) ^execute(affirm) Dann gehts direkt los mit dem ersten Wort! ^gotoRandom(WORDS)
 
 proposal:%WORDEXPLAIN
 $correct = ""
 $hint = ""
 $show = "Hier zeige ich Dir das jeweilige Wort an!"
-Ich werde Dir Worte im Display anzeigen und vorsprechen und Du sprichst mir einfach nach! \pau=1000\
+Ich werde Dir Worte im Display anzeigen ^execute(show_tab) und dann vorsprechen und Du sprichst mir einfach nach! \pau=1000\
 $show = "Wenn Du eins meiner Worte nicht üben möchtest, sag einfach WEITER, dann gehe ich zum nächsten!"
 Wenn Du eins meiner Worte nicht üben möchtest, sag einfach \pau=200\ weiter \pau=200\, dann gehe ich zum nächsten!
 $show = "Wenn Du aufhören möchtest mit mir zu üben, kannst du mir das jederzeit sagen oder auf den Zurück Button drücken!"
@@ -399,7 +399,7 @@ Ich bin ein kleines Leckermäulchen und denke an Kuchen.. daher jetzt mein Wort 
 
 proposal:%WORDS
 $show = "Eichhörnchen"
-Das Wort ist nun schon etwas schwieriger \pau=300\ Eichhörnchen.
+Das Wort ist nun schon etwas schwieriger ^execute(ask) \pau=300\ Eichhörnchen.
     u1:("Eichhörnchen")
         $show = "Perfekt!"
         ^rand["Sehr gut!" "Klasse!" "Prima!" "Gut gemacht!" "Perfekt!" "Super!"] ^gotoRandom(WORDS)
@@ -524,6 +524,7 @@ $show = "Esszimmertischtischdecke"
 Dieses Wort ist recht schwierig... versuchen wir es. \pau=300\ Esszimmer Tisch Tischdecke.
     u1:("Esszimmer Tisch Tischdecke")
         $show = "Richtig gut!"
+        ^execute(thats_it)
         ^rand[
             "Das war richtig gut! Und dieses Wort ist wirklich schwierig!"
             "Sehr gut - und ich muss zugeben, dieses Wort musste ich auch üben!"
@@ -555,9 +556,10 @@ Dieses Wort ist recht schwierig... versuchen wir es. \pau=300\ Esszimmer Tisch T
 
 proposal:%WORDS
 $show = "Ersatzteillagermitarbeiter"
-Jetzt habe ich eines dieser zusammengesetzen Worte. Hier kommt es  \pau=300\ Ersatzteillagermitarbeiter.
+Jetzt habe ich eines dieser zusammengesetzen Worte. ^execute(affirm) Hier kommt es  \pau=300\ Ersatzteillagermitarbeiter.
     u1:(Ersatzteillagermitarbeiter)
         $show = "Klasse - das war sehr gut!"
+        ^execute(thats_it)
         ^rand[
             "Das war prima! Und das bei einem so langen und schwierigen Wort!"
             "Sehr gut! Das hat ja wirklich toll geklappt!"
@@ -654,6 +656,7 @@ $show = "Lichtzeichen"
 Hier kommt mein Wort. Es lautet... \pau=300\ Lichtzeichen.
     u1:(Medikamentenbeipackzettel)
         $show = "Ein schwieriges Wort, aber sehr gut gesprochen!"
+        ^execute(thats_it)
         ^rand[
             "Das war prima! Dabei sind Worte mit ch-Lauten immer schwierig!"
             "Sehr gut! Das hat ja wirklich toll geklappt!"

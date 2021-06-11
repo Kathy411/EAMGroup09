@@ -16,13 +16,13 @@ $hint = ""
 $show = "Prima, Du möchtest Lückentexte mit mir üben! Soll ich noch erklären wie es geht oder sollen wir gleich anfangen?"
 Prima, Du möchtest Lückentexte mit mir üben! Soll ich noch kurz erklären wie es geht oder legen wir gleich los?
     u1:(~explain) In Ordnung! ^enableThenGoto(COMPSENTEXPLAIN)
-    u1:(~start) Dann gehts direkt los mit dem ersten Text! ^gotoRandom(COMP)
+    u1:(~start) ^execute(enum) Dann gehts direkt los mit dem ersten Text! ^gotoRandom(COMP)
 
 
 proposal:%COMPSENTEXPLAIN
 $hint = "Hier zeige ich Dir verschiedene Worte an... "
 $show = "...und hier steht der Satz, in den Du eines der Worte einsetzen sollst! "
-Ich zeige Dir jeweils drei einzelne Worte an. Dazu zeige ich Dir einen Satz mit einer Lücke. Eines der Worte ergänzt den Satz. Du suchst das passende Wort aus und liest mir den Satz vor!
+Ich zeige Dir jeweils drei einzelne Worte an in meinem Display an. ^execute(show_tab) Dazu zeige ich Dir einen Satz mit einer Lücke. Eines der Worte ergänzt den Satz. Du suchst das passende Wort aus und liest mir den Satz vor!
 Hier ein Beispiel
 $hint = "Hund   Schlüssel   Flaschenöffner "
 $show = "Um die Tür aufzuschließen brauche ich einen ___________ !"
@@ -31,12 +31,21 @@ $hint = ""
 $correct = "Schlüssel"
 $show = "Um die Tür aufzuschließen brauche ich einen Schlüssel!"
 Du setzt das richtige Wort in den Satz ein und liest mir den Satz dann vor, zum Beispiel \pau=300\ Um die Tür aufzuschliessen brauche ich einen Schlüssel.
+$hint =""
+$correct = ""
+$show = "Wenn Du einen bestimmten Lückentext nicht üben möchtest, sag einfach WEITER, dann gehe ich zum nächsten!"
+Wenn Du einen bestimmten Lückentext nicht üben möchtest, sag einfach \pau=200\ weiter \pau=200\, dann gehe ich zum nächsten!
+$show = "Wenn Du ganz aufhören möchtest mit mir zu üben, kannst du mir das jederzeit sagen oder auf den Zurück Button drücken!"
+Wenn Du ganz aufhören möchtest mit mir zu üben, kannst du mir das jederzeit sagen oder einfach auf den Zurück Batten drücken \pau=1000\
+$show = "Wenn Du mit einer anderen Übung weitermachen möchtest, sag mir einfach dass Du ETWAS ANDERES üben möchtest"
+Wenn Du mit einer anderen Übung weitermachen möchtest, sag mir einfach dass Du \pau=200\ etwas anderes üben \pau=200\ möchtest! \pau=1000\
+$show = "In Ordnung? Sollen wir anfangen?"
 In Ordnung? Sollen wir anfangen?
 
     u1:(~confirmation_yes)
         $correct=""
         $show ="Prima! Fangen wir an!"
-        Prima - fangen wir an! ^gotoRandom(COMP)
+        ^execute(enum) Prima - fangen wir an! ^gotoRandom(COMP)
     u1:(~sthing_else)
         $show = "Okay, üben wir etwas anderes! Was möchtest Du machen? Buchstaben, Worte oder Lückentexte?"
         Okay, üben wir etwas anderes! Was möchtest Du machen? Buchstaben, Wote oder Lückentexte?

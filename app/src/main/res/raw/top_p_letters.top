@@ -23,7 +23,7 @@ Prima, Du magst Buchstaben mit mir üben! Soll ich noch kurz erklären wie es ge
 
 proposal:%LETTEREXPLAIN
 $show = "Hier zeige ich Dir die jeweiligen Buchstaben an!"
-Ich werde Dir Kombinationen von Buchstaben im Display zeigen und vorsprechen und Du sprichst mir einfach nach.
+Ich werde Dir Kombinationen von Buchstaben im Display zeigen ^execute(show_tab) und vorsprechen und Du sprichst mir einfach nach.
 $show = "Wenn Du eine meiner Buchstabenkombinationen nicht üben möchtest, sag einfach WEITER, dann gehe ich zur nächsten!"
 Wenn Du einen meine meiner Buchstabenkombinationen nicht üben möchtest, sag einfach \pau=200\ weiter \pau=200\, dann gehe ich zur nächsten!
 $show = "Wenn Du ganz aufhören möchtest mit mir zu üben, kannst du mir das jederzeit sagen oder auf den Zurück Button drücken!"
@@ -85,7 +85,7 @@ Die Bustaben lauten \pau=300\ P  K  T.
 
 proposal:%LETTERS
 $show = "T - T - P - K - T"
-Jetzt ein bisschen schwieriger \pau=300\ T T P K T.
+Jetzt ein bisschen schwieriger ^execute(ask) \pau=300\ T T P K T.
     u1:(T T P K T)
         $show = "Gut gemacht!"
         ^rand["Sehr gut!" "Klasse!" "Prima!" "Gut gemacht!" "Perfekt"] ^gotoRandom(LETTERS)
@@ -145,7 +145,7 @@ Hier kommen die Buchstaben \pau=300\ P P K.
 
 proposal:%LETTERS
 $show = "K - P - K - T - P"
-Es wird ein bisschen schwieriger \pau=300\ K P K T P.
+Es wird ein bisschen schwieriger ^execute(ask) \pau=300\ K P K T P.
     u1:(K P K T P)
         $show = "Prima!"
         ^rand["Sehr gut!" "Klasse!" "Prima!" "Gut gemacht!" "Perfekt!"] ^gotoRandom(LETTERS)
@@ -236,7 +236,7 @@ Hier kommen meine Buchstaben \pau=300\ P F C.
 
 proposal:%LETTERS
 $show = "C-S-P-T"
-Es wird wieder etwas schwieriger. Hier kommen meine Buchstaben \pau=300\ C S P T.
+Es wird wieder etwas schwieriger. ^execute(ask) Hier kommen meine Buchstaben \pau=300\ C S P T.
     u1:(C S P T)
         $show = "Sehr gut!"
         ^rand["Sehr gut!" "Klasse!" "Prima!" "Gut gemacht!"] ^gotoRandom(LETTERS)
@@ -328,7 +328,7 @@ Meine Buchstaben lauten \pau=300\ P P K.
 #10
 proposal:%LETTERS
 $show = "K-P-T-K-K"
-Jetzt wird es etwas schwieriger. Hier kommen meine Buchstaben \pau=300\ K P T K K.
+Jetzt wird es etwas schwieriger. ^execute(enum) Hier kommen meine Buchstaben \pau=300\ K P T K K.
     u1:(K P T K K)
         $show = "Klasse!"
         ^rand["Sehr gut!" "Klasse!" "Prima!" "Gut gemacht!"] ^gotoRandom(LETTERS)
@@ -358,7 +358,7 @@ Jetzt wird es etwas schwieriger. Hier kommen meine Buchstaben \pau=300\ K P T K 
 
 proposal:%LETTERS
 $show = "K-P-K-T-P"
-Etwas schwieriger sind die Buchstaben hier \pau=300\ K P K T P.
+Etwas schwieriger sind die Buchstaben hier ^execute(affirm) \pau=300\ K P K T P.
     u1:(K P T K K)
         $show = "Klasse!"
         ^rand["Sehr gut!" "Klasse!" "Prima!" "Gut gemacht!"] ^gotoRandom(LETTERS)

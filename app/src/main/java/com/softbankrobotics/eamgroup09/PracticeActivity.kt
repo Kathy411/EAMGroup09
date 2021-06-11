@@ -75,7 +75,12 @@ class PracticeActivity: RobotActivity(), RobotLifecycleCallbacks {
                 "nice" to NiceExecutor(qiContext),
                 "affirm" to AffirmExecutor(qiContext),
                 "enum" to EnumExecutor(qiContext),
-                "disappointed" to DisappointedExecutor(qiContext)
+                "disappointed" to DisappointedExecutor(qiContext),
+                "show_tab" to ShowTabletExecutor(qiContext),
+                "ask" to QuestionExecutor(qiContext),
+                "thats_it" to ThatsItExecutor(qiContext),
+                "yeah" to YeahExecutor(qiContext),
+                "ball" to BasketballExecutor(qiContext)
         )
 
         // Set Executors to qiChatbot
