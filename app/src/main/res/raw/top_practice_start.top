@@ -10,16 +10,16 @@ $show = "Wie schön - Du willst mit mir üben! Was würdest Du denn gerne üben?
 ]
     u1:([Worte Wort])
         $show = "Worte"
-        Prima - dann geht's los mit Worten! ^topic(top_words)
+        Sehr gut - dann geht's los! ^topic(top_words)
     u1:([Sätze Satz])
         $show = "Sätze"
-        Sätze klingt gut... Los geht's! ^topic(top_sentences)
+        Das klingt gut... Los geht's! ^topic(top_sentences)
     u1:([Buchstaben Buchstabe])
         $show = "Buchstaben"
-        Sehr gut, dann geht es los mit Übungen zu Buchstaben! ^topic(top_letters)
+        Sehr gut, dann geht es direkt los! ^topic(top_letters)
     u1:("[Lückentexte Lückentext Text]")
         $show = "Lückentexte"
-        Oh ja prima, dann üben wir Lückentexte! ^topic(top_comp_sentence)
+        Oh ja prima, fangen wir doch gleich an! ^topic(top_comp_sentence)
     u1:(~mistake)
         $show = "Da habe ich Dich falsch verstanden! Tut mir leid!"
         Oh, dann habe ich Dich falsch verstanden! Entschuldige! ^endDiscuss(userWish)

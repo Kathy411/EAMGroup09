@@ -1,13 +1,38 @@
 topic: ~top_letters()
 
-concept:(confirmation_yes) [okay ja gut "in ordnung" passt gerne sicher natürlich "ja bitte" ]
-concept:(confirmation_no) [Nein "lieber nicht" nicht "denke nicht" "nein danke" nee nö "eher nicht"]
+# u2 anpassen
+#### Bisher nur 13 ######
+
+concept:(confirmation_yes) [okay ja gut "in ordnung" passt gerne sicher natürlich "ja bitte" klar  ]
+concept:(confirmation_no) [Nein "lieber nicht" nicht "denke nicht" "nein danke" nee nö "eher nicht" nee]
 concept:(done) [aufhören genug "nicht mehr" "keine Lust {mehr}" ]
+concept:(sthing_else) ["etwas anderes" lieber "doch lieber" anders anderes andere "andere Übung" "etwas anderes üben" "Ich möchte etwas anderes üben"]
+concept:(next)[weiter nächster nächste]
+concept:(explain)[erklären erklär erkläre Erklärung erzähl "wie geht es"]
+concept:(start)[anfangen "fang an" "fang ruhig an" "ich weiss wie es geht" "können anfangen"]
+
 
 proposal:%LETTERSTART
+$correct = ""
+$hint = ""
+$show = "Prima, Du magst Buchstaben mit mir üben! Soll ich noch erklären wie es geht oder sollen wir gleich anfangen?"
+Prima, Du magst Buchstaben mit mir üben! Soll ich noch kurz erklären wie es geht oder legen wir gleich los?
+    u1:(~explain) In Ordnung! ^enableThenGoto(LETTEREXPLAIN)
+    u1:(~start) Dann gehts direkt los mit den ersten Buchstaben! ^gotoRandom(LETTERS)
+
+
+proposal:%LETTEREXPLAIN
 $show = "Hier zeige ich Dir die jeweiligen Buchstaben an!"
-Ich werde Dir Kombinationen von Buchstaben im Display zeigen und vorsprechen und Du sprichst mir einfach nach, in Ordnung?
-Wenn Du irgendwann keine Lust mehr hast, sag mir einfach Bescheid oder nutze den Zurück-Button.
+Ich werde Dir Kombinationen von Buchstaben im Display zeigen und vorsprechen und Du sprichst mir einfach nach.
+$show = "Wenn Du eine meiner Buchstabenkombinationen nicht üben möchtest, sag einfach WEITER, dann gehe ich zur nächsten!"
+Wenn Du einen meine meiner Buchstabenkombinationen nicht üben möchtest, sag einfach \pau=200\ weiter \pau=200\, dann gehe ich zur nächsten!
+$show = "Wenn Du ganz aufhören möchtest mit mir zu üben, kannst du mir das jederzeit sagen oder auf den Zurück Button drücken!"
+Wenn Du ganz aufhören möchtest mit mir zu üben, kannst du mir das jederzeit sagen oder einfach auf den Zurück Batten drücken \pau=1000\
+$show = "Wenn Du mit einer anderen Übung weitermachen möchtest, sag mir einfach dass Du etwas anderes üben möchtest"
+Wenn Du mit einer anderen Übung weitermachen möchtest, sag mir einfach dass Du \pau=200\ etwas anderes üben \pau=200\ möchtest! \pau=1000\
+$show= "In Ordnung? Sollen wir mit den Buchstaben beginnen?"
+In Ordnung? Sollen wir mit den Buchstaben beginnen?
+
     u1:(~confirmation_yes)
         $show = "Fangen wir an!"
         Sehr gut - fangen wir an! ^gotoRandom(LETTERS)
@@ -37,6 +62,21 @@ Die Bustaben lauten \pau=300\ P  K  T.
     u1:(~done)
         $show = "Dann hören wir auf für heute! Die Übung hat mir Spass gemacht!"
         Dann hören wir auf für heute! Die Übung hat mir Spass gemacht! ^endDiscuss(userWish)
+    u1:(~next)
+        $show = "Okay, machen wir mit anderen Buchstaben weiter!"
+        Okay, machen wir mit einem anderen Satz weiter! ^gotoRandom(LETTERS)
+    u1:(~sthing_else)
+        $show = "Okay, üben wir etwas anderes! Was möchtest Du machen? Worte, Sätze oder Lückentexte?"
+        Okay, üben wir etwas anderes! Was möchtest Du machen? Worte, Sätze oder Lückentexte?
+            u2:([Worte Wort])
+                $show = "Worte"
+                    In Ordnung, üben wir Worte! ^topic(top_words)
+            u2:([Sätze Satz])
+                $show = "Sätze"
+                Kein Problem - dann geht's jetzt los mit Sätzen! ^topic(top_sentence)
+            u2:([Lückentexte Lückentext])
+                    $show = "Lückentexte"
+                    Lückentexte klingt gut! ^topic(top_comp_sentence)
     u1:(*)
         ^rand[
             "Versuchen wir es noch einmal gemeinsam - die Buchstaben lauten \pau=300\ P  K  T."
@@ -52,6 +92,21 @@ Jetzt ein bisschen schwieriger \pau=300\ T T P K T.
     u1:(~done)
         $show = "In Ordnung, genug Buchstaben für heute! Es hat mir Spass gemacht!"
         In Ordnung, genug Buchstaben für heute! Es hat mir Spass gemacht! ^endDiscuss(userWish)
+    u1:(~next)
+        $show = "Okay, machen wir mit anderen Buchstaben weiter!"
+        Okay, machen wir mit einem anderen Satz weiter! ^gotoRandom(LETTERS)
+    u1:(~sthing_else)
+        $show = "Okay, üben wir etwas anderes! Was möchtest Du machen? Worte, Sätze oder Lückentexte?"
+        Okay, üben wir etwas anderes! Was möchtest Du machen? Worte, Sätze oder Lückentexte?
+            u2:([Worte Wort])
+                $show = "Worte"
+                    In Ordnung, üben wir Worte! ^topic(top_words)
+            u2:([Sätze Satz])
+                $show = "Sätze"
+                Kein Problem - dann geht's jetzt los mit Sätzen! ^topic(top_sentence)
+            u2:([Lückentexte Lückentext])
+                    $show = "Lückentexte"
+                    Lückentexte klingt gut! ^topic(top_comp_sentence)
     u1:(*)
         ^rand [
             "Versuchen wir es noch einmal - die Buchstaben lauten \pau=300\ T T P K T."
@@ -67,6 +122,21 @@ Hier kommen die Buchstaben \pau=300\ P P K.
     u1:(~done)
         $show = "In Ordnung, dann sind wir erst mal fertig! Ich hatte Spass an der Übung!"
         In Ordnung, dann sind wir erst mal fertig! Ich hatte Spass an der Übung! ^endDiscuss(userWish)
+    u1:(~next)
+        $show = "Okay, machen wir mit anderen Buchstaben weiter!"
+        Okay, machen wir mit einem anderen Satz weiter! ^gotoRandom(LETTERS)
+    u1:(~sthing_else)
+        $show = "Okay, üben wir etwas anderes! Was möchtest Du machen? Worte, Sätze oder Lückentexte?"
+        Okay, üben wir etwas anderes! Was möchtest Du machen? Worte, Sätze oder Lückentexte?
+            u2:([Worte Wort])
+                $show = "Worte"
+                    In Ordnung, üben wir Worte! ^topic(top_words)
+            u2:([Sätze Satz])
+                $show = "Sätze"
+                Kein Problem - dann geht's jetzt los mit Sätzen! ^topic(top_sentence)
+            u2:([Lückentexte Lückentext])
+                    $show = "Lückentexte"
+                    Lückentexte klingt gut! ^topic(top_comp_sentence)
     u1:(*)
         ^rand [
             "Übung macht den Meister! Versuchen wir es gemeinsam noch einmal! \pau=300\ P P K"
@@ -82,6 +152,21 @@ Es wird ein bisschen schwieriger \pau=300\ K P K T P.
     u1:(~done)
         $show = "In Ordnung! Die Übung hat mir Spass gemacht!"
         In Ordnung! Die Übung hat mir Spass gemacht! ^endDiscuss(userWish)
+    u1:(~next)
+        $show = "Okay, machen wir mit anderen Buchstaben weiter!"
+        Okay, machen wir mit einem anderen Satz weiter! ^gotoRandom(LETTERS)
+    u1:(~sthing_else)
+        $show = "Okay, üben wir etwas anderes! Was möchtest Du machen? Worte, Sätze oder Lückentexte?"
+        Okay, üben wir etwas anderes! Was möchtest Du machen? Worte, Sätze oder Lückentexte?
+            u2:([Worte Wort])
+                $show = "Worte"
+                    In Ordnung, üben wir Worte! ^topic(top_words)
+            u2:([Sätze Satz])
+                $show = "Sätze"
+                Kein Problem - dann geht's jetzt los mit Sätzen! ^topic(top_sentence)
+            u2:([Lückentexte Lückentext])
+                    $show = "Lückentexte"
+                    Lückentexte klingt gut! ^topic(top_comp_sentence)
     u1:(*)
         ^rand [
             "Lass uns das gleich noch einmal probieren! Die Buchstaben lauten \pau=300\ K P K T P"
@@ -97,6 +182,21 @@ Hier kommen meine Buchstaben \pau=300\ T K T.
     u1:(~done)
         $show = "Das ist in Ordnung, hören wir auf für heute! Es hat mir aber wirklich Freude gemacht mit Dir zu üben!"
         Das ist in Ordnung, hören wir auf für heute! Es hat mir aber wirklich Freude gemacht mit Dir zu üben! ^endDiscuss(userWish)
+    u1:(~next)
+        $show = "Okay, machen wir mit anderen Buchstaben weiter!"
+        Okay, machen wir mit einem anderen Satz weiter! ^gotoRandom(LETTERS)
+    u1:(~sthing_else)
+        $show = "Okay, üben wir etwas anderes! Was möchtest Du machen? Worte, Sätze oder Lückentexte?"
+        Okay, üben wir etwas anderes! Was möchtest Du machen? Worte, Sätze oder Lückentexte?
+            u2:([Worte Wort])
+                $show = "Worte"
+                    In Ordnung, üben wir Worte! ^topic(top_words)
+            u2:([Sätze Satz])
+                $show = "Sätze"
+                Kein Problem - dann geht's jetzt los mit Sätzen! ^topic(top_sentence)
+            u2:([Lückentexte Lückentext])
+                    $show = "Lückentexte"
+                    Lückentexte klingt gut! ^topic(top_comp_sentence)
     u1:(*)
         ^rand [
             "Übung macht den Meister. Lass uns gleich noch einmmal versuchen. Die Buchstaben lauten \pau=300\ K P K T P"
@@ -112,6 +212,21 @@ Hier kommen meine Buchstaben \pau=300\ P F C.
     u1:(~done)
         $show = "Das ist in Ordnung, hören wir auf für heute! Es hat mir aber wirklich Freude gemacht mit Dir zu üben!"
         Das ist in Ordnung, hören wir auf für heute! Es hat mir aber wirklich Freude gemacht mit Dir zu üben! ^endDiscuss(userWish)
+    u1:(~next)
+        $show = "Okay, machen wir mit anderen Buchstaben weiter!"
+        Okay, machen wir mit einem anderen Satz weiter! ^gotoRandom(LETTERS)
+    u1:(~sthing_else)
+        $show = "Okay, üben wir etwas anderes! Was möchtest Du machen? Worte, Sätze oder Lückentexte?"
+        Okay, üben wir etwas anderes! Was möchtest Du machen? Worte, Sätze oder Lückentexte?
+            u2:([Worte Wort])
+                $show = "Worte"
+                    In Ordnung, üben wir Worte! ^topic(top_words)
+            u2:([Sätze Satz])
+                $show = "Sätze"
+                Kein Problem - dann geht's jetzt los mit Sätzen! ^topic(top_sentence)
+            u2:([Lückentexte Lückentext])
+                    $show = "Lückentexte"
+                    Lückentexte klingt gut! ^topic(top_comp_sentence)
     u1:(*)
         ^rand [
             "Die Kombination ist nicht so einfach. Versuchen wir es doch noch einmal. Die Bustaben lauten \pau=300\ P F C"
@@ -128,6 +243,21 @@ Es wird wieder etwas schwieriger. Hier kommen meine Buchstaben \pau=300\ C S P T
     u1:(~done)
         $show = "Kein Problem, dann hören wir auf für heute! Ich freue mich schon aufs nächste Mal!"
         Kein Problem, dann hören wir auf für heute! Ich freue mich schon aufs nächste Mal! ^endDiscuss(userWish)
+    u1:(~next)
+        $show = "Okay, machen wir mit anderen Buchstaben weiter!"
+        Okay, machen wir mit einem anderen Satz weiter! ^gotoRandom(LETTERS)
+    u1:(~sthing_else)
+        $show = "Okay, üben wir etwas anderes! Was möchtest Du machen? Worte, Sätze oder Lückentexte?"
+        Okay, üben wir etwas anderes! Was möchtest Du machen? Worte, Sätze oder Lückentexte?
+            u2:([Worte Wort])
+                $show = "Worte"
+                    In Ordnung, üben wir Worte! ^topic(top_words)
+            u2:([Sätze Satz])
+                $show = "Sätze"
+                Kein Problem - dann geht's jetzt los mit Sätzen! ^topic(top_sentence)
+            u2:([Lückentexte Lückentext])
+                    $show = "Lückentexte"
+                    Lückentexte klingt gut! ^topic(top_comp_sentence)
     u1:(*)
         ^rand [
             "Ich glaube da war ein kleiner Fehler drin. Lass es uns gemeinsam noch einmal versuchen! Ich spreche noch mal vor \pau=300\ C S P T."
@@ -144,9 +274,175 @@ Hier kommen meine Buchstaben \pau=300\ R F S O.
     u1:(~done)
         $show = "Das ist in Ordnung, hören wir auf für heute! Es hat mir aber wirklich Freude gemacht mit Dir zu üben!"
         Das ist in Ordnung, hören wir auf für heute! Es hat mir aber wirklich Freude gemacht mit Dir zu üben! ^endDiscuss(userWish)
+    u1:(~next)
+        $show = "Okay, machen wir mit anderen Buchstaben weiter!"
+        Okay, machen wir mit einem anderen Satz weiter! ^gotoRandom(LETTERS)
+    u1:(~sthing_else)
+        $show = "Okay, üben wir etwas anderes! Was möchtest Du machen? Worte, Sätze oder Lückentexte?"
+        Okay, üben wir etwas anderes! Was möchtest Du machen? Worte, Sätze oder Lückentexte?
+            u2:([Worte Wort])
+                $show = "Worte"
+                    In Ordnung, üben wir Worte! ^topic(top_words)
+            u2:([Sätze Satz])
+                $show = "Sätze"
+                Kein Problem - dann geht's jetzt los mit Sätzen! ^topic(top_sentence)
+            u2:([Lückentexte Lückentext])
+                    $show = "Lückentexte"
+                    Lückentexte klingt gut! ^topic(top_comp_sentence)
     u1:(*)
         ^rand [
             "Übung macht den Meister. Lass uns gleich noch einmmal versuchen. Die Buchstaben lauten \pau=300\ R F S O."
             "Lass uns das noch einmal gemeinsam probieren. Ich spreche die Buchstaben noch einmal vor \pau=300\ R F S O."
         ]^stayInScope
 
+proposal:%LETTERS
+$show = "P-P-K"
+Meine Buchstaben lauten \pau=300\ P P K.
+    u1:(P P K)
+        $show = "Sehr gut!"
+        ^rand["Sehr gut!" "Klasse!" "Prima!" "Gut gemacht!"] ^gotoRandom(LETTERS)
+    u1:(~done)
+        $show = "Dann sind wir erst mal fertig! Aber ich fand die Übung richtig gut!"
+        Dann sind wir erst mal fertig! Aber ich fand die Übung richtig gut! ^endDiscuss(userWish)
+    u1:(~next)
+        $show = "Okay, machen wir mit anderen Buchstaben weiter!"
+        Okay, machen wir mit einem anderen Satz weiter! ^gotoRandom(LETTERS)
+    u1:(~sthing_else)
+        $show = "Okay, üben wir etwas anderes! Was möchtest Du machen? Worte, Sätze oder Lückentexte?"
+        Okay, üben wir etwas anderes! Was möchtest Du machen? Worte, Sätze oder Lückentexte?
+            u2:([Worte Wort])
+                $show = "Worte"
+                    In Ordnung, üben wir Worte! ^topic(top_words)
+            u2:([Sätze Satz])
+                $show = "Sätze"
+                Kein Problem - dann geht's jetzt los mit Sätzen! ^topic(top_sentence)
+            u2:([Lückentexte Lückentext])
+                    $show = "Lückentexte"
+                    Lückentexte klingt gut! ^topic(top_comp_sentence)
+    u1:(*)
+        ^rand [
+            "Versuchen wir es noch mal gemeinsam. Ich spreche noch einmal vor \pau=300\ R F S O."
+            "P Laute sind manchmal schon schwierig. Aber wir versuchen es einfach noch einmal \pau=300\ R F S O."
+        ]^stayInScope
+
+#10
+proposal:%LETTERS
+$show = "K-P-T-K-K"
+Jetzt wird es etwas schwieriger. Hier kommen meine Buchstaben \pau=300\ K P T K K.
+    u1:(K P T K K)
+        $show = "Klasse!"
+        ^rand["Sehr gut!" "Klasse!" "Prima!" "Gut gemacht!"] ^gotoRandom(LETTERS)
+    u1:(~done)
+        $show = "Genug Buchstaben für heute! Trotzdem hat mir die Übung mit Dir viel Freude bereitet!"
+        Genug Buchstaben für heute! Trotzdem hat mir die Übung mit Dir viel Freude bereitet! ^endDiscuss(userWish)
+    u1:(~next)
+        $show = "Okay, machen wir mit anderen Buchstaben weiter!"
+        Okay, machen wir mit einem anderen Satz weiter! ^gotoRandom(LETTERS)
+    u1:(~sthing_else)
+        $show = "Okay, üben wir etwas anderes! Was möchtest Du machen? Worte, Sätze oder Lückentexte?"
+        Okay, üben wir etwas anderes! Was möchtest Du machen? Worte, Sätze oder Lückentexte?
+            u2:([Worte Wort])
+                $show = "Worte"
+                    In Ordnung, üben wir Worte! ^topic(top_words)
+            u2:([Sätze Satz])
+                $show = "Sätze"
+                Kein Problem - dann geht's jetzt los mit Sätzen! ^topic(top_sentence)
+            u2:([Lückentexte Lückentext])
+                    $show = "Lückentexte"
+                    Lückentexte klingt gut! ^topic(top_comp_sentence)
+    u1:(*)
+        ^rand [
+            "Diese Kombination ist auch schwierig. Aber versuchen wir es einfach noch mal \pau=300\ K P T K K."
+            "Das war schon gut! Aber Übung macht den Meister. Ich spreche einfach noch mal vor \pau=300\ K P T K K."
+        ]^stayInScope
+
+proposal:%LETTERS
+$show = "K-P-K-T-P"
+Etwas schwieriger sind die Buchstaben hier \pau=300\ K P K T P.
+    u1:(K P T K K)
+        $show = "Klasse!"
+        ^rand["Sehr gut!" "Klasse!" "Prima!" "Gut gemacht!"] ^gotoRandom(LETTERS)
+    u1:(~done)
+        $show = "Genug Buchstaben für heute! Trotzdem hat mir die Übung mit Dir viel Freude bereitet!"
+        Genug Buchstaben für heute! Trotzdem hat mir die Übung mit Dir viel Freude bereitet! ^endDiscuss(userWish)
+    u1:(~next)
+        $show = "Okay, machen wir mit anderen Buchstaben weiter!"
+        Okay, machen wir mit einem anderen Satz weiter! ^gotoRandom(LETTERS)
+    u1:(~sthing_else)
+        $show = "Okay, üben wir etwas anderes! Was möchtest Du machen? Worte, Sätze oder Lückentexte?"
+        Okay, üben wir etwas anderes! Was möchtest Du machen? Worte, Sätze oder Lückentexte?
+            u2:([Worte Wort])
+                $show = "Worte"
+                    In Ordnung, üben wir Worte! ^topic(top_words)
+            u2:([Sätze Satz])
+                $show = "Sätze"
+                Kein Problem - dann geht's jetzt los mit Sätzen! ^topic(top_sentence)
+            u2:([Lückentexte Lückentext])
+                    $show = "Lückentexte"
+                    Lückentexte klingt gut! ^topic(top_comp_sentence)
+    u1:(*)
+        ^rand [
+            "Diese Kombination ist auch schwierig. Aber versuchen wir es einfach noch mal \pau=300\ K P T K K."
+            "Das war schon gut! Aber Übung macht den Meister. Ich spreche einfach noch mal vor \pau=300\ K P T K K."
+        ]^stayInScope
+
+ proposal:%LETTERS
+ $show = "S-F-P-F-S"
+Meine nächsten Buchstaben lauten \pau=300\ S F P F S.
+     u1:(K P T K K)
+         $show = "Prima"
+         ^rand["Sehr gut!" "Klasse!" "Prima!" "Gut gemacht!"] ^gotoRandom(LETTERS)
+     u1:(~done)
+         $show = "Gut, dann hören wir auf für heute! Vielen Dank für die gute Übung!"
+         Gut, dann hören wir auf für heute! Vielen Dank für die gute Übung! ^endDiscuss(userWish)
+    u1:(~next)
+        $show = "Okay, machen wir mit anderen Buchstaben weiter!"
+        Okay, machen wir mit einem anderen Satz weiter! ^gotoRandom(LETTERS)
+    u1:(~sthing_else)
+        $show = "Okay, üben wir etwas anderes! Was möchtest Du machen? Worte, Sätze oder Lückentexte?"
+        Okay, üben wir etwas anderes! Was möchtest Du machen? Worte, Sätze oder Lückentexte?
+            u2:([Worte Wort])
+                $show = "Worte"
+                    In Ordnung, üben wir Worte! ^topic(top_words)
+            u2:([Sätze Satz])
+                $show = "Sätze"
+                Kein Problem - dann geht's jetzt los mit Sätzen! ^topic(top_sentence)
+            u2:([Lückentexte Lückentext])
+                    $show = "Lückentexte"
+                    Lückentexte klingt gut! ^topic(top_comp_sentence)
+     u1:(*)
+         ^rand [
+             "Übung macht den Meister, versuchen wir es noch einmal! Ich spreche noch mal vor \pau=300\ S F P F S."
+             "Es ist nicht schlimm, wenn es nicht beim ersten Mal klappt. Versuchen wir es noch einmal \pau=300\ S F P F S."
+         ]^stayInScope
+
+
+ proposal:%LETTERS
+ $show = "O-R-S-R-T"
+Meine nächsten Buchstaben lauten \pau=300\ O R S R T.
+     u1:(O R S R T)
+         $show = "Klasse!"
+         ^rand["Sehr gut!" "Klasse!" "Prima!" "Gut gemacht!"] ^gotoRandom(LETTERS)
+     u1:(~done)
+         $show = "In Ordnung, es war eine gute Übung und ich freue mich schon aufs nächste Mal! Bis dahin!"
+         In Ordnung, es war eine gute Übung und ich freue mich schon aufs nächste Mal! Bis dahin! ^endDiscuss(userWish)
+    u1:(~next)
+        $show = "Okay, machen wir mit anderen Buchstaben weiter!"
+        Okay, machen wir mit einem anderen Satz weiter! ^gotoRandom(LETTERS)
+    u1:(~sthing_else)
+        $show = "Okay, üben wir etwas anderes! Was möchtest Du machen? Worte, Sätze oder Lückentexte?"
+        Okay, üben wir etwas anderes! Was möchtest Du machen? Worte, Sätze oder Lückentexte?
+            u2:([Worte Wort])
+                $show = "Worte"
+                    In Ordnung, üben wir Worte! ^topic(top_words)
+            u2:([Sätze Satz])
+                $show = "Sätze"
+                Kein Problem - dann geht's jetzt los mit Sätzen! ^topic(top_sentence)
+            u2:([Lückentexte Lückentext])
+                    $show = "Lückentexte"
+                    Lückentexte klingt gut! ^topic(top_comp_sentence)
+     u1:(*)
+         ^rand [
+             "Manchmal klappen Dinge nicht gleich beim ersten Mal. Da hilft nur erneut versuchen. Ich spreche noch mal vor \pau=300\ O R S R T."
+             "Versuchen wir diese Buchstaben doch nochmal. Ich spreche noch einmal vor \pau=300\ O R S R T."
+         ]^stayInScope

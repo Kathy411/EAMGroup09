@@ -1,13 +1,25 @@
 topic: ~top_sentences()
 
+# u2 anpassen
+
 concept:(confirmation_yes) [okay ja gut "in ordnung" passt gerne sicher natürlich "ja bitte" klar  ]
 concept:(confirmation_no) [Nein "lieber nicht" nicht "denke nicht" "nein danke" nee nö "eher nicht" nee]
 concept:(done) [aufhören genug "nicht mehr" "keine Lust {mehr}" ]
 concept:(sthing_else) ["etwas anderes" lieber "doch lieber" anders anderes andere "andere Übung" "etwas anderes üben" "Ich möchte etwas anderes üben"]
 concept:(next)[weiter nächster nächste]
+concept:(explain)[erklären erklär erkläre Erklärung erzähl "wie geht es"]
+concept:(start)[anfangen "fang an" "fang ruhig an" "ich weiss wie es geht" "können anfangen"]
 
 
 proposal:%SENTENCESTART
+$correct = ""
+$hint= ""
+$show = "Prima, wir üben Sätze! Soll ich noch erklären wie es geht oder sollen wir gleich anfangen?"
+Prima, wird üben Sätze! Soll ich noch kurz erklären wie es geht oder legen wir gleich los?
+    u1:(~explain) In Ordnung! ^enableThenGoto(SENTENCEEXPLAIN)
+    u1:(~start) Dann gehts direkt los mit dem ersten Wort! ^gotoRandom(SENTENCES)
+
+proposal:%SENTENCEEXPLAIN
 $show = "Hier zeige ich Ihnen den jeweiligen Satz an!"
 Ich werde Ihnen ganze Sätze im Display anzeigen und vorsprechen und Sie sprechen mir einfach nach! \pau=1000\
 $show = "Wenn Du einen meiner Sätze nicht üben möchtest, sag einfach WEITER, dann gehe ich zum nächsten!"
@@ -26,13 +38,13 @@ In Ordnung? Sollen wir mit Sätzen beginnen?
         Okay, üben wir etwas anderes! Was möchtest Du machen? Buchstaben, Wote oder Lückentexte?
             u2:([Worte Wort])
                 $show = "Worte"
-                    In Ordnung, üben wir Worte! ^topic(top_words)
+                    In Ordnung, los gehts! ^topic(top_words)
             u2:([Buchstaben Buchstabe])
                 $show = "Buchstaben"
-                Kein Problem - dann geht's jetzt los mit Buchstaben! ^topic(top_letters)
+                Kein Problem - dann geht's gleich los!! ^topic(top_letters)
             u2:([Lückentexte Lückentext])
                     $show = "Lückentexte"
-                    Lückentexte klingt gut! ^topic(top_comp_sentence)
+                    Das klingt gut! ^topic(top_comp_sentence)
    u1:(~confirmation_no)
        $show = "Möchtest Du vielleicht doch lieber Buchstaben,Sätze oder Lückentexte üben? "
         Möchtest Du doch etwas anderes üben - Buchstaben oder Sätze? Oder vielleicht Lückentexte?
