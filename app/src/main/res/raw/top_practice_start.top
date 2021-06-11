@@ -4,22 +4,23 @@ concept:(mistake) [falsch Fehler "will nicht" "nicht üben" "keine Lust" "doch n
 
 proposal:%START
 $show = "Wie schön - Du willst mit mir üben! Was würdest Du denn gerne üben? Worte, Sätze, Buchstaben oder vielleicht Lückentexte?"
+^execute(enum)
 ^rand[
     "Wie schön - Du willst mit mir üben! Was würdest Du denn gerne üben? Worte, Sätze, Buchstaben? Oder möchtest Du Lückentexte üben?"
     "Klasse - dann üben wir zusammen! Was möchtest Du denn üben? Worte, Sätze oder Buchstaben? Oder sollen wir vielleicht gemeinsam Lückentexte machen?"
 ]
     u1:([Worte Wort])
         $show = "Worte"
-        Sehr gut - dann geht's los! ^topic(top_words)
+        ^execute(affirm) Sehr gut - dann geht's los! ^topic(top_words)
     u1:([Sätze Satz])
         $show = "Sätze"
-        Das klingt gut... Los geht's! ^topic(top_sentences)
+        ^execute(affirm) Das klingt gut... Los geht's! ^topic(top_sentences)
     u1:([Buchstaben Buchstabe])
         $show = "Buchstaben"
-        Sehr gut, dann geht es direkt los! ^topic(top_letters)
+        ^execute(affirm) Sehr gut, dann geht es direkt los! ^topic(top_letters)
     u1:("[Lückentexte Lückentext Text]")
         $show = "Lückentexte"
-        Oh ja prima, fangen wir doch gleich an! ^topic(top_comp_sentence)
+         ^execute(affirm) Oh ja prima, fangen wir doch gleich an! ^topic(top_comp_sentence)
     u1:(~mistake)
         $show = "Da habe ich Dich falsch verstanden! Tut mir leid!"
-        Oh, dann habe ich Dich falsch verstanden! Entschuldige! ^endDiscuss(userWish)
+        Oh, dann habe ich Dich falsch verstanden! ^execute(disappointed) Entschuldige bitte! ^endDiscuss(userWish)

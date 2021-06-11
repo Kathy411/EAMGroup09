@@ -69,6 +69,18 @@ class PracticeActivity: RobotActivity(), RobotLifecycleCallbacks {
         // BUILD Chatbot(QiContext, language config, all topics)
         practiceChatbot = QiChatbotBuilder.with(qiContext).withLocale(locale).withTopic(topStart, topWords, topSentences, topLetters, topComp).build()
 
+        // Declare variable executors by mutable map of QiChat Keywords to BaseQiChatExecutors
+        val practiceExecutors = hashMapOf(
+                "kisses" to KissesExecutor(qiContext),
+                "nice" to NiceExecutor(qiContext),
+                "affirm" to AffirmExecutor(qiContext),
+                "enum" to EnumExecutor(qiContext),
+                "disappointed" to DisappointedExecutor(qiContext)
+        )
+
+        // Set Executors to qiChatbot
+        practiceChatbot.executors = practiceExecutors as Map<String, QiChatExecutor>?
+
         // GET QiChat-Variable $hint, SET its text to upper TextView in activity_practice
         // Action on UI process -> runOnUIThread
         practiceChatbot.variable("hint").addOnValueChangedListener {
