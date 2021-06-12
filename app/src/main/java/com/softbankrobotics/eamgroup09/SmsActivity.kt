@@ -1,89 +1,28 @@
 package com.softbankrobotics.eamgroup09
 
+import android.R
+import android.content.ActivityNotFoundException
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
+import android.speech.RecognizerIntent
+import android.view.View
 import android.widget.Button
 import android.widget.TextView
-import com.aldebaran.qi.Future
+import android.widget.Toast
+
 import com.aldebaran.qi.sdk.QiContext
 import com.aldebaran.qi.sdk.QiSDK
 import com.aldebaran.qi.sdk.RobotLifecycleCallbacks
 import com.aldebaran.qi.sdk.`object`.conversation.*
-import com.aldebaran.qi.sdk.`object`.locale.Language
 import com.aldebaran.qi.sdk.`object`.locale.Locale
-import com.aldebaran.qi.sdk.`object`.locale.Region
-import com.aldebaran.qi.sdk.builder.ChatBuilder
-import com.aldebaran.qi.sdk.builder.QiChatbotBuilder
-import com.aldebaran.qi.sdk.builder.TopicBuilder
 import com.aldebaran.qi.sdk.design.activity.RobotActivity
+import com.aldebaran.qi.sdk.design.activity.conversationstatus.SpeechBarDisplayStrategy
+
 
 class SmsActivity: RobotActivity(), RobotLifecycleCallbacks {
-    // Declare regular and late initializing variables for this class
-    val TAG = "FragmentActivity"
-    val locale: Locale = Locale(Language.GERMAN, Region.GERMANY)
-    lateinit var topSms : Topic
-    lateinit var smsChatbot: QiChatbot
-    lateinit var chat : Chat
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        QiSDK.register(this, this )
-        setContentView(R.layout.activity_sms)
-    }
-
     override fun onRobotFocusGained(qiContext: QiContext?) {
-        // Declare Back Button / OnClick -> revert to MainActivity
-        val backButton5: Button = findViewById(R.id.btn_back5)
-        backButton5.setOnClickListener {
-            val changeToMain = Intent(this, MainActivity::class.java)
-            startActivity(changeToMain)
-        }
-
-        // ** Chat Action starts here **
-        // BUILD topic(QiContext, Resource) and chatbot(QiContext, language config, topic)
-        topSms = TopicBuilder.with(qiContext).withResource(R.raw.top_sms).build()
-        smsChatbot = QiChatbotBuilder.with(qiContext).withLocale(locale).withTopic(topSms).build()
-
-        // Animations used in this activity - mutable Map of QiChat-Variable and BaseQiChatExecutor
-        val executors = hashMapOf(
-            "hello" to HelloExecutor(qiContext),
-            "nice" to NiceExecutor(qiContext)
-        )
-        // Set Executors to chatbot
-        smsChatbot.executors = executors as Map<String, QiChatExecutor>?
-
-        // Get QiChat-Variable, set its text to TextView
-        // Action on UI process -> runOnUIThread
-        val smsLabel = findViewById<TextView>(R.id.tv_smsTabletLabel)
-        smsChatbot.variable("sms_text").addOnValueChangedListener {
-            runOnUiThread {
-                smsLabel.text = it
-            }
-        }
-
-        // BUILD Chat (QiContext, qiChatbot, language config)
-        chat = ChatBuilder.with(qiContext).withChatbot(smsChatbot).withLocale(locale).build()
-
-        // Once chat is run, START at a certain bookmark -> goToBookmark()
-        chat.addOnStartedListener { goToBookmark("READTOME") }
-
-        // RUN chat asynchronously
-        val fchat: Future<Void> = chat.async().run()
-
-        // STOP the chat when the qichatbot reaches an ^endDiscuss-Tag
-        smsChatbot.addOnEndedListener { endReason ->
-            Log.i(TAG, "qichatbot end reason = $endReason")
-            fchat.requestCancellation()
-        }
-    }
-
-    // Once chat is run, this function is called to have the chatbot start at a certain bookmark)
-    private fun goToBookmark(bookmarkName : String) {
-        smsChatbot.goToBookmark (
-            topSms.bookmarks[bookmarkName],
-            AutonomousReactionImportance.HIGH,
-            AutonomousReactionValidity.IMMEDIATE)
+        TODO("Not yet implemented")
     }
 
     override fun onRobotFocusLost() {
@@ -94,3 +33,58 @@ class SmsActivity: RobotActivity(), RobotLifecycleCallbacks {
         TODO("Not yet implemented")
     }
 }
+
+/*    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        QiSDK.register(this, this )
+        setSpeechBarDisplayStrategy(SpeechBarDisplayStrategy.OVERLAY)
+        setContentView(R.layout.activity_)
+    }
+
+override fun onRobotFocusGained(qiContext: QiContext?) {
+        val senden = findViewById<Button>(R.id.btn_)
+        val Aufnahme: Button = findViewById(R.id.button2)
+        val anzeige : TextView = findViewById(R.id.textView)
+
+        senden.setOnClickListener(
+                View.OnClickListener { anzeige.text = "SMS wurde versendet" }
+        )
+        Aufnahme.setOnClickListener(
+                View.OnClickListener { anzeige.text = "Aufnahme wurde begonnen" }
+        )
+    }
+
+    fun onClick(v: View?) {
+        val i = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+        i.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM) //Sprache erkennen
+        i.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
+        i.putExtra(RecognizerIntent.EXTRA_PROMPT, "Bitte sage jetzt den Inhalt deiner SMS-Nachricht!")
+        try {
+            startActivityforResult(i, 100)
+        } catch (e: ActivityNotFoundException) {
+            Toast.makeText(ApplicationProvider.getApplicationContext<Context>(), "Die Sprachausgabe wird nicht unterstützt", Toast.LENGTH_LONG).show()
+        }
+    }
+
+    protected fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 100) {
+            if (resultCode == RESULT_OK && data != null) {
+                val result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
+            }
+        }
+
+
+
+    }
+
+    override fun onRobotFocusLost() {
+        TODO("Not yet implemented")
+    }
+
+    override fun onRobotFocusRefused(reason: String?) {
+        TODO("Not yet implemented")
+    }
+}
+/*
+ */

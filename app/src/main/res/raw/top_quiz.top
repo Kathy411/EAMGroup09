@@ -1,4 +1,16 @@
 topic: ~top_quiz()
 
-# TODO ()
-# You can use command ^gotoRandom to go a random Proposal within this topic
+proposal:%STARTQUIZ
+^execute(hello)
+$frage = "Möchtest du Länder oder Sehenwürdigkeiten erraten?"
+^rand[
+    "Hallo und Willkommen beim Quiz. Was möchtest du erraten? Länder oder Sehenswürdigkeiten?"
+    "Worauf hast du Lust? Möchtest du Länder oder Sehenswürdigkeiten erraten?"
+    ]
+
+    u1:(Länder)
+        Alles klar. Ich starte das Länderquiz!^topic(top_laender)
+    u1:(Sehenswürdigkeiten)
+        Alles klar. Ich starte das Sehenwürdigkeitenquiz!^topic(top_sehenswuerdigkeiten)
+
+$frage = ""

@@ -1,0 +1,332 @@
+topic: ~top_sehenswuerdigkeiten()
+
+concept:(confirmation_yes) [okay ja gut passt gerne sicher natürlich "ja bitte" "in ordnung"]
+concept:(confirmation_no) [Nein nee ne nö nicht]
+concept:(done) ["keine Lust {mehr}" aufhören genug "nicht mehr" "möchte nicht" "ich habe keine Lust mehr"]
+#
+concept:(answer_right) [Richtig "Sehr gut!" "Das ist richtig!" "Prima!" "Super, die Antwort ist korrekt!" "Das stimmt!"]
+concept:(answer_false) ["Das stimmt leider nicht." "Das ist nicht korrekt." "Nein, das ist nicht die Lösung." "Leider falsch."]
+concept:(retry) ["Versuch es doch noch einmal." "Probiere es erneut." "Versuch es erneut." "Neuer Versuch!" "Rate weiter. Vielleicht fällt dir die Lösung noch ein."]
+concept:(answer_dontknow) ["Keine Ahnung" "weiß es nicht" "ich kenne die Lösung nicht" "weiß ich nicht" "weiß nicht" "kenne ich nicht"]
+
+
+#Regeln erklären und Startabfrage
+proposal:%START
+$hinweis= ""
+$frage="Ich zeige dir Bilder von Sehenswürdigkeiten. Deine Aufgabe ist es dann, eine Frage dazu zu beantworten. Unter dem Bild gebe ich dir zusätzlich noch einen Hinweis. Falls du die Antwort mal nicht weißt, sag einfach: Ich weiß es nicht. Dann verrate ich dir die Lösung! Falls du keine Lust mehr hast kannst du unten rechts auf den Zurück-Knopf drücken oder sagen: Ich habe keine Lust mehr. Bist du bereit?"
+Ich zeige dir Bilder von Sehenswürdigkeiten. Deine Aufgabe ist es dann, eine Frage dazu zu beantworten. Unter dem Bild gebe ich dir zusätzlich noch einen Hinweis. Falls du die Antwort mal nicht weißt, sag einfach: Ich weiß es nicht. Dann verrate ich dir die Lösung! Falls du keine Lust mehr hast kannst du unten rechts auf den Zurück-Knopf drücken oder sagen: Ich habe keine Lust mehr. Bist du bereit?
+    u1:(~confirmation_yes)
+        Alles klar. Es geht los! ^gotoRandom(SEHENSWUERDIGKEIT)
+
+    u1:(~confirmation_no)
+        $frage= "Möchtest du doch lieber Länder erraten?"
+        Möchtest du doch lieber Länder erraten?
+        u2:(~confirmation_yes)
+            In Ordnung, dann wechseln wir zum Länderquiz! ^topic(top_laender)
+        u2:(~confirmation_no)
+            Alles klar, dann wechseln wir zurück ins Hauptmenü.^endDiscuss(userWish)
+
+####################################################################################
+#Starte Quiz --> Sehenswürdigkeiten
+
+####################################################################################
+#Antwort: Norwegen
+proposal: %SEHENSWUERDIGKEIT
+%NORWEGEN_VISIBLE
+$frage= "In welchem Land befindet sich diese Sehenswürdigkeit?"
+$hinweis= "Hinweis: Diese Sehenswürdigkeit befindet sich am nördlichsten über das Festland erreichbaren Punkt Europas."
+In welchem Land befindet sich diese Sehenswürdigkeit?
+
+    u1:(Norwegen)
+    ~answer_right
+    ^execute(clap)
+    ^gotoRandom(SEHENSWUERDIGKEIT)
+
+    u1:(*)
+    ~answer_false
+    ~retry
+    ^stayInScope
+
+    u1:(~answer_dontknow)
+    Dieses Wahrzeichen steht auf dem Norkapplateau in Norwegen.
+    ^gotoRandom(SEHENSWUERDIGKEIT)
+
+    u1:(~done)
+    In Ordnung! Dann bringe ich dich zurück ins Hauptmenü. ^endDiscuss(userWish)
+
+####################################################################################
+#Antwort: Venedig
+proposal: %SEHENSWUERDIGKEIT
+%VENEDIG_VISIBLE
+$frage= "In welcher Stadt befindet sich diese Sehenswürdigkeit?"
+$hinweis= "Hinweis: Diese Brücke führt über den Canal Grande und hat eine Länge von 48m."
+In welcher Stadt befindet sich diese Sehenswürdigkeit?
+
+    u1:(Venedig)
+    ~answer_right
+    ^execute(clap)
+    ^gotoRandom(SEHENSWUERDIGKEIT)
+
+    u1:(*)
+    ~answer_false
+    ~retry
+    ^stayInScope
+
+    u1:(~answer_dontknow)
+    Das ist die Rialtobrücke in der italienischen Stadt Venedig.
+    ^gotoRandom(SEHENSWUERDIGKEIT)
+
+    u1:(~done)
+    In Ordnung! Dann bringe ich dich zurück ins Hauptmenü. ^endDiscuss(userWish)
+
+####################################################################################
+#Antwort: Brasilien
+proposal: %SEHENSWUERDIGKEIT
+%BRASILIEN_VISIBLE
+$frage= "In welchem Land befindet sich diese Sehenswürdigkeit?"
+$hinweis= "Hinweis: Diese 30m hohe Statue befindet sich auf dem Berg Corcovado."
+In welchem Land befindet sich diese Sehenswürdigkeit?
+
+    u1:(Brasilien)
+    ~answer_right
+    ^execute(clap)
+    ^gotoRandom(SEHENSWUERDIGKEIT)
+
+    u1:(*)
+    ~answer_false
+    ~retry
+    ^stayInScope
+
+    u1:(~answer_dontknow)
+    Das ist die Christusstatue in der brasilianischen Stadt Rio de Janeiro.
+    ^gotoRandom(SEHENSWUERDIGKEIT)
+
+    u1:(~done)
+    In Ordnung! Dann bringe ich dich zurück ins Hauptmenü. ^endDiscuss(userWish)
+
+####################################################################################
+#Antwort: Cheops
+proposal: %SEHENSWUERDIGKEIT
+%CHEOPS_VISIBLE
+$frage= "Nach welchem ägyptischen Pharao ist diese Pyramide benannt?"
+$hinweis= "Hinweis: Die abgebildete Pyramide ist die höchste Pyramide der Welt und gilt als eins der sieben Weltwunder der Antike."
+Nach welchem ägyptischen Pharao ist diese Pyramide benannt?
+
+    u1:([Cheops Ceops Keops])
+    ~answer_right
+    ^execute(clap)
+    ^gotoRandom(SEHENSWUERDIGKEIT)
+
+    u1:(*)
+    ~answer_false
+    ~retry
+    ^stayInScope
+
+    u1:(~answer_dontknow)
+    Auf dem Bild sieht man die Cheops-Pyramide, welche nach dem gleichnamigen Pharao benannt wurde.
+    ^gotoRandom(SEHENSWUERDIGKEIT)
+
+    u1:(~done)
+    In Ordnung! Dann bringe ich dich zurück ins Hauptmenü. ^endDiscuss(userWish)
+
+####################################################################################
+#Anwort: Indien
+proposal: %SEHENSWUERDIGKEIT
+%INDIEN_VISIBLE
+$frage= "In welchem Land steht das Taj Mahal?"
+$hinweis= "Hinweis: Das Bauwerk ist 58m hoch und wurde auf einer etwa 100x100m großen Marmorplattform errichtet."
+In welchem Land steht das Tadsch Mahal? #Lautschrift
+
+    u1:(Indien)
+    ~answer_right
+    ^execute(clap)
+    ^gotoRandom(SEHENSWUERDIGKEIT)
+
+    u1:(*)
+    ~answer_false
+    ~retry
+    ^stayInScope
+
+    u1:(~answer_dontknow)
+    Das Tadsch Mahal ist eine Grabmoschee in Indien. #Lautschrift
+    ^gotoRandom(SEHENSWUERDIGKEIT)
+
+    u1:(~done)
+    In Ordnung! Dann bringe ich dich zurück ins Hauptmenü. ^endDiscuss(userWish)
+
+####################################################################################
+#Anwort: Mekka
+proposal: %SEHENSWUERDIGKEIT
+%MEKKA_VISIBLE
+$frage= "In welcher Stadt befindet sich das abgebildete Bauwerk?"
+$hinweis= "Hinweis: Das Bauwerk ist das zentrale Heiligtum des Islams."
+In welcher Stadt befindet sich das abgebildete Bauwerk?
+
+    u1:([Mekka Meka Mecka])
+    ~answer_right
+    ^execute(nice)
+    ^gotoRandom(SEHENSWUERDIGKEIT)
+
+    u1:(*)
+    ~answer_false
+    ~retry
+    ^stayInScope
+
+    u1:(~answer_dontknow)
+    Das gezeigte Bauwerk befindet sich in Mekka.
+    ^gotoRandom(SEHENSWUERDIGKEIT)
+
+    u1:(~done)
+    In Ordnung! Dann bringe ich dich zurück ins Hauptmenü. ^endDiscuss(userWish)
+
+####################################################################################
+#Anwort: Dubai
+proposal: %SEHENSWUERDIGKEIT
+%DUBAI_VISIBLE
+$frage="In welcher Stadt befindet sich der dargestellte Wolkenkratzer?"
+$hinweis= "Hinweis: Der auf dem Bild dargestellte Burj Khalifa ist mit 828m der höchste Wolkenkratzer der Welt."
+In welcher Stadt befindet sich der dargestellte Wolkenkratzer?
+
+    u1:(Dubai)
+    ~answer_right
+    ^execute(nice)
+    ^gotoRandom(SEHENSWUERDIGKEIT)
+
+    u1:(*)
+    ~answer_false
+    ~retry
+    ^stayInScope
+
+    u1:(~answer_dontknow)
+    Der Wolkenkratzer Burj Khalifa befindet sich in Dubai.
+    ^gotoRandom(SEHENSWUERDIGKEIT)
+
+    u1:(~done)
+    In Ordnung! Dann bringe ich dich zurück ins Hauptmenü. ^endDiscuss(userWish)
+
+####################################################################################
+#Antwort: Israel
+proposal: %SEHENSWUERDIGKEIT
+%ISRAEL_VISIBLE
+$frage= "In welchem Land befindet sich diese Sehenswürdigkeit?"
+$hinweis= "Hinweis: Diese Sehenswürdigkeit steht auf dem Tempelberg und ist eines der islamischen Hauptheiligtümer."
+In welchem Land befindet sich diese Sehenswürdigkeit?
+
+    u1:(Israel)
+    ~answer_right
+    ^execute(nice)
+    ^gotoRandom(SEHENSWUERDIGKEIT)
+
+    u1:(*)
+    ~answer_false
+    ~retry
+    ^stayInScope
+
+    u1:(~answer_dontknow)
+    Das ist der Felsendom in Israel.
+    ^gotoRandom(SEHENSWUERDIGKEIT)
+
+    u1:(~done)
+    In Ordnung! Dann bringe ich dich zurück ins Hauptmenü. ^endDiscuss(userWish)
+
+####################################################################################
+#Antwort: Ulm
+proposal: %SEHENSWUERDIGKEIT
+%ULM_VISIBLE
+$frage= "In welcher deutschen Stadt befindet sich die dargestellte Kirche?"
+$hinweis= "Hinweis: Der Turm ist mit 161,53m der höchste Kirchturm der Welt."
+In welcher deutschen Stadt befindet sich die dargestellte Kirche?
+
+    u1:(Ulm)
+    ~answer_right
+    ^execute(nice)
+    ^gotoRandom(SEHENSWUERDIGKEIT)
+
+    u1:(*)
+    ~answer_false
+    ~retry
+    ^stayInScope
+
+    u1:(~answer_dontknow)
+    Dieses Bauwerk steht in Ulm.
+    ^gotoRandom(SEHENSWUERDIGKEIT)
+
+    u1:(~done)
+    In Ordnung! Dann bringe ich dich zurück ins Hauptmenü. ^endDiscuss(userWish)
+
+####################################################################################
+#Antwort: Paris
+proposal: %SEHENSWUERDIGKEIT
+%PARIS_VISIBLE
+$frage= "In welcher Stadt befindet sich der Eiffelturm?"
+$hinweis= "Hinweis: Der Eiffelturm wurde nach seinem Erbauer Gustave Eiffel benannt."
+In welcher Stadt befindet sich der Eiffelturm?
+
+    u1:(Paris)
+    ~answer_right
+    ^execute(nice)
+    ^gotoRandom(SEHENSWUERDIGKEIT)
+
+    u1:(*)
+    ~answer_false
+    ~retry
+    ^stayInScope
+
+    u1:(~answer_dontknow)
+    Der Eiffelturm steht in Paris.
+    ^gotoRandom(SEHENSWUERDIGKEIT)
+
+    u1:(~done)
+    In Ordnung! Dann bringe ich dich zurück ins Hauptmenü. ^endDiscuss(userWish)
+
+####################################################################################
+#Antwort: London
+proposal: %SEHENSWUERDIGKEIT
+%LONDON_VISIBLE
+$frage= "In welcher Stadt befindet sich dieses Riesenrad?"
+$hinweis= "Hinweis: Dieses Riesenrad ist das höchste in Europa"
+In welcher Stadt befindet sich dieses Riesenrad?
+
+    u1:(London)
+    ~answer_right
+    ^execute(clap)
+    ^gotoRandom(SEHENSWUERDIGKEIT)
+
+    u1:(*)
+    ~answer_false
+    ~retry
+    ^stayInScope
+
+    u1:(~answer_dontknow)
+    Das ist das London Eye in der britischen Hauptstadt.
+    ^gotoRandom(SEHENSWUERDIGKEIT)
+
+    u1:(~done)
+    In Ordnung! Dann bringe ich dich zurück ins Hauptmenü. ^endDiscuss(userWish)
+
+####################################################################################
+#Antwort: Freiheitsstatue
+proposal: %SEHENSWUERDIGKEIT
+%FREIHEITSSTATUE_VISIBLE
+$frage= "Wie heißt dieses New Yorker Wahrzeichen?"
+$hinweis= "Hinweis: Die Statue war ursprünglich rot-braun. Die heutige Farbe entstand durch eine chemische Reaktion mit der Umgebung"
+Wie heißt dieses Nu Jorkehr Wahrzeichen? #Lautschrift
+
+    u1:([Freiheitsstatue Freiheitsstatu])
+    ~answer_right
+    ^execute(nice)
+    ^gotoRandom(SEHENSWUERDIGKEIT)
+
+    u1:(*)
+    ~answer_false
+    ~retry
+    ^stayInScope
+
+    u1:(~answer_dontknow)
+    Das ist die Freiheitsstatue.
+    ^gotoRandom(SEHENSWUERDIGKEIT)
+
+    u1:(~done)
+    In Ordnung! Dann bringe ich dich zurück ins Hauptmenü. ^endDiscuss(userWish)
+
+

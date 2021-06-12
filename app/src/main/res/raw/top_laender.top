@@ -1,0 +1,533 @@
+topic: ~top_laender()
+
+concept:(confirmation_yes) [okay ja gut passt gerne sicher natürlich "ja bitte" "in ordnung"]
+concept:(confirmation_no) [Nein nee ne nö nicht]
+concept:(done) ["keine Lust {mehr}" aufhören genug "nicht mehr" "möchte nicht"]
+#
+concept:(answer_right) [Richtig "Sehr gut!" "Das ist richtig!" "Prima!" "Super, die Antwort ist korrekt!" "Das stimmt!"]
+concept:(answer_false) ["Das stimmt leider nicht." "Das ist nicht korrekt." "Nein, das ist nicht die Lösung." "Leider falsch."]
+concept:(retry) ["Versuch es doch noch einmal." "Probiere es erneut." "Versuch es erneut." "Neuer Versuch!" "Rate weiter. Vielleicht fällt dir die Lösung noch ein."]
+concept:(answer_dontknow) ["Keine Ahnung" "weiß es nicht" "ich kenne die Lösung nicht" "weiß ich nicht" "weiß nicht" "kenne ich nicht"]
+
+
+#Regeln erklären und Startabfrage
+proposal:%START
+$hinweis= ""
+$frage= "Ich zeige dir nun Länderflaggen und nenne die zugehörige Hauptstadt. Deine Aufgabe ist es dann, mir den Namen des Landes zu nennen. Falls du die Antwort mal nicht weißt, sag einfach: Ich weiß es nicht. Dann verrate ich dir die Lösung! Falls du keine Lust mehr hast kannst du unten rechts auf den Zurück-Knopf drücken oder sagen: Ich habe keine Lust mehr. Bist du bereit?"
+Ich zeige dir nun Länderflaggen und nenne die zugehörige Hauptstadt. Deine Aufgabe ist es dann, mir den Namen des Landes zu nennen. Falls du die Antwort mal nicht weißt, sag einfach: Ich weiß es nicht. Dann verrate ich dir die Lösung! Falls du keine Lust mehr hast kannst du unten rechts auf den Zurück-Knopf drücken oder sagen: Ich habe keine Lust mehr. Bist du bereit?
+    u1:(~confirmation_yes)
+        Alles klar. Es geht los!
+        $frage= "Zu welchem Land gehört diese Flagge?"
+        ^gotoRandom(LAENDER)
+
+    u1:(~confirmation_no)
+        $frage= "Möchtest du doch lieber Sehenswürdigkeiten erraten?"
+        Möchtest du doch lieber Sehenswürdigkeiten erraten?
+        u2:(~confirmation_yes)
+            In Ordnung, dann wechseln wir zum Sehenswürdigkeitenquiz! ^topic(top_sehenswuerdigkeiten)
+        u2:(~confirmation_no)
+            Alles klar, dann wechseln wir zurück ins Hauptmenü.^endDiscuss(userWish)
+
+####################################################################################
+#Starte Quiz --> Länder
+
+####################################################################################
+#Antwort: Argentinien
+proposal: %LAENDER
+%LAND_ARGENTINIEN_VISIBLE
+Zu welchem Land gehört diese Flagge?
+$hinweis= "Hinweis: Die Hauptstadt dieses Landes ist Buenos Aires."
+Die Hauptstadt ist Buenos Eires. #Lautschrift
+
+    u1:(Argentinien)
+    ~answer_right
+    ^execute(clap)
+    ^gotoRandom(LAENDER)
+
+    u1:(*)
+    ~answer_false
+    ~retry
+    ^stayInScope
+
+    u1:(~answer_dontknow)
+    Das Land heißt Argentinien.
+    ^gotoRandom(LAENDER)
+
+    u1:(~done)
+    In Ordnung! Dann bringe ich dich zurück ins Hauptmenü. ^endDiscuss(userWish)
+
+####################################################################################
+#Antwort: Albanien
+proposal: %LAENDER
+%LAND_ALBANIEN_VISIBLE
+Jetzt wird es knifflig. Zu welchem Land gehört diese Flagge?
+$hinweis= "Hinweis: Die Hauptstadt dieses Landes ist Tirana."
+Die Hauptstadt dieses Landes ist Tirana.
+
+    u1:(Albanien)
+    ~answer_right
+    ^execute(clap)
+    ^gotoRandom(LAENDER)
+
+    u1:(*)
+    ~answer_false
+    ~retry
+    ^stayInScope
+
+    u1:(~answer_dontknow)
+    Das Land heißt Albanien.
+    ^gotoRandom(LAENDER)
+
+    u1:(~done)
+    In Ordnung! Dann bringe ich dich zurück ins Hauptmenü. ^endDiscuss(userWish)
+
+####################################################################################
+#Antwort: Australien
+proposal: %LAENDER
+%LAND_AUSTRALIEN_VISIBLE
+Zu welchem Land gehört diese Flagge?
+$hinweis= "Hinweis: Die Hauptstadt dieses Landes ist Canberra."
+Die Hauptstadt dieses Landes ist Canberra.
+
+    u1:(Australien)
+    ~answer_right
+    ^execute(nice)
+    ^gotoRandom(LAENDER)
+
+    u1:(*)
+    ~answer_false
+    ~retry
+    ^stayInScope
+
+    u1:(~answer_dontknow)
+    Das Land heißt Australien.
+    ^gotoRandom(LAENDER)
+
+    u1:(~done)
+    In Ordnung! Dann bringe ich dich zurück ins Hauptmenü. ^endDiscuss(userWish)
+
+####################################################################################
+#Antwort: Bahamas
+proposal: %LAENDER
+%LAND_BAHAMAS_VISIBLE
+Jetzt wird es exotisch. Zu welchem Land gehört diese Flagge?
+$hinweis= "Hinweis: Die Hauptstadt dieses Landes ist Nassau."
+Die Hauptstadt dieses Landes ist Nassau.
+
+    u1:(Bahamas)
+    ~answer_right
+    ^execute(nice)
+    ^gotoRandom(LAENDER)
+
+    u1:(*)
+    ~answer_false
+    ~retry
+    ^stayInScope
+
+    u1:(~answer_dontknow)
+    Das Land heißt Bahamas.
+    ^gotoRandom(LAENDER)
+
+    u1:(~done)
+    In Ordnung! Dann bringe ich dich zurück ins Hauptmenü. ^endDiscuss(userWish)
+
+####################################################################################
+#Antwort: Belgien
+proposal: %LAENDER
+%LAND_BELGIEN_VISIBLE
+Zu welchem Land gehört diese Flagge?
+$hinweis= "Hinweis: Die Hauptstadt dieses Landes ist Brüssel."
+Die Hauptstadt dieses Landes ist Brüssel.
+
+    u1:(Belgien)
+    ~answer_right
+    ^execute(nice)
+    ^gotoRandom(LAENDER)
+
+    u1:(*)
+    ~answer_false
+    ~retry
+    ^stayInScope
+
+    u1:(~answer_dontknow)
+    Das Land heißt Belgien.
+    ^gotoRandom(LAENDER)
+
+    u1:(~done)
+    In Ordnung! Dann bringe ich dich zurück ins Hauptmenü. ^endDiscuss(userWish)
+
+####################################################################################
+#Antwort: Brasilien
+proposal: %LAENDER
+%LAND_BRASILIEN_VISIBLE
+Das kennst du bestimmt. Zu welchem Land gehört diese Flagge?
+$hinweis= "Hinweis: Die Hauptstadt dieses Landes ist Brasilia."
+Die Hauptstadt dieses Landes ist Brasilia.
+
+    u1:(Brasilien)
+    ~answer_right
+    ^execute(clap)
+    ^gotoRandom(LAENDER)
+
+    u1:(*)
+    ~answer_false
+    ~retry
+    ^stayInScope
+
+    u1:(~answer_dontknow)
+    Das Land heißt Brasilien.
+    ^gotoRandom(LAENDER)
+
+    u1:(~done)
+    In Ordnung! Dann bringe ich dich zurück ins Hauptmenü. ^endDiscuss(userWish)
+
+####################################################################################
+#Antwort: Elfenbeinküste
+proposal: %LAENDER
+%LAND_ELFENBEINKUESTE_VISIBLE
+Das ist nicht so leicht. Zu welchem Land gehört diese Flagge?
+$hinweis= "Hinweis: Die Hauptstadt dieses Landes ist Yamoussoukro."
+Die Hauptstadt dieses Landes ist Yamoussoukro.
+
+    u1:(Elfenbeinküste)
+    ~answer_right
+    ^execute(clap)
+    ^gotoRandom(LAENDER)
+
+    u1:(*)
+    ~answer_false
+    ~retry
+    ^stayInScope
+
+    u1:(~answer_dontknow)
+    Das Land heißt Elfenbeinküste.
+    ^gotoRandom(LAENDER)
+
+    u1:(~done)
+    In Ordnung! Dann bringe ich dich zurück ins Hauptmenü. ^endDiscuss(userWish)
+
+####################################################################################
+#Antwort: Ghana
+proposal: %LAENDER
+%LAND_GHANA_VISIBLE
+Wir wechseln nach Afrika. Zu welchem Land gehört diese Flagge?
+$hinweis= "Hinweis: Die Hauptstadt dieses Landes ist Accra."
+Die Hauptstadt dieses Landes ist Accra.
+
+    u1:(Ghana)
+    ~answer_right
+    ^execute(clap)
+    ^gotoRandom(LAENDER)
+
+    u1:(*)
+    ~answer_false
+    ~retry
+    ^stayInScope
+
+    u1:(~answer_dontknow)
+    Das Land heißt Ghana.
+    ^gotoRandom(LAENDER)
+
+    u1:(~done)
+    In Ordnung! Dann bringe ich dich zurück ins Hauptmenü. ^endDiscuss(userWish)
+
+####################################################################################
+#Antwort: Japan
+proposal: %LAENDER
+%LAND_JAPAN_VISIBLE
+Nun geht es auf den größten Kontinent der Erde. Zu welchem Land gehört diese Flagge?
+$hinweis= "Hinweis: Die Hauptstadt dieses Landes ist Tokio."
+Die Hauptstadt dieses Landes ist Tokio.
+
+    u1:(Japan)
+    ~answer_right
+    ^execute(nice)
+    ^gotoRandom(LAENDER)
+
+    u1:(*)
+    ~answer_false
+    ~retry
+    ^stayInScope
+
+    u1:(~answer_dontknow)
+    Das Land heißt Japan.
+    ^gotoRandom(LAENDER)
+
+    u1:(~done)
+    In Ordnung! Dann bringe ich dich zurück ins Hauptmenü. ^endDiscuss(userWish)
+
+####################################################################################
+#Antwort: Kanada
+proposal: %LAENDER
+%LAND_KANADA_VISIBLE
+Zu welchem Land gehört diese Flagge?
+$hinweis= "Hinweis: Die Hauptstadt dieses Landes ist Ottawa."
+Die Hauptstadt dieses Landes ist Ottawa.
+
+    u1:(Kanada)
+    ~answer_right
+    ^execute(nice)
+    ^gotoRandom(LAENDER)
+
+    u1:(*)
+    ~answer_false
+    ~retry
+    ^stayInScope
+
+    u1:(~answer_dontknow)
+    Das Land heißt Kanada.
+    ^gotoRandom(LAENDER)
+
+    u1:(~done)
+    In Ordnung! Dann bringe ich dich zurück ins Hauptmenü. ^endDiscuss(userWish)
+
+####################################################################################
+#Antwort: Kenia
+proposal: %LAENDER
+%LAND_KENIA_VISIBLE
+Ab nach Afrika. Zu welchem Land gehört diese Flagge?
+$hinweis= "Hinweis: Die Hauptstadt dieses Landes ist Nairobi."
+Die Hauptstadt dieses Landes ist Nairobi .
+
+    u1:(Kenia)
+    ~answer_right
+    ^execute(clap)
+    ^gotoRandom(LAENDER)
+
+    u1:(*)
+    ~answer_false
+    ~retry
+    ^stayInScope
+
+    u1:(~answer_dontknow)
+    Das Land heißt Kenia.
+    ^gotoRandom(LAENDER)
+
+    u1:(~done)
+    In Ordnung! Dann bringe ich dich zurück ins Hauptmenü. ^endDiscuss(userWish)
+
+####################################################################################
+#Antwort: Norwegen
+proposal: %LAENDER
+%LAND_NORWEGEN_VISIBLE
+Ab nach Europa. Zu welchem Land gehört diese Flagge?
+$hinweis= "Hinweis: Die Hauptstadt dieses Landes ist Oslo."
+Die Hauptstadt dieses Landes ist Oslo.
+
+    u1:(Norwegen)
+    ~answer_right
+    ^execute(clap)
+    ^gotoRandom(LAENDER)
+
+    u1:(*)
+    ~answer_false
+    ~retry
+    ^stayInScope
+
+    u1:(~answer_dontknow)
+    Das Land heißt Norwegen.
+    ^gotoRandom(LAENDER)
+
+    u1:(~done)
+    In Ordnung! Dann bringe ich dich zurück ins Hauptmenü. ^endDiscuss(userWish)
+
+####################################################################################
+#Antwort: Österreich
+proposal: %LAENDER
+%LAND_OESTERREICH_VISIBLE
+Zu welchem Land gehört diese Flagge?
+$hinweis= "Hinweis: Die Hauptstadt dieses Landes ist Wien."
+Die Hauptstadt dieses Landes ist Wien.
+
+    u1:(Österreich)
+    ~answer_right
+    ^execute(nice)
+    ^gotoRandom(LAENDER)
+
+    u1:(*)
+    ~answer_false
+    ~retry
+    ^stayInScope
+
+    u1:(~answer_dontknow)
+    Das Land heißt Österreich.
+    ^gotoRandom(LAENDER)
+
+    u1:(~done)
+    In Ordnung! Dann bringe ich dich zurück ins Hauptmenü. ^endDiscuss(userWish)
+
+####################################################################################
+#Antwort: Portugal
+proposal: %LAENDER
+%LAND_PORTUGAL_VISIBLE
+Zu welchem Land gehört diese Flagge?
+$hinweis= "Hinweis: Die Hauptstadt dieses Landes ist Lissabon."
+Die Hauptstadt dieses Landes ist Lissabon.
+
+    u1:(Portugal)
+    ~answer_right
+    ^execute(nice)
+    ^gotoRandom(LAENDER)
+
+    u1:(*)
+    ~answer_false
+    ~retry
+    ^stayInScope
+
+    u1:(~answer_dontknow)
+    Das Land heißt Portugal.
+    ^gotoRandom(LAENDER)
+
+    u1:(~done)
+    In Ordnung! Dann bringe ich dich zurück ins Hauptmenü. ^endDiscuss(userWish)
+
+####################################################################################
+#Antwort: Schottland
+proposal: %LAENDER
+%LAND_SCHOTTLAND_VISIBLE
+Zu welchem Land gehört diese Flagge?
+$hinweis= "Hinweis: Die Hauptstadt dieses Landes ist Edinburgh."
+Die Hauptstadt dieses Landes ist Edinburgh.
+
+    u1:(Schottland)
+    ~answer_right
+    ^execute(nice)
+    ^gotoRandom(LAENDER)
+
+    u1:(*)
+    ~answer_false
+    ~retry
+    ^stayInScope
+
+    u1:(~answer_dontknow)
+    Das Land heißt Schottland.
+    ^gotoRandom(LAENDER)
+
+    u1:(~done)
+    In Ordnung! Dann bringe ich dich zurück ins Hauptmenü. ^endDiscuss(userWish)
+
+####################################################################################
+#Antwort: Schweden
+proposal: %LAENDER
+%LAND_SCHWEDEN_VISIBLE
+Zu welchem Land gehört diese Flagge?
+$hinweis= "Hinweis: Die Hauptstadt dieses Landes ist Stockholm."
+Die Hauptstadt dieses Landes ist Stockholm.
+
+    u1:(Schweden)
+    ~answer_right
+    ^execute(clap)
+    ^gotoRandom(LAENDER)
+
+    u1:(*)
+    ~answer_false
+    ~retry
+    ^stayInScope
+
+    u1:(~answer_dontknow)
+    Das Land heißt Schweden.
+    ^gotoRandom(LAENDER)
+
+    u1:(~done)
+    In Ordnung! Dann bringe ich dich zurück ins Hauptmenü. ^endDiscuss(userWish)
+
+####################################################################################
+#Antwort: Schweiz
+proposal: %LAENDER
+%LAND_SCHWEIZ_VISIBLE
+Zu welchem Land gehört diese Flagge?
+$hinweis= "Hinweis: Die Hauptstadt dieses Landes ist Bern."
+Die Hauptstadt dieses Landes ist Bern.
+
+    u1:(Schweiz)
+    ~answer_right
+    ^execute(nice)
+    ^gotoRandom(LAENDER)
+
+    u1:(*)
+    ~answer_false
+    ~retry
+    ^stayInScope
+
+    u1:(~answer_dontknow)
+    Das Land heißt Schweiz.
+    ^gotoRandom(LAENDER)
+
+    u1:(~done)
+    In Ordnung! Dann bringe ich dich zurück ins Hauptmenü. ^endDiscuss(userWish)
+
+####################################################################################
+#Antwort: Südafrika
+proposal: %LAENDER
+%LAND_SUEDAFRIKA_VISIBLE
+Zu welchem Land gehört diese Flagge?
+$hinweis= "Hinweis: Dieses Land hat gleich 3 Hauptstädte: Pretoria, Bloemfontein und Kapstadt."
+Dieses Land hat gleich 3 Hauptstädte: Pretoria, Bloemfontein und Kapstadt.
+
+    u1:(Südafrika)
+    ~answer_right
+    ^execute(nice)
+    ^gotoRandom(LAENDER)
+
+    u1:(*)
+    ~answer_false
+    ~retry
+    ^stayInScope
+
+    u1:(~answer_dontknow)
+    Das Land heißt Südafrika.
+    ^gotoRandom(LAENDER)
+
+    u1:(~done)
+    In Ordnung! Dann bringe ich dich zurück ins Hauptmenü. ^endDiscuss(userWish)
+
+####################################################################################
+#Antwort: Türkei
+proposal: %LAENDER
+%LAND_TUERKEI_VISIBLE
+Zu welchem Land gehört diese Flagge?
+$hinweis= "Hinweis: Die Hauptstadt dieses Landes ist Ankara."
+Die Hauptstadt dieses Landes ist Ankara.
+
+    u1:(Türkei)
+    ~answer_right
+    ^execute(clap)
+    ^gotoRandom(LAENDER)
+
+    u1:(*)
+    ~answer_false
+    ~retry
+    ^stayInScope
+
+    u1:(~answer_dontknow)
+    Das Land heißt Türkei.
+    ^gotoRandom(LAENDER)
+
+    u1:(~done)
+    In Ordnung! Dann bringe ich dich zurück ins Hauptmenü. ^endDiscuss(userWish)
+
+####################################################################################
+#Antwort: Wales
+proposal: %LAENDER
+%LAND_WALES_VISIBLE
+Zu welchem Land gehört diese Flagge?
+$hinweis= "Hinweis: Die Hauptstadt dieses Landes ist Cardiff."
+Die Hauptstadt dieses Landes ist Cardiff.
+
+    u1:(Wales)
+    ~answer_right
+    ^execute(clap)
+    ^gotoRandom(LAENDER)
+
+    u1:(*)
+    ~answer_false
+    ~retry
+    ^stayInScope
+
+    u1:(~answer_dontknow)
+    Das Land heißt Wales.
+    ^gotoRandom(LAENDER)
+
+    u1:(~done)
+    In Ordnung! Dann bringe ich dich zurück ins Hauptmenü. ^endDiscuss(userWish)
+

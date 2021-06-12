@@ -15,7 +15,6 @@ import com.aldebaran.qi.sdk.`object`.locale.Locale
 import com.aldebaran.qi.sdk.`object`.locale.Region
 import com.aldebaran.qi.sdk.builder.ChatBuilder
 import com.aldebaran.qi.sdk.builder.QiChatbotBuilder
-import com.aldebaran.qi.sdk.builder.SayBuilder
 import com.aldebaran.qi.sdk.builder.TopicBuilder
 import com.aldebaran.qi.sdk.design.activity.RobotActivity
 import com.aldebaran.qi.sdk.design.activity.conversationstatus.SpeechBarDisplayStrategy
@@ -39,7 +38,7 @@ class NewspaperActivity: RobotActivity(), RobotLifecycleCallbacks {
     }
 
     override fun onRobotFocusGained(qiContext: QiContext?) {
-        val backButton2: Button = findViewById(R.id.btn_back2)
+        val backButton2: Button = findViewById(R.id.btn_back7)
         backButton2.setOnClickListener {
             val changeToMain = Intent(this, MainActivity::class.java)
             startActivity(changeToMain)
@@ -60,23 +59,22 @@ class NewspaperActivity: RobotActivity(), RobotLifecycleCallbacks {
         topNews = TopicBuilder.with(qiContext).withResource(R.raw.top_newspaper).build()
         newsChatbot = QiChatbotBuilder.with(qiContext).withLocale(locale).withTopic(topNews).build()
 
-        // In case animations are needed, pls add to the hashMap, also add Executor and Runnable
-   /*     val executors = hashMapOf(
+
+        //In case animations are needed, pls add to the hashMap, also add Executor and Runnable
+        val executors = hashMapOf(
             "hello" to HelloExecutor(qiContext),
-            "nice" to NiceExecutor(qiContext)
+            "nice" to NiceExecutor(qiContext),
+            "clapping" to ClappingExecutor(qiContext)
         )
         // Set Executors to qiChatbot -> NOTHING TO DO!
         newsChatbot.executors = executors as Map<String, QiChatExecutor>?
 
-
-    */
         // Set QiChat Variable to TextView
         newsChatbot.variable("headline").addOnValueChangedListener {
             runOnUiThread {
                 newsLabel.text = it
             }
         }
-
         newsChatbot.variable("readtome").addOnValueChangedListener {
             runOnUiThread {
                readtomeLabel.text = it
@@ -92,6 +90,8 @@ class NewspaperActivity: RobotActivity(), RobotLifecycleCallbacks {
         newsChatbot.addOnEndedListener { endReason ->
             Log.i(TAG, "qichatbot end reason = $endReason")
             fNchat.requestCancellation()
+            val changeToMain = Intent(this, MainActivity::class.java)
+            startActivity(changeToMain)
         }
     }
 

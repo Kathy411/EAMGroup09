@@ -1,6 +1,68 @@
 topic: ~top_country()
-# Defining extra concepts out of words or group of words
-#concept:(hello) [hello hi hey "good morning" greetings]
 
-# Replying to speech
-#u:(~hello) ~hello
+concept:(norway) ["Norwegen hat die längste Küste der Welt." "Norwegen hat hundertfünfzigtausend Inseln." "In Norwegen wurde der Käsehobel erfunden."]
+concept:(sweden) ["In Schweden darf man jeden duzen außer die Königsfamilie" "Die Altstadt von Stockholm ist eine Indel und über mehrere Brücken erreichbar." "Schweden hat Hunderttausen Seen und vierunszwanzistausend Inseln."]
+concept:(netherlands) ["etwa ein Viertel der Fläche liegt unter dem Meerespiegel" "In Amsterdam gibt es mehr Fahrräder als Einwohner"]
+concept:(denmark) ["In Dänemark gibt es keine Berge" "Dänemark hat die älteste Flagge der Welt, es gibt sie seit zwölfhundertneunzehn"]
+concept:(finland) ["Dort gibt es weltweit die meisten Seen und Inseln." "Im Norden des LAndes liegt das Büro des Weihnachtsmannes." "Die Finnen besitzen mehr Saunen als Autos."]
+concept:(poland) ["In der Danzinger Bucht in Polen steht die längste Seebrücke Europas" "In Polen steht seit 2010 mit 36 Metern die größte Christustatie der Welt." "Mit der Marienburg steht in Polen die größte Backsteinfestung Europas."]
+concept:(Czech) ["In Prag steht die größte Burganlage der Welt: die Prager Burg" "Die Karls-Universität in Prag ist die älteste Universität Mitteleuropas" "Fast sechzig Prozent der Tschechen sind konfessionslos." "Der Prager Frühling ist eigentlich ein jährlich stattfindendes Musikfestival, es wird auch heute noch ausgerichtet."]
+concept:(austria) ["Der Wiener Stephansdom wurde teilweise mit Wein gebaut." "In Österreich steht auf das Führen eines Adelstitels eine Höchststrafe von 14 Cent." "In Wien gibt es mehr tote als lebende Bewohner."]
+concept:(switzerland) ["Die Schweiz nach geltendem Recht keine offizielle Hauptstadt besitzt, Bern ist nur Bundessitz" "Es in der Schweiz genug Bunker gibt, um im Notfall die gesamte Bevölkerung in Sicherheit zu bringen." "Man in der Schweiz nie mehr als sechszehn Kilometer von einem See entfernt ist."]
+concept:(france) ["In Frankreich arbeiten die meisten Beamten Europas." "In Frankreich werden jährlich mehr als sechs Milliarden Baguttes verkauft." "Im französischen Militär sind noch 150 Brieftauben im Einsatz." "In Frankreich gibt es circa vierzigtausend Schlösser."]
+concept:(spain) ["Spanien ist der weltweit größte Produzent von Olivenöl." "In Madrid liegt das älteste Restaurant der Welt." "An der La Seu Kathedrale in Palma wurde 400 Jahre gebaut."]
+concept:(belgium) ["Im Brüsseler Flüghafen wird weltweit die meiste Schokolade verkauft." "Die ältesten Einkaufs-Arkaden Europas befinden sich in Brüssel und wurden bereits 1847 eröffnet." "Man kann die belgische Küste mit der Straßenbahn abfahren." "In Brüssel leben weltweit die meisten Diplomaten."]
+concept:(italy) ["Die in Italien gefundenen Gletschermumie Ötzi litt an Laktoseintoleranz." "Über 75 Prozent der italienischen Landschaft besteht aus Hügeln und Bergen." "Italien hat weltweit die meisten Unesco-Stätten der Welt." "Rom hält den Weltrekord für die Stadt mit den meisten Fahrstühlen." "Die Universität von Bologna in Italien ist die älteste Universität der Welt und wurde 1088 gegründet."]
+concept:(portugal) ["Portugal ist das älteste Land Europas." "In Lissabon liegt der älteste Buchladen der Welt, er wurde 1732 eröffnet."]
+concept:(india) ["Indien ist, gemessen an der Einwöhnerzahl, die größte Demokratie der Welt." "Der Königs oder Bengaltiger ist das Nationaltier Indiens." "Mit 1,6 Millionen Mitarbeitern ist die indische Eisenbahn der größte Arbeitgeber der Welt." "70 Prozent aller Gewürze auf der Welt kommen aus Indien."]
+concept:(china) ["In China gilt überall die Pekinger Zeit, obwohl das Land eigentlich in fünf Zeitzonen liegt." "In China werden 292 verscheidene lokale Sprachen gesprochen, fast alle beherschen aber auch Mandarin." "Die älteste Sprache, die noch schriftlich verwendet wird, ist Chinesisch." "In China leben immer noch mehr als 30 Millionen Menschen in Höhlen."]
+concept:(russia) ["In Russland existiert der kälteste bewohnte Ort der Welt: Oymyakon, ein kleines Dorf im Osten des Landes." "Russland hat elf verschiedene Zeitzonen." "Im russischen St. Petersburg befindet sich mit 137 Metern die längste Rolltreppe der Welt."]
+concept:(southafrika) ["Kapstadt besitzt Südafrikas einzige Rodelbahn" "Südafrika hat drei Hauptstädte: Kapstadt, Pretoria und Bloemfontein." "In Südafrika gibt es mit der Rout cygstito die längste Weinroute der Welt."]
+concept:(usa) ["Monowi im US-Bundesstaat Nebraska besitzt lediglich einen Einwohner der gleichzeitig auch Bürgermeister ist." "Der Central Park in New York ist größer als der Staat Monaco." "Im Jahr 1911 froren die Niagarafälle komplett ein. Da sah bestimmt sehr schö aus." "Der westlichste Punkt der USA und der östlichste Punkt Russlands liegen gerade einmal vier Kilometer voneinander entfernt."]
+concept:(egypt) ["Kleopatra, die letzte Pharaonin Ägyptens, war eigentlich Griechin." "Die alten Ägypter schliefen auf Kissen aus Steinen."]
+concept:(brazil) ["Die Insel Ilha Queimada Grande in Brasilien wird fast auschließlich von Giftschlangen bewohnt und ist damit einer der gefährlichste Orte der Welt." "Die Mittellinie des Fußballstadions im brasilianischen Macapá liegt exakt auf der Äquatorlinie." "Brasilien ist der größte Kaffeeproduzent der Welt."]
+concept:(iceland) ["Der letzte in Island verkaufte Bürger von Mack Donnälts ist noch immer ausgestellt." "Telefonbücher in Island sind nach dem Vornamen geordnet, da der Nachname aus dem Namen des Vaters und einer Ergänzung für Tochter oder Sohn besteht." "In Island gibt es einen schwarzen Sandstrand." "Island besitzt rund 130 Vulkane. Etwa alle zehn Jahre bricht einer davon aus."]
+concept:(chile) ["Mit einer Länge von 4.270 Kilometern ist Chile das längste Land der Welt." "In Chile haben Ehefrauen und Ehemänner nicht den gleichen Nachnamen. Stattdessen behalten Ehefrauen ihren Mädchennamen."]
+
+concept:(intresting)["Das ist ja interessant" "Was für tolle Infos, danke dir" "Das sind aber interessante Infos." "Ach wie interessant." "Danke, jetzt habe ich wieder was gelernt."]
+
+concept:(yes) [ja gerne sicherlich "auf jeden Fall" definitiv]
+concept:(no) [nein "lieber nicht" nicht]
+
+proposal:%TELLME
+$tellme = "Ich kenne folgende Länder: Island, Norwegen, Schweden, Finnland, Dänemark, Polen, Tcheschien, Österreich, Schweiz, Belgien, Niederlande, Frankreich, Spanien, Potrugal, Italien, Indien, China, Russland, USA, Brasilien, Chile, Südafrika und Ägypten"
+Über welches Land möchtest du heute sprechen?
+    u1:(Norwegen) $tellme = "" Oh, dazu habe ich ein paar Infos: ~norway ^enableThenGoto(QUESTION)
+    u1:(Schweden) $tellme = "" Ich habe ihr noch ein paar Infos für dich: ~sweden^enableThenGoto(QUESTION)
+    u1:(Niederlande) $tellme = "" Ich habe hier noch ein paar interessante Fakten über die Niederlande: ~netherlands ^enableThenGoto(QUESTION)
+    u1:(Dänemark) $tellme = "" Zu diesem Land kann ich dir auch was erzählen: ~denmark ^enableThenGoto(QUESTION)
+    u1:(Finnland) $tellme = "" Über Finnland weiß ich auch etwas: ~finland ^enableThenGoto(QUESTION)
+    u1:(Polen) $tellme = "" Oh, dazu habe ich ein paar Infos: ~poland ^enableThenGoto(QUESTION)
+    u1:(Tschechien) $tellme = "" Ich habe ihr noch ein paar Infos für dich: ~Czech ^enableThenGoto(QUESTION)
+    u1:(Österreich) $tellme = "" Zu diesem Land kann ich dir auch was erzählen: ~austria ^enableThenGoto(QUESTION)
+    u1:(Schweiz) $tellme = "" Wusstest du schon, dass ~switzerland ^enableThenGoto(QUESTION)
+    u1:(Frankreich) $tellme = "" Das weiß ich über Frankreich: ~france ^enableThenGoto(QUESTION)
+    u1:(Spanien) Z$tellme = "" u diesem Land weiß ich auch was: ~spain ^enableThenGoto(QUESTION)
+    u1:(Belgien) $tellme = "" Oh, dazu habe ich ein paar Infos: ~belgium ^enableThenGoto(QUESTION)
+    u1:(Italien) $tellme = "" Ich habe ihr noch ein paar Infos für dich: ~italy ^enableThenGoto(QUESTION)
+    u1:(Portugal) $tellme = "" Zu diesem Land kann ich dir auch was erzählen: ~portugal ^enableThenGoto(QUESTION)
+    u1:(Indien) $tellme = "" Das weiß ich über Indien: ~india ^enableThenGoto(QUESTION)
+    u1:(China) $tellme = "" Zu diesem Land weiß ich auch was: ~china ^enableThenGoto(QUESTION)
+    u1:(Russland) $tellme = "" Oh, dazu habe ich ein paar Infos: ~russia ^enableThenGoto(QUESTION)
+    u1:(Südafrika) $tellme = "" Ich habe ihr noch ein paar Infos für dich: ~southafrika ^enableThenGoto(QUESTION)
+    u1:(USA) $tellme = "" Zu diesem Land kann ich dir auch was erzählen: ~usa ^enableThenGoto(QUESTION)
+    u1:(Ägypten) $tellme = "" Zu diesem Land weiß ich auch was: ~egypt ^enableThenGoto(QUESTION)
+    u1:(Brasilien) $tellme = "" Über Brasilien weiß ich folgednes: ~brazil ^enableThenGoto(QUESTION)
+    u1:(Island) $tellme = "" Ich habe hier noch ein paar interessante Fakten über Island: ~iceland ^enableThenGoto(QUESTION)
+    u1:(Chile) $tellme = "" Zu diesem Land weiß ich auch was: ~chile ^enableThenGoto(QUESTION)
+
+proposal:%QUESTION
+^rand[
+    "Erzählst du mir auch was zu diesem Land erzählen?"
+    "Was weißt du zu diesem Land?"
+    "Hast du noch ein paar Infos zu dem Land für mich?"
+    "Weißt du noch etwas mehr zu diesem Land?"
+]
+    u1:(_*) ^rand [~intresting] ^execute(nice) Möchtest du noch über ein anders Land reden?
+    u2:(~yes) ^enableThenGoto(TELLME)
+    u2:(~no) Okay, schade ^endDiscuss(userWish)
