@@ -7,25 +7,17 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/iv_backgroundST"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:id="@+id/iv_background"
+        android:layout_width="1046dp"
+        android:layout_height="684dp"
+        android:backgroundTint="#FFFFFF"
         android:contentDescription="@string/BackgroundDescription"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/background4" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Small Talk Activity"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btn_back6"
@@ -33,34 +25,61 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="40dp"
         android:layout_marginBottom="40dp"
-        android:backgroundTint="#CB009688"
-        android:text="@string/button_inscription_back"
+        android:backgroundTint="#009688"
+        android:text="@string/backButton"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
-        android:id="@+id/tv_redBoxST"
-        android:layout_width="330dp"
+        android:id="@+id/tv_redBoxP"
+        android:layout_width="320dp"
         android:layout_height="8dp"
         android:background="#F44336"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/Tv_orangeBoxST"
-        android:layout_width="330dp"
+        android:id="@+id/tv_orangeBoxP"
+        android:layout_width="320dp"
         android:layout_height="8dp"
         android:background="#DAFF5722"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tv_redBoxST" />
+        app:layout_constraintStart_toEndOf="@+id/tv_redBoxP" />
 
     <TextView
-        android:id="@+id/textView11"
-        android:layout_width="330dp"
+        android:id="@+id/tv_purpleBoxP"
+        android:layout_width="320dp"
         android:layout_height="8dp"
         android:background="#9C27B0"
-        android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/Tv_orangeBoxST" />
+        app:layout_constraintStart_toEndOf="@+id/tv_orangeBoxP" />
+
+    <ImageView
+        android:id="@+id/iv_thLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="65dp"
+        android:contentDescription="@string/THLogo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo_th" />
+
+    <TextView
+        android:id="@+id/tv_smalltalk"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="250dp"
+        android:layout_marginEnd="100dp"
+        android:gravity="center_horizontal"
+        android:textColor="@color/black"
+        android:textSize="36sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
