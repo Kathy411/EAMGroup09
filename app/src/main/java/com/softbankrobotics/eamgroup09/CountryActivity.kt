@@ -28,6 +28,7 @@ class CountryActivity: RobotActivity(), RobotLifecycleCallbacks {
     lateinit var countryChatbot: QiChatbot
     lateinit var chat : Chat
     lateinit var countryText : TextView
+    lateinit var iknowText : TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,13 +49,21 @@ class CountryActivity: RobotActivity(), RobotLifecycleCallbacks {
 
     fun beginCountryChat(qiContext: QiContext?) {
         countryText = findViewById(R.id.tv_country)
+        iknowText = findViewById(R.id.tv_iknow)
         // ** Chat Action starts here **
         // BUILD topic(QiContext, Resource) and chatbot(QiContext, language config, topic)
         topCountry = TopicBuilder.with(qiContext).withResource(R.raw.top_country).build()
         countryChatbot = QiChatbotBuilder.with(qiContext).withLocale(locale).withTopic(topCountry).build()
 
+        // GET QiChat-Variable $iknow, SET its text to lower TextView in activity_practice
+        // Action on UI process -> runOnUIThread
+        countryChatbot.variable("iknow").addOnValueChangedListener {
+            runOnUiThread {
+                iknowText.text = it
+            }
+        }
 
-        // GET QiChat-Variable $hint, SET its text to upper TextView in activity_practice
+        // GET QiChat-Variable $tellme, SET its text to upper TextView in activity_practice
         // Action on UI process -> runOnUIThread
         countryChatbot.variable("tellme").addOnValueChangedListener {
             runOnUiThread {

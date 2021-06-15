@@ -21,6 +21,7 @@ concept:(date) [Datum "Was ist heute für ein Tag?" "Was [ist "haben wir"] heute
 concept:(yes) [ja gerne sicherlich "auf jeden Fall" "ich bitte darum" bitte]
 concept:(no) [nein danke "lieber nicht" nö "keine Lust"]
 
+
 proposal:%START
 Hallo Mensch!
 $talk = "Hallo Mensch"
@@ -101,8 +102,9 @@ proposal:%TIME
 
 
 u:(~date)
+    Heute ist der ^currentDate def: sayDate($day, $months, $year) ^currentDate
     $talk = "Heute ist der ^currentDate"
-    Heute ist der ^currentDate . ^enableThenGoto(QUESTION)
+     ^enableThenGoto(QUESTION)
 
 
 

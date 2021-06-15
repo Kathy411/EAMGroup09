@@ -8,6 +8,16 @@ concept:(done) [aufhören genug "nicht mehr" "keine Lust {mehr}" ]
 concept:(sthing_else) ["etwas anderes" lieber "doch lieber" anders anderes andere "andere Übung"]
 concept:(explain)[erklären erklär erkläre Erklärung erzähl "wie geht es"]
 concept:(start)[anfangen "fang an" "fang ruhig an" "ich weiss wie es geht" "können anfangen"]
+concept:(repeat) ["wiederhole das Wort" wiederholen wiederhole wiederhol "noch mal" "noch einmal" "sag noch mal"]
+
+# Workaround for non-functional wildcard recognition:
+# Dialogue/NotUnderstood is raised whenever the word was not fully understood, resp. correct. Via ^stayInScope the original proposal remains
+# active and allows the user to repeat their input. With user subrule ~repeat the system will repeat the word.
+u:(e:Dialog/NotUnderstood)
+^rand[
+"Übung macht den Meister, lass uns das Wort noch einmal versuchen! Wenn du es noch einmal hören möchtest, sag bitte WIEDERHOLE DAS WORT!"
+"Manche Worte sind recht schwierig. Aber versuchen wir es doch noch einmal! Wenn ich noch mal vorsprechen soll, sag bitte WIEDERHOLE DAS WORT!"
+] ^stayInScope
 
 
 proposal:%WORDSTART
@@ -62,6 +72,7 @@ In Ordnung? Sollen wir mit Worten beginnen?
                 u2:(~confirmation_no)
                     In Ordnung, dann sind wir erst mal fertig! ^endDiscuss(userWish)
 
+
 proposal:%WORDS
 $show = "Passt prima!"
 Die Worte lauten \pau=300\ Passt Prima.
@@ -86,11 +97,8 @@ Die Worte lauten \pau=300\ Passt Prima.
                 u2:([Lückentexte Lückentext])
                     $show = "Lückentexte"
                     Klingt gut! ^topic(top_comp_sentence)
-    u1:(*)
-        ^rand [
-            "Versuchen wir es noch einmal - die Worte lauten \pau=300\ Passt prima"
-            "Das war noch nicht ganz richtig. Versuch es doch noch einmal. \pau=300\ Passt Prima."
-        ]^stayInScope
+    u1:(~repeat) Ich wiederhole die Worte gerne \pau=300\ Passt prima!
+
 
 proposal:%WORDS
 $show = "Peter Pan"
@@ -116,11 +124,7 @@ Bitte sprich mir nach \pau=300\ Peter Pan.
                 u2:([Lückentexte Lückentext])
                     $show = "Lückentexte"
                     Klingt gut! ^topic(top_comp_sentence)
-    u1:(*)
-        ^rand [
-            "Versuchen wir es noch einmal - die Worte lauten \pau=300\ Peter Pan"
-            "Ich glaube das war es nicht ganz. Hier kommen meiine Worte noch einmal \pau=300\ Peter Pan."
-        ]^stayInScope
+    u1:(~repeat) Hier kommen meine Worte noch einmal \pau=300\ Peter Pan.
 
 proposal:%WORDS
 $show = "Top Ten"
@@ -146,11 +150,7 @@ Und jetzt  \pau=300\ Topp Tenn.
                 u2:([Lückentexte Lückentext])
                     $show = "Lückentexte"
                     Klingt gut! ^topic(top_comp_sentence)
-    u1:(*)
-        ^rand [
-            "Versuchen wir es noch einmal - die Worte lauten \pau=300\ Topp Tenn"
-            "Die beiden T hintereinander sind schwierig. Versuchen wir es noch einmal! \pau=300\ Topp Tenn."
-        ]^stayInScope
+    u1:(~repeat) Die beiden T in den Worten machen es schwierig. Ich spreche noch einmal vor \pau=300\ Top Tenn!
 
 
 proposal:%WORDS
@@ -177,11 +177,7 @@ Das aktuelle Wort lautet  \pau=300\ Kosmetik.
                 u2:([Lückentexte Lückentext])
                     $show = "Lückentexte"
                     Klingt gut! ^topic(top_comp_sentence)
-    u1:(*)
-        ^rand [
-            "Ich glaube das war es noch nicht ganz. Ich spreche noch einmal vor \pau=300\ Kosmetik"
-            "Übung macht den Meister, versuch es doch noch einmal \pau=300\ Kosmetik."
-        ]^stayInScope
+    u1:(~repeat) Hier kommt es nochmal \pau=300\ Kosmetik!
 
 
 proposal:%WORDS
@@ -208,12 +204,7 @@ Mein Wort lautet \pau=300\ Keramiktasse. Sprich mir einfach nach!
                 u2:([Lückentexte Lückentext])
                     $show = "Lückentexte"
                     Klingt gut! ^topic(top_comp_sentence)
-    u1:(*)
-        ^rand [
-            "Versuchen wir es gemeinsam noch einmal - das Wort ist \pau=300\ Keramiktasse"
-            "Das war schon fast richtig. Aber versuchen wir es doch noch einmal. Das Wort ist \pau=300\ Keramiktasse."
-        ]^stayInScope
-
+    u1:(~repeat) Hier kommt mein Wort noch einmal \pau=300\ Keramiktasse!
 
 proposal:%WORDS
 $show = "Patentanwälte"
@@ -239,11 +230,8 @@ Versuchen wir dieses Wort.  \pau=300\ Patentanwälte.
                 u2:([Lückentexte Lückentext])
                     $show = "Lückentexte"
                     Klingt gut! ^topic(top_comp_sentence)
-    u1:(*)
-        ^rand [
-            "Übung macht den Meister. Versuchen wir es gemeinsam noch einmal \pau=300\ Patentanwälte"
-            "Das war schon fast richtig. Versuchen wir es nochmal zusammen \pau=300\ Patentanwälte."
-        ]^stayInScope
+    u1:(~repeat)  Ich spreche das Wort noch einmal vor \pau=300\ Patentanwälte!
+
 
 proposal:%WORDS
 $show = "Tagesschau"
@@ -269,11 +257,7 @@ Okay, mein Wort lautet \pau=300\ Tagesschau.
                 u2:([Lückentexte Lückentext])
                     $show = "Lückentexte"
                     Klingt gut! ^topic(top_comp_sentence)
-    u1:(*)
-        ^rand [
-            "Ich glaue das war noch nicht ganz richtig. Versuchen wir es noch einmal gemeinsam \pau=300\ Tagesschau."
-            "Wir versuchen dieses Wort einfach noch mal zusammen. Das Wort lautet \pau=300\ Tagesschau."
-        ]^stayInScope
+    u1:(~repeat) Das Wort ist nicht so einfach. Es lautet \pau=300\ Tagesschau!
 
 proposal:%WORDS
 $show = "Tasten"
@@ -299,11 +283,7 @@ Okay, mein Wort heisst \pau=300\ Tasten.
                 u2:([Lückentexte Lückentext])
                     $show = "Lückentexte"
                     Klingt gut! ^topic(top_comp_sentence)
-    u1:(*)
-        ^rand [
-            "Versuchen wir es noch einmal - das Worte ist \pau=300\ Tasten."
-            "Das war noch nicht ganz richtig. Ich sprechen Ihnen noch einmal vor \pau=300\ Tasten."
-        ]^stayInScope
+    u1:(~repeat) Diese Worte mit T sind nicht so leicht. Hier kommt es noch einmal \pau=300\ Tasten!
 
 proposal:%WORDS
 $show = "Kosmetiktücher"
@@ -329,11 +309,7 @@ Hier kommt mein Wort \pau=300\ Kosmetiktücher.
                 u2:([Lückentexte Lückentext])
                     $show = "Lückentexte"
                     Klingt gut! ^topic(top_comp_sentence)
-    u1:(*)
-        ^rand [
-            "Das Wort ist auch recht schwierig. Ich spreche es noch einmal vor. \pau=300\ Kosmetiktücher."
-            "Übung macht den Meister. Ich spreche Dir noch einmal vor. \pau=300\ Kosmetiktücher."
-        ]^stayInScope
+    u1:(~repeat) Ich wiederhole das Wort gerne \pau=300\ Kosmetiktücher!
 
 #10
 proposal:%WORDS
@@ -360,11 +336,7 @@ Wenn ich an den Winter denke, fällt mir ein Wort ein. Bitte sprich mir nach \pa
                 u2:([Lückentexte Lückentext])
                     $show = "Lückentexte"
                     Klingt gut! ^topic(top_comp_sentence)
-    u1:(*)
-        ^rand [
-            "Dieses Wort bereitet mir mitunter auch Schwierigkeiten. Also hier kommt es noch einmal \pau=300\ Schneepflug."
-            "Das war fast richtig. Versuchen wir es zusammen noch einmal. \pau=300\ Schneepflug."
-        ]^stayInScope
+    u1:(~repeat) Ich wiederhole es gerne. Mein Wort lautet \pau=300\ Schneepflug!
 
 proposal:%WORDS
 $show = "Tortenstück"
@@ -390,11 +362,7 @@ Ich bin ein kleines Leckermäulchen und denke an Kuchen.. daher jetzt mein Wort 
                 u2:([Lückentexte Lückentext])
                     $show = "Lückentexte"
                     Klingt gut! ^topic(top_comp_sentence)
-    u1:(*)
-        ^rand [
-            "Sogern ich Süßes mag, aber das Wort ist schwierig. Versuchen wir es noch einmal zusammen \pau=300\ Tortenstück."
-            "So ein schwieriges Wort für so etwas leckeres! Versuchen wir es noch einmal \pau=300\ Tortenstück."
-        ]^stayInScope
+    u1:(~repeat) Dann versuchen wir es noch einmal gemeinsam \pau=300\ Tortenstück!
 
 
 proposal:%WORDS
@@ -421,11 +389,7 @@ Das Wort ist nun schon etwas schwieriger ^execute(ask) \pau=300\ Eichhörnchen.
                 u2:([Lückentexte Lückentext])
                     $show = "Lückentexte"
                     Klingt gut! ^topic(top_comp_sentence)
-    u1:(*)
-        ^rand [
-            "Ganz ehrlich, dieses Wort ist schwierig! Hier kommt es noch einmal \pau=300\ Eichhörnchen."
-            "Versuchen wir es doch noch einmal zusammen. Das Wort lautet \pau=300\ Eichhörnchen."
-        ]^stayInScope
+    u1:(~repeat) Hör mir noch einmal zu und versuch es dann selbst \pau=300\ Eichhörnchen!
 
 proposal:%WORDS
 $show = "Aquarienleuchte"
@@ -451,11 +415,7 @@ Mein Wort lautet \pau=300\ Aquarienleuchte.
                 u2:([Lückentexte Lückentext])
                     $show = "Lückentexte"
                     Klingt gut! ^topic(top_comp_sentence)
-    u1:(*)
-        ^rand [
-            "Mit diesem Wort habe ich mitunter auch Schwierigkeiten. Versuchen wir es noch einmal gemeinsam \pau=300\ Aquarienleuchte."
-            "Ich glaube das war noch nicht ganz richtig. Ich spreche noch einmal vor \pau=300\ Aquarienleuchte."
-        ]^stayInScope
+    u1:(~repeat) Machen wir das Wort gleich noch einmal  \pau=300\ Aquarienleuchte!
 
 proposal:%WORDS
 $show = "Schneegestöber"
@@ -481,11 +441,7 @@ Hier kommt mein Wort \pau=300\ Schneegestöber.
                 u2:([Lückentexte Lückentext])
                     $show = "Lückentexte"
                     Klingt gut! ^topic(top_comp_sentence)
-    u1:(*)
-        ^rand [
-            "Lass und das noch einmal zusammen versuchen! Das Wort lautet \pau=300\ Schneegestöber."
-            "Übung macht den Meister. Lass es uns noch einmal gemeinsam versuchen \pau=300\ Schneegestöber."
-        ]^stayInScope
+    u1:(~repeat) Hier kommt das Wort noch einmal \pau=300\ Schneegestöber!
 
 
 proposal:%WORDS
@@ -512,11 +468,7 @@ Hier kommt mein Wort \pau=300\ Weihnachtsbaum.
                 u2:([Lückentexte Lückentext])
                     $show = "Lückentexte"
                     Klingt gut! ^topic(top_comp_sentence)
-    u1:(*)
-        ^rand [
-            "Worte mit ch sind mitunter nicht so leicht! Lass es uns noch einmal versuchen \pau=300\ Weihnachtsbaum."
-            "Lass es uns noch einmal gemeinsam versuchen... das Wort lautet \pau=300\ Weihnachtsbaum."
-        ]^stayInScope
+    u1:(~repeat) Ich spreche das Wort noch einmal vor \pau=300\ Weihnachstbaum!
 
 
 proposal:%WORDS
@@ -547,12 +499,7 @@ Dieses Wort ist recht schwierig... versuchen wir es. \pau=300\ Esszimmer Tisch T
                 u2:([Lückentexte Lückentext])
                     $show = "Lückentexte"
                     Klingt gut! ^topic(top_comp_sentence)
-    u1:(*)
-        ^rand [
-            "Ich musste dieses Wort auch üben... lass es uns noch einmal gemeinsam probieren \pau=300\ Esszimmer Tisch Tischdecke."
-            "Mit diesem Wort hatte ich anfangs auch so meine Probleme. Versuchen wir es doch gleich noch einmal \pau=300\ Esszimmer Tisch Tischdecke."
-        ]^stayInScope
-
+    u1:(~repeat) Dieses Wort macht mir auch Schwierigkeiten! Hier kommt es noch einmal \pau=300\ Esszimmertischtischdecke!
 
 proposal:%WORDS
 $show = "Ersatzteillagermitarbeiter"
@@ -582,12 +529,7 @@ Jetzt habe ich eines dieser zusammengesetzen Worte. ^execute(affirm) Hier kommt 
                 u2:([Lückentexte Lückentext])
                     $show = "Lückentexte"
                     Klingt gut! ^topic(top_comp_sentence)
-    u1:(*)
-        ^rand [
-            "Mit diesem Wort hatte ich auch so meine Probleme. Aber gemeinsam kriegen wir das hin \pau=300\ Ersatzteillagermitarbeiter."
-            "Lass es uns noch einmal gemeinsam versuchen... das Wort lautet \pau=300\ Ersatzteillagermitarbeiter."
-        ]^stayInScope
-
+    u1:(~repeat) Diese zusammengesetzen Worte sind schwierig! Ich spreche noch mal vor \pau=300\ Ersatzteillagermitarbeiter!
 
 proposal:%WORDS
 $show = "Eisenbahnverkehr"
@@ -613,11 +555,7 @@ Mein Wort lautet  \pau=300\ Eisenbahnverkehr.
                 u2:([Lückentexte Lückentext])
                     $show = "Lückentexte"
                     Klingt gut! ^topic(top_comp_sentence)
-    u1:(*)
-        ^rand [
-            "Übung macht den Meister, versuchen wir es gleich noch einmal \pau=300\ Eisenbahnverkehr."
-            "Versuchen wir das Wort einfach nochmal. Es ist auch ein bisschen schwierig. \pau=300\ Eisenbahnverkehr."
-        ]^stayInScope
+    u1:(~repeat) Ich wiederhole mein Wort gerne \pau=300\ Eisenbahnverkehr!
 
 
 proposal:%WORDS
@@ -644,11 +582,7 @@ Mein Wort ist ein bisschen länger... hier kommt es \pau=300\ Medikamentenbeipac
                 u2:([Lückentexte Lückentext])
                     $show = "Lückentexte"
                     Klingt gut! ^topic(top_comp_sentence)
-    u1:(*)
-        ^rand [
-            "Versuchen wir das Wort noch einmal gemeinsam \pau=300\ Medikamentenbeipackzettel."
-            "Das ist auch ein schwieriges Wort! Versuchen wir es gleich noch mal. \pau=300\ Medikamentenbeipackzettel."
-        ]^stayInScope
+    u1:(~repeat) Ich wiederhole es gerne! Mein Wort lautet \pau=300\ Medikamentenbeipackzettel!
 
 
 proposal:%WORDS
@@ -679,8 +613,4 @@ Hier kommt mein Wort. Es lautet... \pau=300\ Lichtzeichen.
                 u2:([Lückentexte Lückentext])
                     $show = "Lückentexte"
                     Klingt gut! ^topic(top_comp_sentence)
-    u1:(*)
-        ^rand [
-            "Worte mit ch finde ich auch immer etwas schwierig! Aber versuchen wir es doch noch einmal \pau=300\ Lichtzeichen."
-            "Das ist auch ein schwieriges Wort! Versuchen wir es gleich noch mal. \pau=300\ Lichtzeichen."
-        ]^stayInScope
+    u1:(~repeat) Ich wiederhole mein Wort gerne! Es lautet \pau=300\ Lichtzeichen!

@@ -30,31 +30,32 @@ concept:(yes) [ja gerne sicherlich "auf jeden Fall" definitiv]
 concept:(no) [nein "lieber nicht" nicht]
 
 proposal:%TELLME
-$tellme = "Ich kenne folgende Länder: Island, Norwegen, Schweden, Finnland, Dänemark, Polen, Tcheschien, Österreich, Schweiz, Belgien, Niederlande, Frankreich, Spanien, Potrugal, Italien, Indien, China, Russland, USA, Brasilien, Chile, Südafrika und Ägypten"
+$tellme = "Ich kenne folgende Länder:"
+$iknow = "Island, Norwegen, Schweden, Finnland, Dänemark, Polen, Tcheschien, Österreich, Schweiz, Belgien, Niederlande, Frankreich, Spanien, Potrugal, Italien, Indien, China, Russland, USA, Brasilien, Chile, Südafrika und Ägypten"
 Über welches Land möchtest du heute sprechen?
-    u1:(Norwegen) $tellme = "" Oh, dazu habe ich ein paar Infos: ~norway ^enableThenGoto(QUESTION)
-    u1:(Schweden) $tellme = "" Ich habe ihr noch ein paar Infos für dich: ~sweden^enableThenGoto(QUESTION)
-    u1:(Niederlande) $tellme = "" Ich habe hier noch ein paar interessante Fakten über die Niederlande: ~netherlands ^enableThenGoto(QUESTION)
-    u1:(Dänemark) $tellme = "" Zu diesem Land kann ich dir auch was erzählen: ~denmark ^enableThenGoto(QUESTION)
-    u1:(Finnland) $tellme = "" Über Finnland weiß ich auch etwas: ~finland ^enableThenGoto(QUESTION)
-    u1:(Polen) $tellme = "" Oh, dazu habe ich ein paar Infos: ~poland ^enableThenGoto(QUESTION)
-    u1:(Tschechien) $tellme = "" Ich habe ihr noch ein paar Infos für dich: ~Czech ^enableThenGoto(QUESTION)
-    u1:(Österreich) $tellme = "" Zu diesem Land kann ich dir auch was erzählen: ~austria ^enableThenGoto(QUESTION)
-    u1:(Schweiz) $tellme = "" Wusstest du schon, dass ~switzerland ^enableThenGoto(QUESTION)
-    u1:(Frankreich) $tellme = "" Das weiß ich über Frankreich: ~france ^enableThenGoto(QUESTION)
-    u1:(Spanien) Z$tellme = "" u diesem Land weiß ich auch was: ~spain ^enableThenGoto(QUESTION)
-    u1:(Belgien) $tellme = "" Oh, dazu habe ich ein paar Infos: ~belgium ^enableThenGoto(QUESTION)
-    u1:(Italien) $tellme = "" Ich habe ihr noch ein paar Infos für dich: ~italy ^enableThenGoto(QUESTION)
-    u1:(Portugal) $tellme = "" Zu diesem Land kann ich dir auch was erzählen: ~portugal ^enableThenGoto(QUESTION)
-    u1:(Indien) $tellme = "" Das weiß ich über Indien: ~india ^enableThenGoto(QUESTION)
-    u1:(China) $tellme = "" Zu diesem Land weiß ich auch was: ~china ^enableThenGoto(QUESTION)
-    u1:(Russland) $tellme = "" Oh, dazu habe ich ein paar Infos: ~russia ^enableThenGoto(QUESTION)
-    u1:(Südafrika) $tellme = "" Ich habe ihr noch ein paar Infos für dich: ~southafrika ^enableThenGoto(QUESTION)
-    u1:(USA) $tellme = "" Zu diesem Land kann ich dir auch was erzählen: ~usa ^enableThenGoto(QUESTION)
-    u1:(Ägypten) $tellme = "" Zu diesem Land weiß ich auch was: ~egypt ^enableThenGoto(QUESTION)
-    u1:(Brasilien) $tellme = "" Über Brasilien weiß ich folgednes: ~brazil ^enableThenGoto(QUESTION)
-    u1:(Island) $tellme = "" Ich habe hier noch ein paar interessante Fakten über Island: ~iceland ^enableThenGoto(QUESTION)
-    u1:(Chile) $tellme = "" Zu diesem Land weiß ich auch was: ~chile ^enableThenGoto(QUESTION)
+    u1:(Norwegen) $iknow = "" $tellme = "" Oh, dazu habe ich ein paar Infos: ~norway ^enableThenGoto(QUESTION)
+    u1:(Schweden) $iknow = "" $tellme = "" Ich habe ihr noch ein paar Infos für dich: ~sweden^enableThenGoto(QUESTION)
+    u1:(Niederlande) $iknow = "" $tellme = "" Ich habe hier noch ein paar interessante Fakten über die Niederlande: ~netherlands ^enableThenGoto(QUESTION)
+    u1:(Dänemark) $iknow = "" $tellme = "" Zu diesem Land kann ich dir auch was erzählen: ~denmark ^enableThenGoto(QUESTION)
+    u1:(Finnland) $iknow = "" $tellme = "" Über Finnland weiß ich auch etwas: ~finland ^enableThenGoto(QUESTION)
+    u1:(Polen) $iknow = "" $tellme = "" Oh, dazu habe ich ein paar Infos: ~poland ^enableThenGoto(QUESTION)
+    u1:(Tschechien) $iknow = "" $tellme = "" Ich habe ihr noch ein paar Infos für dich: ~Czech ^enableThenGoto(QUESTION)
+    u1:(Österreich) $iknow = "" $tellme = "" Zu diesem Land kann ich dir auch was erzählen: ~austria ^enableThenGoto(QUESTION)
+    u1:(Schweiz) $iknow = "" $tellme = "" Wusstest du schon, dass ~switzerland ^enableThenGoto(QUESTION)
+    u1:(Frankreich) $iknow = "" $tellme = "" Das weiß ich über Frankreich: ~france ^enableThenGoto(QUESTION)
+    u1:(Spanien) $iknow = "" $tellme = "" u diesem Land weiß ich auch was: ~spain ^enableThenGoto(QUESTION)
+    u1:(Belgien) $iknow = "" $tellme = "" Oh, dazu habe ich ein paar Infos: ~belgium ^enableThenGoto(QUESTION)
+    u1:(Italien) $iknow = "" $tellme = "" Ich habe ihr noch ein paar Infos für dich: ~italy ^enableThenGoto(QUESTION)
+    u1:(Portugal) $iknow = "" $tellme = "" Zu diesem Land kann ich dir auch was erzählen: ~portugal ^enableThenGoto(QUESTION)
+    u1:(Indien) $iknow = "" $tellme = "" Das weiß ich über Indien: ~india ^enableThenGoto(QUESTION)
+    u1:(China) $iknow = "" $tellme = "" Zu diesem Land weiß ich auch was: ~china ^enableThenGoto(QUESTION)
+    u1:(Russland) $iknow = "" $tellme = "" Oh, dazu habe ich ein paar Infos: ~russia ^enableThenGoto(QUESTION)
+    u1:(Südafrika) $iknow = "" $tellme = "" Ich habe ihr noch ein paar Infos für dich: ~southafrika ^enableThenGoto(QUESTION)
+    u1:(USA) $iknow = "" $tellme = "" Zu diesem Land kann ich dir auch was erzählen: ~usa ^enableThenGoto(QUESTION)
+    u1:(Ägypten) $iknow = "" $tellme = "" Zu diesem Land weiß ich auch was: ~egypt ^enableThenGoto(QUESTION)
+    u1:(Brasilien) $iknow = "" $tellme = "" Über Brasilien weiß ich folgednes: ~brazil ^enableThenGoto(QUESTION)
+    u1:(Island) $iknow = "" $tellme = "" Ich habe hier noch ein paar interessante Fakten über Island: ~iceland ^enableThenGoto(QUESTION)
+    u1:(Chile) $iknow = "" $tellme = "" Zu diesem Land weiß ich auch was: ~chile ^enableThenGoto(QUESTION)
 
 proposal:%QUESTION
 ^rand[
