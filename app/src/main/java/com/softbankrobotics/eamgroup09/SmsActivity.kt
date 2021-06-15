@@ -1,83 +1,118 @@
 package com.softbankrobotics.eamgroup09
 
-import android.R
-import android.content.ActivityNotFoundException
+import android.Manifest
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
-import android.speech.RecognizerIntent
+import android.telephony.SmsManager
+import android.text.TextUtils
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
-import android.widget.TextView
+import android.widget.EditText
 import android.widget.Toast
-
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.aldebaran.qi.sdk.QiContext
 import com.aldebaran.qi.sdk.QiSDK
 import com.aldebaran.qi.sdk.RobotLifecycleCallbacks
-import com.aldebaran.qi.sdk.`object`.conversation.*
+import com.aldebaran.qi.sdk.`object`.conversation.Phrase
+import com.aldebaran.qi.sdk.`object`.locale.Language
 import com.aldebaran.qi.sdk.`object`.locale.Locale
+import com.aldebaran.qi.sdk.`object`.locale.Region
+import com.aldebaran.qi.sdk.builder.SayBuilder
 import com.aldebaran.qi.sdk.design.activity.RobotActivity
-import com.aldebaran.qi.sdk.design.activity.conversationstatus.SpeechBarDisplayStrategy
 
 
-class SmsActivity: RobotActivity(), RobotLifecycleCallbacks {
-    override fun onRobotFocusGained(qiContext: QiContext?) {
-        TODO("Not yet implemented")
-    }
+class SmsActivity : RobotActivity(), RobotLifecycleCallbacks {
+    lateinit var sendButton: Button
+    lateinit var editTextNumber: EditText
+    lateinit var editTextMessage: EditText
+    lateinit var locale : Locale
+    private val permissionRequest = 101
 
-    override fun onRobotFocusLost() {
-        TODO("Not yet implemented")
-    }
 
-    override fun onRobotFocusRefused(reason: String?) {
-        TODO("Not yet implemented")
-    }
-}
-
-/*    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        QiSDK.register(this, this)
         super.onCreate(savedInstanceState)
-        QiSDK.register(this, this )
-        setSpeechBarDisplayStrategy(SpeechBarDisplayStrategy.OVERLAY)
-        setContentView(R.layout.activity_)
+        setContentView(R.layout.activity_sms)
+        editTextNumber = findViewById(R.id.et_number)
+        showSoftKeyboard(editTextNumber)
+        editTextMessage = findViewById(R.id.et_message)
+        showSoftKeyboard(editTextMessage)
+        sendButton = findViewById(R.id.btn_send)
+
     }
 
-override fun onRobotFocusGained(qiContext: QiContext?) {
-        val senden = findViewById<Button>(R.id.btn_)
-        val Aufnahme: Button = findViewById(R.id.button2)
-        val anzeige : TextView = findViewById(R.id.textView)
+    override fun onRobotFocusGained(qiContext: QiContext?) {
+        val backButton8: Button = findViewById(R.id.btn_back8)
+        backButton8.setOnClickListener {
+            val changeToMain = Intent(this, MainActivity::class.java)
+            startActivity(changeToMain)
+        }
 
-        senden.setOnClickListener(
-                View.OnClickListener { anzeige.text = "SMS wurde versendet" }
-        )
-        Aufnahme.setOnClickListener(
-                View.OnClickListener { anzeige.text = "Aufnahme wurde begonnen" }
-        )
-    }
+        locale = Locale(Language.GERMAN, Region.GERMANY)
+        val smsPhrase : Phrase = Phrase("Von hier aus können Sie SMS versenden. Derzeit musst Du Text und Nummer noch eingeben, " +
+                "aber meine Programmierer Innen arbeiten an der Spracheingabe. Wenn Du fertig bist, drücke einfach auf Senden")
+        val smsSay = SayBuilder.with(qiContext).withPhrase(smsPhrase).withLocale(locale).build()
 
-    fun onClick(v: View?) {
-        val i = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
-        i.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM) //Sprache erkennen
-        i.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
-        i.putExtra(RecognizerIntent.EXTRA_PROMPT, "Bitte sage jetzt den Inhalt deiner SMS-Nachricht!")
-        try {
-            startActivityforResult(i, 100)
-        } catch (e: ActivityNotFoundException) {
-            Toast.makeText(ApplicationProvider.getApplicationContext<Context>(), "Die Sprachausgabe wird nicht unterstützt", Toast.LENGTH_LONG).show()
+        smsSay.async().run()
+
+        sendButton.setOnClickListener {
+            sendMessage()
+            //   }
         }
     }
 
-    protected fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 100) {
-            if (resultCode == RESULT_OK && data != null) {
-                val result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
+    private fun showSoftKeyboard(view: View) {
+        if (view.requestFocus()) {
+            val inputMethodManager: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputMethodManager.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT)
+        }
+    }
+
+    private fun sendMessage() {
+        val permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS)
+        if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
+            myMessage()
+        } else {
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.SEND_SMS),
+                    permissionRequest)
+        }
+    }
+
+    private fun myMessage() {
+        val toNumber: String = editTextNumber.text.toString().trim()
+        val txtMessage: String = editTextMessage.text.toString().trim()
+        if (toNumber == "" || txtMessage == "") {
+            Toast.makeText(this, "Field cannot be empty", Toast.LENGTH_SHORT).show()
+        } else {
+            if (TextUtils.isDigitsOnly(toNumber)) {
+                val smsManager: SmsManager = SmsManager.getDefault()
+                smsManager.sendTextMessage(toNumber, null, txtMessage, null, null)
+                Toast.makeText(this, "Nachricht versendet", Toast.LENGTH_LONG).show()
+                editTextMessage.text.clear()
+                editTextNumber.text.clear()
+            } else {
+                Toast.makeText(this, "Ins Nummernfeld bitte nur Zahlen eingeben!", Toast.LENGTH_LONG).show()
             }
         }
-
-
-
     }
 
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults:
+    IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == permissionRequest) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                myMessage();
+            } else {
+                Toast.makeText(this, "Nachricht konnte leider nicht versendet werden!",
+                        Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
     override fun onRobotFocusLost() {
         TODO("Not yet implemented")
     }
@@ -85,6 +120,5 @@ override fun onRobotFocusGained(qiContext: QiContext?) {
     override fun onRobotFocusRefused(reason: String?) {
         TODO("Not yet implemented")
     }
+
 }
-/*
- */

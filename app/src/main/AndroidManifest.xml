@@ -3,6 +3,7 @@
     package="com.softbankrobotics.eamgroup09">
 
     <uses-feature android:name="com.softbank.hardware.pepper" />
+    <uses-permission android:name="android.permission.SEND_SMS"/>
 
     <application
         android:allowBackup="true"
@@ -22,7 +23,6 @@
 
 
         <activity android:name=".PracticeActivity"/>
-
 
         <activity android:name=".QuizActivity"/>
         <activity android:name=".NewspaperActivity"/>
