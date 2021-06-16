@@ -54,7 +54,7 @@ class SmsActivity : RobotActivity(), RobotLifecycleCallbacks {
         }
 
         locale = Locale(Language.GERMAN, Region.GERMANY)
-        val smsPhrase : Phrase = Phrase("Von hier aus können Sie SMS versenden. Derzeit musst Du Text und Nummer noch eingeben, " +
+        val smsPhrase : Phrase = Phrase("Von hier aus kannst Du SMS versenden. Derzeit musst Du Text und Nummer noch eingeben, " +
                 "aber meine Programmierer Innen arbeiten an der Spracheingabe. Wenn Du fertig bist, drücke einfach auf Senden")
         val smsSay = SayBuilder.with(qiContext).withPhrase(smsPhrase).withLocale(locale).build()
 
