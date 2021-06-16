@@ -34,4 +34,5 @@
     <string name="backButton">Zurück</string>
     <string name="MessageText">Nachricht</string>
     <string name="PhoneNumber">Telefonnummer </string>
+    <string name="record">"Zum Aufnehmen \n Button gedrückt halten! "</string>
 </resources>
