@@ -99,7 +99,6 @@
         android:layout_marginStart="600dp"
         android:layout_marginTop="30dp"
         android:fontFamily="@font/roboto_bold"
-        android:gravity="center_vertical"
         android:text="@string/Members"
         android:textColor="#272525"
         android:textSize="24sp"
