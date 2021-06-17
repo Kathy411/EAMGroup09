@@ -35,6 +35,7 @@ import kotlin.concurrent.thread
 class SmsActivity : RobotActivity(), RobotLifecycleCallbacks {
     lateinit var btn_record : Button
     lateinit var btn_send: Button
+    lateinit var btn_back_sms3 : Button
     lateinit var editTextNumber: EditText
     lateinit var editTextMessage: EditText
     lateinit var locale : Locale
@@ -65,6 +66,7 @@ class SmsActivity : RobotActivity(), RobotLifecycleCallbacks {
             startActivity(changeToMain)
         }
 
+
         locale = Locale(Language.GERMAN, Region.GERMANY)
         val smsPhrase: Phrase = Phrase("Von hier aus kannst Du SMS versenden. Derzeit musst Du Text und Nummer noch eingeben, " +
                 "aber meine Programmierer Innen arbeiten an der Spracheingabe. Wenn Du fertig bist, drücke einfach auf Senden")
@@ -76,7 +78,7 @@ class SmsActivity : RobotActivity(), RobotLifecycleCallbacks {
             sendMessage()
         }
 
-    /*    btn_record = findViewById(R.id.btn_talk)
+        /* btn_record = findViewById(R.id.btn_talk)
         btn_record.setOnClickListener {
             // Get the Intent action
             val sttIntent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
@@ -96,7 +98,7 @@ class SmsActivity : RobotActivity(), RobotLifecycleCallbacks {
             }
         }
 
-     */
+         */
     }
 
     private fun showSoftKeyboard(view: View) {
@@ -125,13 +127,21 @@ class SmsActivity : RobotActivity(), RobotLifecycleCallbacks {
             if (TextUtils.isDigitsOnly(toNumber)) {
                 val smsManager: SmsManager = SmsManager.getDefault()
                 smsManager.sendTextMessage(toNumber, null, txtMessage, null, null)
-                Toast.makeText(this, "Nachricht versendet", Toast.LENGTH_LONG).show()
-                editTextMessage.text.clear()
-                editTextNumber.text.clear()
+                setContentView(R.layout.activity_sms_sent)
+               //  Toast.makeText(this, "Nachricht versendet", Toast.LENGTH_LONG).show()
+               //  editTextMessage.text.clear()
+               //  editTextNumber.text.clear()
             } else {
                 Toast.makeText(this, "Ins Nummernfeld bitte nur Zahlen eingeben!", Toast.LENGTH_LONG).show()
             }
         }
+
+        val btn_back_sms3: Button = findViewById(R.id.btn_back_sms3)
+        btn_back_sms3.setOnClickListener {
+            val changeToMain = Intent(this, MainActivity::class.java)
+            startActivity(changeToMain)
+        }
+
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults:
