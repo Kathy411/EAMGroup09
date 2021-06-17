@@ -57,7 +57,8 @@ class SmallTalkActivity: RobotActivity(), RobotLifecycleCallbacks {
         val executors = hashMapOf(
                     "hello" to HelloExecutor(qiContext),
                     "nice" to NiceExecutor(qiContext),
-                    "clapping" to ClappingExecutor(qiContext)
+                    "clapping" to ClappingExecutor(qiContext),
+                    "dance" to DanceExecutor(qiContext)
             )
         // Set Executors to qiChatbot
         smallTalkChatbot.executors = executors as Map<String, QiChatExecutor>?

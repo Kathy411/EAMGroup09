@@ -29,6 +29,8 @@ concept:(intresting)["Das ist ja interessant" "Was für tolle Infos, danke dir" 
 concept:(yes) [ja gerne sicherlich "auf jeden Fall" definitiv]
 concept:(no) [nein "lieber nicht" nicht]
 
+concept:(answer) [Norwegen Schweden Niederlande Dänemark Finnland Polen Tschechien Österreich Schweiz Frankreich Spanien Belgien Italien Portugal Indien China Russland Südafrika Usa Ägypten Brasilien Island Chile "ich weiß" dort da in Hauptstadt]
+
 proposal:%TELLME
 $tellme = "Ich kenne folgende Länder:"
 $iknow = "Island, Norwegen, Schweden, Finnland, Dänemark, Polen, Tcheschien, Österreich, Schweiz, Belgien, Niederlande, Frankreich, Spanien, Potrugal, Italien, Indien, China, Russland, USA, Brasilien, Chile, Südafrika und Ägypten"
@@ -64,6 +66,6 @@ proposal:%QUESTION
     "Hast du noch ein paar Infos zu dem Land für mich?"
     "Weißt du noch etwas mehr zu diesem Land?"
 ]
-    u1:(_*) ^rand [~intresting] ^execute(nice) Möchtest du noch über ein anders Land reden?
+    u1:(~answer) ^rand [~intresting] ^execute(nice) Möchtest du noch über ein anders Land reden?
     u2:(~yes) ^enableThenGoto(TELLME)
     u2:(~no) Okay, schade ^endDiscuss(userWish)
