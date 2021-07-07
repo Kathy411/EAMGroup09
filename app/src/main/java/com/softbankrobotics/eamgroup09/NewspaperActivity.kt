@@ -21,8 +21,8 @@ import com.aldebaran.qi.sdk.design.activity.conversationstatus.SpeechBarDisplayS
 import kotlin.concurrent.thread
 
 class NewspaperActivity: RobotActivity(), RobotLifecycleCallbacks {
-    val TAG = "FragmentActivity"                                    //Set language to German
-    val locale: Locale = Locale(Language.GERMAN, Region.GERMANY)
+    val TAG = "FragmentActivity"
+    val locale: Locale = Locale(Language.GERMAN, Region.GERMANY)     //Set language to German
     lateinit var topNews : Topic
     lateinit var newsChatbot: QiChatbot
     lateinit var newsChat : Chat
@@ -38,55 +38,60 @@ class NewspaperActivity: RobotActivity(), RobotLifecycleCallbacks {
     }
 
     override fun onRobotFocusGained(qiContext: QiContext?) {
+
+        // SET Back button to change to Main on Click
         val backButton2: Button = findViewById(R.id.btn_back7)
         backButton2.setOnClickListener {
             val changeToMain = Intent(this, MainActivity::class.java)
             startActivity(changeToMain)
         }
 
-       //  val newsPhrase: Phrase = Phrase("Hallo")
-       //  val newsSay: Say = SayBuilder.with(qiContext).withPhrase(newsPhrase).withLocale(locale).build()
-       //  newsSay.run()
-
+        // PUT chat action in worker thread manually
         thread { beginNewsChat(qiContext) }
     }
 
+        // START chat action
     fun beginNewsChat(qiContext: QiContext?) {
         newsLabel = findViewById<TextView>(R.id.tv_newsLable)
         readtomeLabel = findViewById<TextView>(R.id.tv_readtome)
 
-        // Chat Action - Topic top_quiz
+        // BUILD topic with qiContext & Resource
         topNews = TopicBuilder.with(qiContext).withResource(R.raw.top_newspaper).build()
+        // BUILD QiChatbot with qiContext, language config & topic
         newsChatbot = QiChatbotBuilder.with(qiContext).withLocale(locale).withTopic(topNews).build()
 
 
-        //In case animations are needed, pls add to the hashMap, also add Executor and Runnable
+        // Animations used in this activity - mutable Map of QiChat-Variable and BaseQiChatExecutor
         val executors = hashMapOf(
             "hello" to HelloExecutor(qiContext),
             "nice" to NiceExecutor(qiContext),
             "clapping" to ClappingExecutor(qiContext)
         )
-        // Set Executors to qiChatbot -> NOTHING TO DO!
+        // Set Executors to qiChatbot
         newsChatbot.executors = executors as Map<String, QiChatExecutor>?
 
-        // Set QiChat Variable to TextView
+        // Set QiChat Variable $headline to TextView
         newsChatbot.variable("headline").addOnValueChangedListener {
             runOnUiThread {
                 newsLabel.text = it
             }
         }
+        // Set QiChat Variable $readtome to TextView
         newsChatbot.variable("readtome").addOnValueChangedListener {
             runOnUiThread {
                readtomeLabel.text = it
             }
         }
-        // build Chat (QiContextm qiChatbot, Locale) -> NOTHING TO DO!
+        // BUILD Chat with qiContext, qiChatbot, language config
         newsChat = ChatBuilder.with(qiContext).withChatbot(newsChatbot).withLocale(locale).build()
+
+        // SET defined bookmark to START the conversation
         newsChat.addOnStartedListener { goToBookmark("READTOME") }
 
+        // RUN the chat asynchronously
         val fNchat: Future<Void> = newsChat.async().run()
 
-        // Stop the chat when the qichatbot is done
+        // STOP the chat when the chatbot is done
         newsChatbot.addOnEndedListener { endReason ->
             Log.i(TAG, "qichatbot end reason = $endReason")
             fNchat.requestCancellation()

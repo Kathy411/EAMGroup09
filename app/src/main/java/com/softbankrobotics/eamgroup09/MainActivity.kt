@@ -93,7 +93,6 @@ class MainActivity : RobotActivity(), RobotLifecycleCallbacks {
 
     }
 
-
     override fun onRobotFocusLost() {
         TODO("Not yet implemented")
     }

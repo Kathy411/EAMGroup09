@@ -150,3 +150,15 @@ fun clapping(qiContext: QiContext) {
             .build()                                            // Build the animate action.
     clappingAnimate.run()
 }
+
+fun dance(qiContext: QiContext) {
+    val danceAnim: Animation = AnimationBuilder.with(qiContext) // Create the builder with the context.
+            .withResources(R.raw.anim_dance)                    // Set the animation resource.
+            .build()                                            // Build the animation.
+
+    // Create an animate action.
+    val danceAnimate: Animate = AnimateBuilder.with(qiContext)  // Create the builder with the context.
+            .withAnimation(danceAnim)                           // Set the animation.
+            .build()                                            // Build the animate action.
+    danceAnimate.run()
+}

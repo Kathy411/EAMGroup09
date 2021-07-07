@@ -6,10 +6,10 @@ import com.aldebaran.qi.sdk.`object`.conversation.BaseQiChatExecutor
 // CREATE Executor class, IMPLEMENT functions runWith and stop
 // CALL Animation function -> see file AnimationFunctions.kt
 
-class BasketballExecutor (qiContext: QiContext?) :
+class DanceExecutor (qiContext: QiContext?) :
         BaseQiChatExecutor(qiContext) {
     override fun runWith(params: List<String>) {
-        basketball(qiContext)
+        dance(qiContext)
     }
     override fun stop() {}
 }

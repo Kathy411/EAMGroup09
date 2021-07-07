@@ -22,7 +22,7 @@ import kotlin.concurrent.thread
 class SmallTalkActivity: RobotActivity(), RobotLifecycleCallbacks {
     // Declare regular and late initializing variables for this class
     val TAG = "FragmentActivity"
-    val locale: Locale = Locale(Language.GERMAN, Region.GERMANY)
+    private val locale = Locale(Language.GERMAN, Region.GERMANY)
     lateinit var topSmallTalk : Topic
     lateinit var smallTalkChatbot: QiChatbot
     lateinit var chat : Chat
@@ -40,10 +40,21 @@ class SmallTalkActivity: RobotActivity(), RobotLifecycleCallbacks {
             val changeToMain = Intent(this, MainActivity::class.java)
             startActivity(changeToMain)
         }
+
         // ** Chat Action starts here **
         // BUILD topic(QiContext, Resource) and chatbot(QiContext, language config, topic)
         topSmallTalk = TopicBuilder.with(qiContext).withResource(R.raw.top_small_talk).build()
         smallTalkChatbot = QiChatbotBuilder.with(qiContext).withLocale(locale).withTopic(topSmallTalk).build()
+
+        // Animations used in this activity - mutable Map of QiChat-Variable and BaseQiChatExecutor
+        val executors = hashMapOf(
+                "hello" to HelloExecutor(qiContext),
+                "nice" to NiceExecutor(qiContext),
+                "clapping" to ClappingExecutor(qiContext),
+                "dance" to DanceExecutor(qiContext)
+        )
+        // Set Executors to qiChatbot
+        smallTalkChatbot.executors = executors as Map<String, QiChatExecutor>?
 
         val smallTalk = findViewById<TextView>(R.id.tv_smalltalk)
         smallTalkChatbot.variable("talk").addOnValueChangedListener {
@@ -53,17 +64,7 @@ class SmallTalkActivity: RobotActivity(), RobotLifecycleCallbacks {
         }
 
 
-        // Animations used in this activity - mutable Map of QiChat-Variable and BaseQiChatExecutor
-        val executors = hashMapOf(
-                    "hello" to HelloExecutor(qiContext),
-                    "nice" to NiceExecutor(qiContext),
-                    "clapping" to ClappingExecutor(qiContext),
-                    "dance" to DanceExecutor(qiContext)
-            )
-        // Set Executors to qiChatbot
-        smallTalkChatbot.executors = executors as Map<String, QiChatExecutor>?
-
-        // BUILD Chat (QiContext, qiChatbot, language config)
+        // BUILD Chat with QiContext, qiChatbot, language config
         chat = ChatBuilder.with(qiContext).withChatbot(smallTalkChatbot).withLocale(locale).build()
         chat.addOnStartedListener { goToBookmark("START") }
         // RUN chat asynchronously
@@ -73,8 +74,8 @@ class SmallTalkActivity: RobotActivity(), RobotLifecycleCallbacks {
         smallTalkChatbot.addOnEndedListener { endReason ->
             Log.i(TAG, "qichatbot end reason = $endReason")
             fchat.requestCancellation()
-            }
         }
+    }
 
     override fun onRobotFocusLost() {
         TODO("Not yet implemented")

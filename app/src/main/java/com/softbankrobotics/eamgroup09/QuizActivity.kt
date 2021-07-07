@@ -21,9 +21,9 @@ import com.aldebaran.qi.sdk.design.activity.RobotActivity
 import kotlin.concurrent.thread
 
 class QuizActivity: RobotActivity(), RobotLifecycleCallbacks {
+    // Declare lateinit variables for the activity
     val TAG = "FragmentActivity"
-    //Set language to German
-    val locale: Locale = Locale(Language.GERMAN, Region.GERMANY)
+    val locale: Locale = Locale(Language.GERMAN, Region.GERMANY)   //Set language to German
     lateinit var topQuiz: Topic
     lateinit var topLanderquiz: Topic
     lateinit var topSehenwurdigkeiten: Topic
@@ -40,7 +40,7 @@ class QuizActivity: RobotActivity(), RobotLifecycleCallbacks {
     }
 
     override fun onRobotFocusGained(qiContext: QiContext?) {
-        //Set back button:
+        // SET Back button for the Activity
         val backButton1: Button = findViewById(R.id.btn_back1)
         backButton1.setOnClickListener {
             val changeToMain = Intent(this, MainActivity::class.java)
@@ -52,23 +52,25 @@ class QuizActivity: RobotActivity(), RobotLifecycleCallbacks {
 
     private fun beginQuiz(qiContext: QiContext?) {
 
+        // LINK TextViews to Code
         hinweistext = findViewById(R.id.hinweistext)
         fragetext = findViewById(R.id.fragetext)
 
-        // Build the topics
+        // BUILD the topics with qiContext & Resource
         topQuiz = TopicBuilder.with(qiContext).withResource(R.raw.top_quiz).build()
         topLanderquiz = TopicBuilder.with(qiContext).withResource(R.raw.top_laender).build()
         topSehenwurdigkeiten = TopicBuilder.with(qiContext).withResource(R.raw.top_sehenswuerdigkeiten).build()
 
-        // Build chatbot
+        // BUILD the chatbot with qiContext, language configuration, topics
         quizChatbot = QiChatbotBuilder.with(qiContext).withLocale(locale)
                 .withTopic(topQuiz, topLanderquiz, topSehenwurdigkeiten).build()
 
-        // build Chat
+        // BUILD Chat with qiContext, chatbot, language configurations
         chat = ChatBuilder.with(qiContext).withChatbot(quizChatbot).withLocale(locale).build()
-        chat.addOnStartedListener { goToBookmark("STARTQUIZ") }  // -> TODO pls add BookmarkName
+        // SET begin of Conversation to bookmark "STARTQUIZ"
+        chat.addOnStartedListener { goToBookmark("STARTQUIZ") }
 
-
+        // WHEN Function of reached QiChat Bookmarks to ImageFunctions
         quizChatbot.addOnBookmarkReachedListener {
             when (it.name) {
                 //ab hier: Sehenswürdigkeitenquiz
@@ -108,19 +110,20 @@ class QuizActivity: RobotActivity(), RobotLifecycleCallbacks {
             }
         }
 
+        // SHOW QiChat Text Variable $hinweis in TextView
         quizChatbot.variable("hinweis").addOnValueChangedListener {
             runOnUiThread {
                 hinweistext.text = it
             }
         }
-
+        // SHOW QiChat Text Variable $frage in TextView
         quizChatbot.variable("frage").addOnValueChangedListener {
             runOnUiThread {
                 fragetext.text = it
             }
         }
 
-        // animations
+        // Animations used in this activity - mutable Map of QiChat-Variable and BaseQiChatExecutor
         val executors = hashMapOf(
                 "hello" to HelloExecutor(qiContext),
                 "nice" to NiceExecutor(qiContext),
@@ -129,9 +132,10 @@ class QuizActivity: RobotActivity(), RobotLifecycleCallbacks {
         // Set Executors to qiChatbot
         quizChatbot.executors = executors as Map<String, QiChatExecutor>?
 
+        // RUN Chat asynchronously
         val fchat: Future<Void> = chat.async().run()
 
-        // Stop the chat when the qichatbot is done
+        // Stop the chat when the qichatbot is done, change to MainActivity
         quizChatbot.addOnEndedListener { endReason ->
             Log.i(TAG, "qichatbot end reason = $endReason")
             fchat.requestCancellation()
@@ -139,6 +143,8 @@ class QuizActivity: RobotActivity(), RobotLifecycleCallbacks {
             startActivity(changeToMain)
         }
     }
+
+
 
     private fun goToBookmark(bookmarkName: String) {
         quizChatbot.goToBookmark(
@@ -148,8 +154,8 @@ class QuizActivity: RobotActivity(), RobotLifecycleCallbacks {
         )
     }
 
-    ////// Bilderquellen auswählen /////
-    //ab hier: Sehenswürdigkeitenquiz
+    ////// SET Image sources  /////
+    //to follow: Sehenswürdigkeitenquiz
     private fun setImageNorwegen(resource : Int) {
         runOnUiThread {
             imageSehenswurdigkeit = findViewById(R.id.image_sehenswurdigkeiten)
@@ -223,7 +229,7 @@ class QuizActivity: RobotActivity(), RobotLifecycleCallbacks {
         }
     }
 
-    //ab hier: Länderquiz
+    //to follow: Länderquiz
     private fun setImageLandArgentinen(resource : Int) {
         runOnUiThread {
             imageSehenswurdigkeit = findViewById(R.id.image_sehenswurdigkeiten)

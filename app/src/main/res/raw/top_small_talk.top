@@ -23,10 +23,11 @@ concept:(no) [nein danke "lieber nicht" nö "keine Lust"]
 
 concept:(plans)["ich plane" "wir planen" "ich will" "wir wollen" "ich habe vor" "wir haben vor" geplant "ist geplant" "ich gedenke" später "ich gehe" "wir gehen" "Kaffee trinken"]
 
+u:(hallo) Hallo ^enableThenGoto(START)
 
 proposal:%START
-Hallo Mensch!
-$talk = "Hallo Mensch"
+    $talk = "Hallo Mensch"
+    Hallo Mensch!
     u1:(~hello) ^execute(hello)
     $talk = "Wie geht es dir?"
     ^rand[
@@ -37,7 +38,7 @@ $talk = "Hallo Mensch"
     ]
         u2:(~good)
             ^execute(nice)
-            Prima! ^gotoRandom(QUESTION)
+            Prima! ^enableThenGoto(QUESTION)
         u2:(~bad)
             Das hört sich aber nicht so gut an! ^enableThenGoto(WHATSUP)
 

@@ -7,7 +7,8 @@ import com.aldebaran.qi.sdk.design.activity.conversationstatus.SpeechBarDisplayS
 import java.util.*
 
 class SplashScreenActivity : RobotActivity() {
-    // Called on Cold Start, only
+
+    // LAUNCHER ACTIVITY -> Called on Cold Start, only
     private var timer: Timer? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {

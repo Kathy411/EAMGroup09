@@ -1,11 +1,9 @@
 topic: ~top_words()
 
-# fertig!
-
 concept:(confirmation_yes) [okay ja gut "in ordnung" passt gerne sicher natürlich "ja bitte" ]
 concept:(confirmation_no) [Nein "lieber nicht" nicht "denke nicht" "nein danke" nee nö "eher nicht"]
 concept:(done) [aufhören genug "nicht mehr" "keine Lust {mehr}" ]
-concept:(sthing_else) ["etwas anderes" lieber "doch lieber" anders anderes andere "andere Übung"]
+concept:(sthing_else) ["etwas anderes" lieber "doch lieber" anders anderes andere "andere Übung" "etwas anderes üben"]
 concept:(explain)[erklären erklär erkläre Erklärung erzähl "wie geht es"]
 concept:(start)[anfangen "fang an" "fang ruhig an" "ich weiss wie es geht" "können anfangen"]
 concept:(repeat) ["wiederhole das Wort" wiederholen wiederhole wiederhol "noch mal" "noch einmal" "sag noch mal"]
@@ -14,8 +12,7 @@ concept:(repeat) ["wiederhole das Wort" wiederholen wiederhole wiederhol "noch m
 # Dialogue/NotUnderstood is raised whenever the word was not fully understood, resp. correct. Via ^stayInScope the original proposal remains
 # active and allows the user to repeat their input. With user subrule ~repeat the system will repeat the word.
 u:(e:Dialog/NotUnderstood)
-$show = "Wenn
-du das Wort noch einmal hören möchtest, sag WIEDERHOLE DAS WORT"
+$show = "Wenn du das Wort noch einmal hören möchtest, sag WIEDERHOLE DAS WORT"
 ^rand[
 "Übung macht den Meister, lass uns das Wort noch einmal versuchen! Wenn du es noch einmal hören möchtest, sag bitte, wiederhole das Wort!"
 "Manche Worte sind recht schwierig. Aber versuchen wir es doch noch einmal! Wenn ich noch mal vorsprechen soll, sag bitte, wiederhole das Wort!"

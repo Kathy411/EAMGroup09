@@ -88,6 +88,8 @@ class CountryActivity: RobotActivity(), RobotLifecycleCallbacks {
         countryChatbot.addOnEndedListener { endReason ->
             Log.i(TAG, "qichatbot end reason = $endReason")
             fchat.requestCancellation()
+            val changeToMain = Intent(this, MainActivity::class.java)
+            startActivity(changeToMain)
         }
     }
 

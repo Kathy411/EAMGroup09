@@ -2,7 +2,7 @@
     <string name="app_name">EAM - Group 9</string>
     <string name="SplashText">Pepper in der Senior:Innen- WG </string>
     <string name="Group9">Gruppe 9</string>
-    <string name="Members">Simon Froitzheim \n Katharina Linden \n Laura Nehler \n Christina Löcker</string>
+    <string name="Members">Simon Froitzheim \nKatharina Linden \nLaura Nehler \nChristina Löcker</string>
     <string name="pepperSplash">pepper splash</string>
     <string name="TH_Logo">"TH Logo "</string>
     <string name="ccl_logo">"CCL Logo "</string>
@@ -35,4 +35,5 @@
     <string name="MessageText">Nachricht</string>
     <string name="PhoneNumber">Telefonnummer </string>
     <string name="record">"Zum Aufnehmen \n Button gedrückt halten! "</string>
+    <string name="SentMessage">Die Nachricht wurde versendet.</string>
 </resources>
