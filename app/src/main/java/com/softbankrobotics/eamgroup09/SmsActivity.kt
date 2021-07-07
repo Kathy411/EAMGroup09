@@ -33,6 +33,8 @@ import kotlin.concurrent.thread
 
 @Suppress("DEPRECATION")
 class SmsActivity : RobotActivity(), RobotLifecycleCallbacks {
+
+    // Declaration of variables for this class
     lateinit var btn_record : Button
     lateinit var btn_send: Button
     lateinit var btn_back_sms3 : Button
@@ -50,6 +52,8 @@ class SmsActivity : RobotActivity(), RobotLifecycleCallbacks {
         QiSDK.register(this, this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sms)
+
+        // Show keyboard when edit text "Number" is active
         editTextNumber = findViewById(R.id.et_number)
         editTextNumber.onFocusChangeListener = OnFocusChangeListener { v, hasFocus ->
             if (hasFocus) {
@@ -60,23 +64,32 @@ class SmsActivity : RobotActivity(), RobotLifecycleCallbacks {
     }
 
     override fun onRobotFocusGained(qiContext: QiContext?) {
+
+        // Implement back button for this Activity -> On Click, change back to MainActivity
         val backButton8: Button = findViewById(R.id.btn_back8)
         backButton8.setOnClickListener {
             val changeToMain = Intent(this, MainActivity::class.java)
             startActivity(changeToMain)
         }
 
-
+        // Language configuration
         locale = Locale(Language.GERMAN, Region.GERMANY)
+
+        // BUILD phrase -> verbal Robot output
         val smsPhrase: Phrase = Phrase("Von hier aus kannst Du SMS versenden. Derzeit musst Du Text und Nummer noch eingeben, " +
                 "aber meine Programmierer Innen arbeiten an der Spracheingabe. Wenn Du fertig bist, drücke einfach auf Senden")
         val smsSay = SayBuilder.with(qiContext).withPhrase(smsPhrase).withLocale(locale).build()
+
+        // RUN phrase asynchronously
         smsSay.async().run()
 
+        // Implement "SEND" button
          btn_send = findViewById(R.id.btn_send)
          btn_send.setOnClickListener {
             sendMessage()
         }
+
+        // Following code was supposed to implement Android STT - worked in a separate app, not within this activity tho... working on it :)
 
         /* btn_record = findViewById(R.id.btn_talk)
         btn_record.setOnClickListener {
@@ -102,6 +115,7 @@ class SmsActivity : RobotActivity(), RobotLifecycleCallbacks {
     }
 
     private fun showSoftKeyboard(view: View) {
+        // SHOW softkeyboard, once EditText got the focus
         if (view.requestFocus()) {
             val inputMethodManager: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT)
@@ -109,6 +123,7 @@ class SmsActivity : RobotActivity(), RobotLifecycleCallbacks {
     }
 
     private fun sendMessage() {
+        // CHECK if app got uses permission - if so, call Function myMessage()
         val permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS)
         if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
             myMessage()
@@ -121,21 +136,25 @@ class SmsActivity : RobotActivity(), RobotLifecycleCallbacks {
     private fun myMessage() {
         val toNumber: String = editTextNumber.text.toString().trim()
         val txtMessage: String = editTextMessage.text.toString().trim()
+
+        // Show toast, if number and/or text message EditTexts are empty
         if (toNumber == "" || txtMessage == "") {
-            Toast.makeText(this, "Field cannot be empty", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Nummern- und Textfeld darf nicht leer sein", Toast.LENGTH_SHORT).show()
         } else {
             if (TextUtils.isDigitsOnly(toNumber)) {
+
+        // IF both EditTexts are filled, proceed to send the message and show "sent"-screen
                 val smsManager: SmsManager = SmsManager.getDefault()
                 smsManager.sendTextMessage(toNumber, null, txtMessage, null, null)
                 setContentView(R.layout.activity_sms_sent)
-               //  Toast.makeText(this, "Nachricht versendet", Toast.LENGTH_LONG).show()
-               //  editTextMessage.text.clear()
-               //  editTextNumber.text.clear()
+
             } else {
+                // IF letters are found in the number EditText, show Toast
                 Toast.makeText(this, "Ins Nummernfeld bitte nur Zahlen eingeben!", Toast.LENGTH_LONG).show()
             }
         }
 
+        // IMPLEMENT Back button for the activity
         val btn_back_sms3: Button = findViewById(R.id.btn_back_sms3)
         btn_back_sms3.setOnClickListener {
             val changeToMain = Intent(this, MainActivity::class.java)
@@ -146,41 +165,20 @@ class SmsActivity : RobotActivity(), RobotLifecycleCallbacks {
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults:
     IntArray) {
+        // CALL super on Permission Results
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == permissionRequest) {
+            // IF Permission is granted proceed to myMessage()
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 myMessage()
             } else {
+            // IF Permission denied, show Toast
                 Toast.makeText(this, "Nachricht konnte leider nicht versendet werden!",
                         Toast.LENGTH_SHORT).show()
             }
         }
     }
 
-    // STT
-   /* override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        editTextMessage = findViewById(R.id.et_message)
-        when (requestCode) {
-            // Handle the result for our request code.
-            REQUEST_CODE_STT -> {
-                // Safety checks to ensure data is available.
-                if (resultCode == Activity.RESULT_OK && data != null) {
-                    // Retrieve the result array.
-                    val result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
-                    // Ensure result array is not null or empty to avoid errors.
-                    if (!result.isNullOrEmpty()) {
-                        // Recognized text is in the first position.
-                        val recognizedText = result[0]
-                        // Do what you want with the recognized text.
-                        editTextMessage.setText(recognizedText)
-                    }
-                }
-            }
-        }
-    }
-    
-    */
 
     override fun onRobotFocusLost() {
         TODO("Not yet implemented")
