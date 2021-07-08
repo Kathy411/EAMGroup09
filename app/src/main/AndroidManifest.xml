@@ -3,7 +3,8 @@
     package="com.softbankrobotics.eamgroup09">
 
     <uses-feature android:name="com.softbank.hardware.pepper" />
-    <uses-permission android:name="android.permission.SEND_SMS"/>
+
+    <uses-permission android:name="android.permission.SEND_SMS" />
 
     <application
         android:allowBackup="true"
@@ -12,25 +13,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EAMGroup09">
-
+        <activity android:name=".MainActivity2"></activity>
         <activity android:name=".SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"/>
-
-
-        <activity android:name=".PracticeActivity"/>
-
-        <activity android:name=".QuizActivity"/>
-        <activity android:name=".NewspaperActivity"/>
-        <activity android:name=".AutonomousAbilitiesActivity"/>
-        <activity android:name=".SmsActivity"/>
-        <activity android:name=".SmallTalkActivity"/>
-        <activity android:name=".CountryActivity"/>
-
+        <activity android:name=".MainActivity" />
+        <activity android:name=".PracticeActivity" />
+        <activity android:name=".QuizActivity" />
+        <activity android:name=".NewspaperActivity" />
+        <activity android:name=".AutonomousAbilitiesActivity" />
+        <activity android:name=".SmsActivity" />
+        <activity android:name=".SmallTalkActivity" />
+        <activity android:name=".CountryActivity" />
 
         <meta-data
             android:name="preloaded_fonts"

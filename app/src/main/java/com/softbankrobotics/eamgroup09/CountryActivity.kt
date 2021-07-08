@@ -29,6 +29,7 @@ class CountryActivity: RobotActivity(), RobotLifecycleCallbacks {
     lateinit var chat : Chat
     lateinit var countryText : TextView
     lateinit var iknowText : TextView
+    lateinit var changeToMain2 : Intent
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,8 +41,8 @@ class CountryActivity: RobotActivity(), RobotLifecycleCallbacks {
         // Declare Back Button / OnClick -> revert to MainActivity
         val backButton7: Button = findViewById(R.id.btn_back7)
         backButton7.setOnClickListener {
-            val changeToMain = Intent(this, MainActivity::class.java)
-            startActivity(changeToMain)
+            changeToMain2 = Intent(this, MainActivity2::class.java)
+            startActivity(changeToMain2)
         }
 
         thread { beginCountryChat(qiContext) }
@@ -88,8 +89,8 @@ class CountryActivity: RobotActivity(), RobotLifecycleCallbacks {
         countryChatbot.addOnEndedListener { endReason ->
             Log.i(TAG, "qichatbot end reason = $endReason")
             fchat.requestCancellation()
-            val changeToMain = Intent(this, MainActivity::class.java)
-            startActivity(changeToMain)
+            changeToMain2 = Intent(this, MainActivity2::class.java)
+            startActivity(changeToMain2)
         }
     }
 

@@ -32,6 +32,7 @@ class QuizActivity: RobotActivity(), RobotLifecycleCallbacks {
     lateinit var hinweistext: TextView
     lateinit var fragetext: TextView
     lateinit var imageSehenswurdigkeit: ImageView
+    lateinit var changeToMain2 : Intent
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,8 +44,8 @@ class QuizActivity: RobotActivity(), RobotLifecycleCallbacks {
         // SET Back button for the Activity
         val backButton1: Button = findViewById(R.id.btn_back1)
         backButton1.setOnClickListener {
-            val changeToMain = Intent(this, MainActivity::class.java)
-            startActivity(changeToMain)
+            changeToMain2 = Intent(this, MainActivity2::class.java)
+            startActivity(changeToMain2)
         }
         // Put chat action into worker thread manually
         thread {beginQuiz(qiContext)}
@@ -139,8 +140,8 @@ class QuizActivity: RobotActivity(), RobotLifecycleCallbacks {
         quizChatbot.addOnEndedListener { endReason ->
             Log.i(TAG, "qichatbot end reason = $endReason")
             fchat.requestCancellation()
-            val changeToMain = Intent(this, MainActivity::class.java)
-            startActivity(changeToMain)
+            changeToMain2 = Intent(this, MainActivity2::class.java)
+            startActivity(changeToMain2)
         }
     }
 

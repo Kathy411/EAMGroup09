@@ -41,6 +41,7 @@ class SmsActivity : RobotActivity(), RobotLifecycleCallbacks {
     lateinit var editTextNumber: EditText
     lateinit var editTextMessage: EditText
     lateinit var locale : Locale
+    lateinit var changeToMain2 : Intent
     private val permissionRequest = 101
 
     companion object {
@@ -68,8 +69,8 @@ class SmsActivity : RobotActivity(), RobotLifecycleCallbacks {
         // Implement back button for this Activity -> On Click, change back to MainActivity
         val backButton8: Button = findViewById(R.id.btn_back8)
         backButton8.setOnClickListener {
-            val changeToMain = Intent(this, MainActivity::class.java)
-            startActivity(changeToMain)
+            changeToMain2 = Intent(this, MainActivity2::class.java)
+            startActivity(changeToMain2)
         }
 
         // Language configuration
@@ -157,8 +158,8 @@ class SmsActivity : RobotActivity(), RobotLifecycleCallbacks {
         // IMPLEMENT Back button for the activity
         val btn_back_sms3: Button = findViewById(R.id.btn_back_sms3)
         btn_back_sms3.setOnClickListener {
-            val changeToMain = Intent(this, MainActivity::class.java)
-            startActivity(changeToMain)
+            val changeToMain2 = Intent(this, MainActivity2::class.java)
+            startActivity(changeToMain2)
         }
 
     }

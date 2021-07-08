@@ -5,7 +5,7 @@ concept:(confirmation_no) [Nein "lieber nicht" nicht "denke nicht" "nein danke" 
 concept:(done) [aufhören genug "nicht mehr" "keine Lust {mehr}" ]
 concept:(sthing_else) ["etwas anderes" lieber "doch lieber" anders anderes andere "andere Übung" "etwas anderes üben"]
 concept:(explain)[erklären erklär erkläre Erklärung erzähl "wie geht es"]
-concept:(start)[anfangen "fang an" "fang ruhig an" "ich weiss wie es geht" "können anfangen"]
+concept:(start)["fangen wir an" anfangen "fang an" "fang ruhig an" "ich weiss wie es geht" "können anfangen" "legen wir los" loslegen]
 concept:(repeat) ["wiederhole das Wort" wiederholen wiederhole wiederhol "noch mal" "noch einmal" "sag noch mal"]
 
 # Workaround for non-functional wildcard recognition:
@@ -23,7 +23,7 @@ proposal:%WORDSTART
 $correct = ""
 $hint = ""
 $show = "Prima, Du möchtest Worte mit mir üben! Soll ich noch erklären wie es geht oder sollen wir gleich anfangen?"
-Prima, Du möchtest Worte mit mir üben! Soll ich noch kurz erklären wie es geht oder legen wir gleich los?
+Prima, Du möchtest Worte mit mir üben! Soll ich noch kurz erklären wie es geht oder sollen wir gleich anfangen?
     u1:(~explain) In Ordnung! ^enableThenGoto(WORDEXPLAIN)
     u1:(~start) ^execute(affirm) Dann gehts direkt los mit dem ersten Wort! ^gotoRandom(WORDS)
 

@@ -33,6 +33,7 @@ class PracticeActivity: RobotActivity(), RobotLifecycleCallbacks {
     lateinit var topStart : Topic
     lateinit var practiceChatbot: QiChatbot
     lateinit var chat : Chat
+    lateinit var changeToMain2 : Intent
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,8 +46,8 @@ class PracticeActivity: RobotActivity(), RobotLifecycleCallbacks {
         // Declare Back Button / OnClick -> revert to MainActivity
         val backButton3: Button = findViewById(R.id.btn_back3)
         backButton3.setOnClickListener {
-            val changeToMain = Intent(this, MainActivity::class.java)
-            startActivity(changeToMain)
+            changeToMain2 = Intent(this, MainActivity2::class.java)
+            startActivity(changeToMain2)
         }
         // Put chat action into worker thread manually
         // RUN beginChat Function, hosting the chat action
@@ -123,8 +124,8 @@ class PracticeActivity: RobotActivity(), RobotLifecycleCallbacks {
         practiceChatbot.addOnEndedListener { endReason ->
             Log.i(TAG, "qichatbot end reason = $endReason")
             fchat.requestCancellation()
-            val changeToMain = Intent(this, MainActivity::class.java)
-            startActivity(changeToMain)
+            changeToMain2 = Intent(this, MainActivity2::class.java)
+            startActivity(changeToMain2)
         }
     }
 

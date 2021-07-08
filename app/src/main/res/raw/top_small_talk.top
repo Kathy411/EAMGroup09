@@ -67,8 +67,8 @@ $talk = "Was hast du denn, Mensch?"
         u2:(ja) Soll ich einen Arzt rufen oder jemand anderem Bescheid geben? $talk = ""
             u3:([nein "lieber nicht" "passt schon"]) okay ^endDiscuss(userWish)
             u3:([ja gerne "gute Idee"]) Wen soll ich anrufen?
-                u4:(~female) Okay, ich rufe sie an.
-                u4:(~male) Okay, ich rufe ihn an.
+                u4:(~female) Okay, ich rufe sie an. Dann lasse ich Dich jetzt erst mal ausruhen! Gute Besserung! ^endDiscuss(userWish)
+                u4:(~male) Okay, ich rufe ihn an. Dann lasse ich Dich jetzt erst mal ausruhen! Gute Besserung! ^endDiscuss(userWish)
 
 proposal:%QUESTION
 $talk = "Was hast du gestern Abend noch gemacht?"
@@ -85,7 +85,7 @@ Was hast du gestern Abend noch gemacht?
         Das freut mich zu hören, ich hoffe du hattest einen schönen Abend! Hast du denn Pläne für heute?
             u2:([nein "leider nicht" "bis jetzt nicht" "noch nicht" nicht]) Vielleicht fällt dir ja noch etwas schönes ein. ^gotoRandom(QUESTION)
             u2:([ja "na klar" sicherlich]) Wie schön, was hast du denn vor?
-                u3:(~plans) ^rand ["Das hört sich gut an!" "Wie schön, dann wünsche ich dir viel Spass!" "Ich hoffe du hast Spass!" "Ich wünsche dir viel Spass bei deinen Plänen!" "Das hört sich gut an, ich wünschte ich könnte mitkommen!"] ^go(QUESTION)
+                u3:(~plans) ^rand ["Das hört sich gut an!" "Wie schön, dann wünsche ich dir viel Spass!" "Ich hoffe du hast Spass!" "Ich wünsche dir viel Spass bei deinen Plänen!" "Das hört sich gut an, ich wünschte ich könnte mitkommen!"] ^gotoRandom(QUESTION)
 
 proposal:%QUESTION
 $talk = "Welche Sprachen würdest du gerne Sprechen können?"
@@ -117,8 +117,8 @@ Erzählst du mir etwas mehr über dich? Ich bin neugierig mit wem ich mich unter
 
 
 u:(~date)
-    Heute ist der ^currentDate def: sayDate($day, $months, $year) ^currentDate
-    $talk = "Heute ist der ^currentDate"
+    Heute ist der ^currentDate
+     $talk = "Heute ist der ^currentDate"
      ^gotoRandom(QUESTION)
 
 

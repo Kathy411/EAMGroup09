@@ -28,6 +28,7 @@ class NewspaperActivity: RobotActivity(), RobotLifecycleCallbacks {
     lateinit var newsChat : Chat
     lateinit var newsLabel : TextView
     lateinit var readtomeLabel : TextView
+    lateinit var changeToMain2 : Intent
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,8 +43,8 @@ class NewspaperActivity: RobotActivity(), RobotLifecycleCallbacks {
         // SET Back button to change to Main on Click
         val backButton2: Button = findViewById(R.id.btn_back7)
         backButton2.setOnClickListener {
-            val changeToMain = Intent(this, MainActivity::class.java)
-            startActivity(changeToMain)
+            changeToMain2 = Intent(this, MainActivity2::class.java)
+            startActivity(changeToMain2)
         }
 
         // PUT chat action in worker thread manually
@@ -95,8 +96,8 @@ class NewspaperActivity: RobotActivity(), RobotLifecycleCallbacks {
         newsChatbot.addOnEndedListener { endReason ->
             Log.i(TAG, "qichatbot end reason = $endReason")
             fNchat.requestCancellation()
-            val changeToMain = Intent(this, MainActivity::class.java)
-            startActivity(changeToMain)
+            changeToMain2 = Intent(this, MainActivity2::class.java)
+            startActivity(changeToMain2)
         }
     }
 
