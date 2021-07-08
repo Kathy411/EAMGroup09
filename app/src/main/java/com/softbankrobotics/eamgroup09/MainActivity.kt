@@ -94,11 +94,12 @@ class MainActivity : RobotActivity(), RobotLifecycleCallbacks {
     }
 
     override fun onRobotFocusLost() {
-        TODO("Not yet implemented")
+        Log.i(MediaStore.Audio.AudioColumns.BOOKMARK, "Focus lost")
     }
 
     override fun onRobotFocusRefused(reason: String?) {
-        TODO("Not yet implemented")
+        Log.i(MediaStore.Audio.AudioColumns.BOOKMARK, "Focus refused because $reason")
+
     }
 
     override fun onDestroy() {
